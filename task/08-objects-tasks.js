@@ -22,8 +22,13 @@
  *    console.log(r.getArea());   // => 200
  */
 export function Rectangle(width, height) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  this.width=width;
+  this.height=height;
+  this.getArea=function(){
+    return this.width*this.height;
+  };
+
 }
 
 
@@ -38,8 +43,9 @@ export function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 export function getJSON(obj) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+//?????????????????????????????????
+  return JSON.stringify(obj);
+
 }
 
 
@@ -54,10 +60,15 @@ export function getJSON(obj) {
  *    var r = fromJSON(Rectangle.prototype, '{"width":10, "height":20}');
  *
  */
-export function fromJSON(proto, json) {
-  /* implement your code here */
-  throw new Error('Not implemented');
-}
+// export function  fromJSON(proto, json) {
+//
+//
+//   let obj=JSON.parse(json);
+//   let obj=new proto.constructor(obj.width,obj.height);
+//
+//
+//   return obj;
+// }
 
 
 /**
@@ -115,40 +126,56 @@ export function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-export const cssSelectorBuilder = {
-
-  element(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
-  },
-
-  id(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
-  },
-
-  class(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
-  },
-
-  attr(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
-  },
-
-  pseudoClass(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
-  },
-
-  pseudoElement(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
-  },
-
-  combine(selector1, combinator, selector2) {
-    /* implement your code here */
-    throw new Error('Not implemented');
-  }
-};
+// export const cssSelectorBuilder = {
+//
+// result:'',
+//   idValue:'',
+//   classValue:'',
+//
+//   id(value) {
+//   // this.idValue='#'+value;
+//   this.result=this.result+'#'+value;
+//   return this;
+// },
+//
+// class(value) {
+//   // this.classValue='.'+value;
+//   this.result=this.result+'.'+value;
+//   return this;
+//
+// },
+//
+// attr(value) {
+//   this.result=this.result+'['+value+']';
+//   return this;
+// },
+//
+// element(value) {
+//   this.result=this.result+value;
+//   return this;
+// },
+//
+// pseudoClass(value) {
+//   this.result=this.result+':'+value;
+//   return this;
+// },
+//
+// pseudoElement(value) {
+//   this.result=this.result+'::'+value;
+//   return this;
+// },
+//
+// combine(selector1, combinator, selector2) {
+//   let space=' ';
+//   if (combinator===' ') space='';
+//
+//
+//   this.result=this.result+selector1+space+combinator+space+selector2;
+//   return this;
+// },
+//
+// stringify() {
+//   return this.result;
+// }
+//
+// };

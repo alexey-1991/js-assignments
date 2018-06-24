@@ -29,8 +29,16 @@
  *
  */
 export function getFizzBuzz(num) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let value=false;
+  if (num==0) return 0;
+  if (num%3==0){value='Fizz';}
+  if (num%5==0){
+    if (value=='Fizz') {
+      value = 'FizzBuzz';
+    } else {value='Buzz';}
+  }
+  if (value==false){return num;}
+  return value;
 }
 
 
@@ -46,9 +54,16 @@ export function getFizzBuzz(num) {
  *   10 => 3628800
  */
 export function getFactorial(n) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let res=1;
+  while (n>0){
+    res*=n;
+    n--;
+  }
+  return res;
+
 }
+
 
 
 /**
@@ -64,13 +79,18 @@ export function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 export function getSumBetweenNumbers(n1, n2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let x=n1;
+  let sum=0;
+  while (x<=n2){
+    sum+=x;
+    x++;
+  }
+  return sum;
 }
 
 
 /**
- * Returns true, if a triangle can be built with the specified sides a,b,c and false 
+ * Returns true, if a triangle can be built with the specified sides a,b,c and false
  * in any other ways.
  *
  * @param {number} a
@@ -85,8 +105,11 @@ export function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 export function isTriangle(a, b, c) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  if (a<b+c && b<a+c && c<b+a){
+    return true;
+  }
+  return false;
 }
 
 
@@ -123,8 +146,44 @@ export function isTriangle(a, b, c) {
  *
  */
 export function doRectanglesOverlap(rect1, rect2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  //a1,a2,  c1,c2 - coordinates along X
+  //b1,b2,  d1,d2 - coordinates along Y
+
+  let Rect1={
+    a1:rect1.left,
+    a2:rect1.left+rect1.width,
+    c1:rect1.top,
+    c2:rect1.top+rect1.height
+  };
+
+  let Rect2={
+    b1:rect2.left,
+    b2:rect2.left+rect2.width,
+    d1:rect2.top,
+    d2:rect2.top+rect2.height
+  };
+
+  //check for overlap along X
+  let overlapX=false;
+
+  if (Rect2.b1>=Rect1.a1 && Rect2.b1<=Rect1.a2) overlapX=true;
+  if (Rect2.b2>=Rect1.a1 && Rect2.b2<=Rect1.a2) overlapX=true;
+  if (Rect2.b1<=Rect1.a1 && Rect2.b2>=Rect1.a2) overlapX=true;
+
+  //check for overlap along X
+  let overlapY=false;
+
+  if (Rect2.d1>=Rect1.c1 && Rect2.d1<=Rect1.c2) overlapY=true;
+  if (Rect2.d2>=Rect1.c1 && Rect2.d2<=Rect1.c2) overlapY=true;
+  if (Rect2.d1<=Rect1.c1 && Rect2.d2>=Rect1.c2) overlapY=true;
+
+  //final check
+
+  if (overlapX==true && overlapY==true) {
+    return true;
+  } else {return false;}
+
 }
 
 
@@ -155,8 +214,11 @@ export function doRectanglesOverlap(rect1, rect2) {
  *
  */
 export function isInsideCircle(circle, point) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let dx=Math.abs(circle.center.x-point.x);
+  let dy=Math.abs(circle.center.y-point.y);
+  let delta=Math.sqrt(dx*dx+dy*dy);
+  if (delta<circle.radius) return true;
+  return false;
 }
 
 
@@ -172,13 +234,26 @@ export function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 export function findFirstSingleChar(str) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let myObj={};
+  let arrString=str.split('');
+  let numberofRepeats;
+
+  for (let i=0;i<=arrString.length-1;i++){
+    numberofRepeats=0;
+    for (let j=0;j<=arrString.length-1;j++){
+      if (arrString[i]===arrString[j]) {
+        numberofRepeats++;
+      }
+    }
+    if (numberofRepeats==1){return arrString[i];}
+  }
+  return null;
 }
 
 
 /**
- * Returns the string representation of math interval, specified by two points and 
+ * Returns the string representation of math interval, specified by two points and
  * include / exclude flags.
  * See the details: https://en.wikipedia.org/wiki/Interval_(mathematics)
  *
@@ -200,8 +275,20 @@ export function findFirstSingleChar(str) {
  *
  */
 export function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  if (a>b) {
+    let ab=a;
+    a=b;
+    b=ab;
+  }
+
+  let resultString='';
+
+  if (isStartIncluded) {resultString+='[';} else {resultString+='(';}
+  resultString+=`${a}, ${b}`;
+  if (isEndIncluded) {resultString+=']';} else {resultString+=')';}
+
+  return resultString;
 }
 
 
@@ -218,8 +305,12 @@ export function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 export function reverseString(str) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let resultStr='';
+  for (let elem of str){
+    resultStr=elem+resultStr;
+  }
+
+  return resultStr;
 }
 
 
@@ -236,8 +327,12 @@ export function reverseString(str) {
  *   34143 => 34143
  */
 export function reverseInteger(num) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  num=num+'';
+  let resultStr='';
+  for (let elem of num){
+    resultStr=elem+resultStr;
+  }
+  return +resultStr;
 }
 
 
@@ -262,8 +357,28 @@ export function reverseInteger(num) {
  *   4916123456789012 => false
  */
 export function isCreditCardNumber(ccn) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  //Stage1
+  let ccnString=ccn+'';
+  let Stage1=ccnString.split('');
+  let Stage2=[];
+
+  //Stage2
+  Stage2=Stage1;
+  for (let i=Stage1.length-2;i>=0;i-=2){
+    if (2*Stage1[i]>=10) {Stage2[i]=2*Stage1[i]-9;} else {Stage2[i]=2*Stage1[i];}
+  }
+
+  //Stage3
+  let Stage3 = Stage2.reduce(function(sum, current) {
+    return sum + +current;
+  }, 0);
+
+  //result
+
+  if (Stage3%10==0) return true;
+  return false;
+
 }
 
 
@@ -282,8 +397,23 @@ export function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 export function getDigitalRoot(num) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  //Part 1
+  let numString=num+'';
+  let sumofNum=0;
+  for (let elem of numString){
+    sumofNum+=(+elem);
+  }
+
+  //Part 2
+  let sumofSum=0;
+  let sumString=sumofNum+'';
+  for (let elem of sumString){
+    sumofSum+=(+elem);
+  }
+
+  if (+sumofSum<+sumofNum) return sumofSum;
+  return sumofNum;
+
 }
 
 
@@ -309,8 +439,32 @@ export function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 export function isBracketsBalanced(str) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let brackets=['()', '[]', '{}', '<>'];
+  let position;
+  let workString=str;
+  //searching for brackets
+  for (let i=0; i<=brackets.length-1;i++){
+    position=workString.indexOf(brackets[i]);
+    while (position>=0){
+
+
+      //removing current brackets
+      workString=workString.split('');
+      workString[position]='';
+      workString[position+1]='';
+      workString=workString.join('');
+
+      position=workString.indexOf(brackets[i]);
+
+      //turn i to 0;
+      if (position===-1){i=-1;}
+    }
+  }
+  if (workString=='') {
+    return true;
+  } else {return false;}
+
 }
 
 
@@ -346,13 +500,47 @@ export function isBracketsBalanced(str) {
  *
  */
 export function timespanToHumanString(startDate, endDate) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let date0=+startDate;
+  let date1=+endDate;
+
+  let diff=date1-date0;
+
+  //time variables
+  let seconds=1000;
+  let minutes=60*1000;
+  let hours=60*60*1000;
+  let days=24*hours;
+  let months=30*days;
+  let years=365*days;
+
+  //diff time
+  let dseconds=Math.round(diff/1000);
+  let dminutes=Math.round((diff-1)/minutes);
+  let dhours=Math.round((diff-1)/hours);
+  let ddays=Math.round((diff-1)/days);
+  let dmonths=Math.round((diff-1)/months);
+  let dyears=Math.round((diff-1)/years);
+
+  // Condition
+  if (diff>=0 && diff<=45*seconds) return 'a few seconds ago';
+  if (diff>45*seconds && diff<=90*seconds) return 'a minute ago';
+  if (diff>90*seconds && diff<=45*minutes) return `${dminutes} minutes ago`;
+  if (diff>45*minutes && diff<=90*minutes) return `an hour ago`;
+  if (diff>90*minutes && diff<=22*hours) return `${dhours} hours ago`;
+  if (diff>22*hours && diff<=36*hours) return `a day ago`;
+  if (diff>36*hours && diff<=25*days) return `${ddays} days ago`;
+  if (diff>25*days && diff<=45*days) return `a month ago`;
+  if (diff>45*days && diff<=345*days) return `${dmonths} months ago`;
+  if (diff>345*days && diff<=545*days) return `a year ago`;
+  if (diff>546*days) return `${dyears} years ago`;
+
+
 }
 
 
 /**
- * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of
+   * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of
  * specified number.
  * See more about
  * https://en.wikipedia.org/wiki/Binary_number
@@ -390,8 +578,29 @@ export function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 export function getCommonDirectoryPath(pathes) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let myObj={'':''};
+  let result='';
+  let i=0;
+
+  while (Object.keys(myObj).length==1){
+    result+=Object.keys(myObj)[0];
+    myObj={};
+
+    for (let elem of pathes){
+      myObj[elem[i]]=0;
+    }
+
+    i++;
+  }
+
+  if (result.length>0) {
+    while (result[result.length - 1] != '/') {
+      result = result.slice(0, -1);
+    }
+  }
+  return result;
+
 }
 
 

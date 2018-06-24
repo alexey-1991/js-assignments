@@ -32,7 +32,30 @@
  *
  */
 export function* get99BottlesOfBeer() {
-  throw new Error('Not implemented');
+  let messageFirst;
+  let messageSecond;
+
+  for (let i=99;i>=2;i--){
+
+    if (i==2){
+      yield `2 bottles of beer on the wall, 2 bottles of beer.`;
+      yield  `Take one down and pass it around, 1 bottle of beer on the wall.`;
+      yield '1 bottle of beer on the wall, 1 bottle of beer.';
+      yield 'Take one down and pass it around, no more bottles of beer on the wall.';
+      yield 'No more bottles of beer on the wall, no more bottles of beer.';
+      yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
+      return;
+    }
+
+    messageFirst=`${i} bottles of beer on the wall, ${i} bottles of beer.`;
+    messageSecond=`Take one down and pass it around, ${i-1} bottles of beer on the wall.`;
+
+    yield messageFirst;
+    yield messageSecond;
+
+  }
+
+
 }
 
 
@@ -46,7 +69,23 @@ export function* get99BottlesOfBeer() {
  *
  */
 export function* getFibonacciSequence() {
-  throw new Error('Not implemented');
+  let arr=[];
+  let elem;
+
+  arr.push(0);
+  yield 0;
+
+  arr.push(1);
+  yield 1;
+
+  arr.push(1);
+  yield 1;
+
+  while (true) {
+    elem = arr[arr.length - 1] + arr[arr.length - 2];
+    arr.push(elem);
+    yield elem;
+  }
 }
 
 
@@ -81,7 +120,20 @@ export function* getFibonacciSequence() {
  *
  */
 export function* depthTraversalTree(root) {
+
   throw new Error('Not implemented');
+  yield root;
+
+  if (root.children) {
+
+    for (let node of root.children){
+
+      if (node.children) {
+        yield* depthTraversalTree(node);
+      } else yield node;
+    }
+  }
+
 }
 
 

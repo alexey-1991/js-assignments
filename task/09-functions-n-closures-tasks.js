@@ -25,8 +25,10 @@
  *
  */
 export function getComposition(f, g) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return function(x) {
+    return f(g(x));
+  };
+  // throw new Error('Not implemented');
 }
 
 
@@ -47,8 +49,11 @@ export function getComposition(f, g) {
  *
  */
 export function getPowerFunction(exponent) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  return function(x) {
+    return Math.pow(x, exponent);
+  };
+
 }
 
 
@@ -66,10 +71,63 @@ export function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 export function getPolynom() {
-  /* implement your code here */
-  throw new Error('Not implemented');
-}
 
+  let args=[].slice.apply(arguments);
+
+  if (args.length==3) {
+
+    let a = args[0];
+    if (!a) {
+      a = 0;
+    }
+    
+    let b = args[1];
+    if (!b) {
+      b = 0;
+    }
+    
+    let c = args[2];
+    if (!c) {
+      c = 0;
+    }
+    
+
+    return function (x) {
+      return a * x * x + b * x + c;
+    };
+  }
+  if (args.length==2) {
+    let a = args[0];
+    if (!a) {
+      a = 0;
+    }
+    
+    let b = args[1];
+    if (!b) {
+      b = 0;
+    }
+    
+    return function (x) {
+      return a * x + b;
+    };
+  }
+  if (args.length==1) {
+    let a = args[0];
+    if (!a) {
+      a = 0;
+    }
+    
+    return function() {
+      return a;
+    };
+  }
+  if (args.length==0) {
+
+    return function(x) {
+      return null;
+    };
+  }
+}
 
 /**
  * Memoizes passed function and returns function
@@ -86,8 +144,16 @@ export function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 export function memoize(func) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let cache=false;
+
+  return function() {
+    if (!cache) {
+
+      cache=func();
+      return cache;
+    }
+    return cache;
+  };
 }
 
 
@@ -107,8 +173,22 @@ export function memoize(func) {
  * retryer() => 2
  */
 export function retry(func, attempts) {
-  /* implement your code here */
   throw new Error('Not implemented');
+  // var isError;
+  // var attempt;
+  // return function res(){
+  //   attempt++;
+  //   try{
+  //     return func();
+  //   }catch (e){
+  //     isError=e.name;
+  //   }
+  //
+  //   if (attempt<=attempts && typeof isError=="string") {
+  //     return res();
+  //   } else {return attempts};
+  // }
+
 }
 
 
@@ -136,10 +216,23 @@ export function retry(func, attempts) {
  *
  */
 export function logger(func, logFunc) {
-  /* implement your code here */
-  throw new Error('Not implemented');
-}
 
+  throw new Error('Not implemented');
+//   const logger=logFunc;
+//   return function() {
+//
+//     let args=[].slice.apply(arguments);
+//     console.log(args);
+//     let LogStart1=func.name+'(';
+//     let LogStart2=') '+'starts';
+//     let LogEnd1=func.name+'('
+//     let LogEnd2=') '+'ends';
+//     logger(LogStart1,args,LogStart2);
+//     logger(LogEnd1,args,LogEnd2);
+//     return func(args);
+//
+//   }
+}
 
 /**
  * Return the function with partial applied arguments
@@ -155,13 +248,20 @@ export function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 export function partialUsingArguments(fn) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+// I dont know another way to solve this exercise.This is bad solution
+  let argsOne=[].slice.apply(arguments).slice(1);
+
+  return function() {
+
+    let argsTwo=[].slice.apply(arguments);
+    let args=argsOne.concat(argsTwo);
+    return fn(args[0], args[1], args[2], args[3]);//<==if x5 is not undefined my code will be bad;
+  };
+
 }
 
-
 /**
- * Returns the id generator function that returns next integer starting from specified 
+ * Returns the id generator function that returns next integer starting from specified
  * number every time when invoking.
  *
  * @param {Number} startFrom
@@ -178,6 +278,11 @@ export function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 export function getIdGeneratorFunction(startFrom) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let counter=startFrom;
+
+  return function(){
+    return startFrom++;
+  };
+
 }

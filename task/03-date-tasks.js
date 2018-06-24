@@ -21,8 +21,8 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 export function parseDataFromRfc2822(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let date= Date.parse(value);
+  return new Date(date);
 }
 
 /**
@@ -37,8 +37,8 @@ export function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 export function parseDataFromIso8601(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let date= Date.parse(value);
+  return new Date(date);
 }
 
 
@@ -57,8 +57,13 @@ export function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 export function isLeapYear(date) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let ddate=new Date(Date.parse(date));
+  let YYYY=ddate.getFullYear();
+
+  if (YYYY%4!=0) {return false;
+  } else if (YYYY%100!=0){return true;
+  } else if (YYYY%400!=0) {return false;
+  } else {return true;}
 }
 
 
@@ -78,15 +83,66 @@ export function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 export function timeSpanToString(startDate, endDate) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let date1=+startDate;
+  let date2=+endDate;
+  let diff=date2-date1;
+
+  //time variables
+  let seconds=1000;
+  let minutes=60*1000;
+  let hours=60*60*1000;
+  var hh;
+  var mm;
+  var ss;
+
+
+  //hours
+  if (diff%hours!=0 && diff!=0){
+    hh=Math.floor(diff/hours);
+    diff=diff-hh*hours;
+  } else {
+    hh=diff/hours;
+    diff=0;
+  }
+  //minutes
+  if (
+    diff%minutes!=0 && diff!=0) {
+    mm = Math.floor(diff / minutes);
+    diff = diff - mm * minutes;
+  } else {
+    mm=diff/minutes;
+    diff=0;
+  }
+  //seconds
+  if (diff%seconds!=0 && diff!=0) {
+    ss = Math.floor(diff / seconds);
+    diff = diff - ss * seconds;
+  } else {
+    ss=diff/seconds;
+    diff=0;
+  }
+  //milliseconds
+  let mms=diff;
+
+  hh=Math.abs(hh);
+  mm=Math.abs(mm);
+  ss=Math.abs(ss);
+  mms=Math.abs(mms);
+
+  if (hh<10) hh='0'+hh;
+  if (mm<10) mm='0'+mm;
+  if (ss<10) ss='0'+ss;
+  if (mms<10) {mms='00'+mms;} else if (mms<100) mms='0'+mms;
+
+  return hh+':'+mm+':'+ss+'.'+mms;
 }
 
 
 /**
- * Returns the angle (in radians) between the hands of an analog clock for the 
+ * Returns the angle (in radians) between the hands of an analog clock for the
  * specified Greenwich time.
- * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_problem
+ * If you have problem with solution please read: https://en.wikipedia.org/wiki/Clock_angle_prnpmoblem
  *
  * @param {date} date
  * @return {number}
@@ -98,6 +154,22 @@ export function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 export function angleBetweenClockHands(date) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  //time variables
+  let hours=60*60*1000;
+
+  let yy=date.getUTCFullYear();
+  let mo=date.getUTCMonth();
+  let dd=date.getUTCDate();
+
+
+  let date0=new Date(yy, mo, dd);
+  let time=+date-+date0;
+  if (time>12*hours && time<=18*hours) {time-=12*hours;}
+  if (time>18*hours && time<=24*hours) {time-=18*hours;}
+
+  let value=2*Math.PI/(12*hours);
+
+  return value*time;
+
 }

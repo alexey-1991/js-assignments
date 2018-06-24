@@ -20,10 +20,10 @@
  *   '',  'bb'  => 'bb'
  */
 export function concatenateStrings(value1, value2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return value1+value2;
+  // throw new Error('Not implemented');
 }
-
+// console.log(concatenateStrings('sdf', 'ffd'));
 /**
  * Returns the length of given string.
  *
@@ -37,7 +37,9 @@ export function concatenateStrings(value1, value2) {
  */
 export function getStringLength(value) {
   /* implement your code here */
-  throw new Error('Not implemented');
+
+  return value.length;
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -54,8 +56,8 @@ export function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 export function getStringFromTemplate(firstName, lastName) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return 'Hello, '+firstName+' '+lastName+'!';
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -69,8 +71,8 @@ export function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 export function  extractNameFromTemplate(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return value.slice(7, -1);
+  // throw new Error('Not implemented');
 }
 
 
@@ -85,8 +87,9 @@ export function  extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 export function getFirstChar(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let A=value.charAt(0);
+  return A;
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -101,8 +104,17 @@ export function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 export function removeLeadingAndTrailingWhitespaces(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let arr=value.split('');
+  while (arr[0]===' ' || arr[0]==='\t') {
+    arr.splice(0, 1);
+  }
+  while (arr[arr.length-1]===' ' ) {
+    arr.splice(arr.length-1, 1);
+  }
+  let str=arr.join('');
+
+  return str;
 }
 
 /**
@@ -117,8 +129,13 @@ export function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 export function repeatString(value, count) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+  let result=value;
+  for (let i=1;i<count;i++){
+    result+=value;
+  }
+  return result;
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -134,8 +151,12 @@ export function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 export function removeFirstOccurrences(str, value)  {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let A=str.indexOf(value);
+  let B=value.split('');
+  let arr=str.split('');
+  if (A>0) {arr.splice(A, B.length);}
+  return arr.join('');
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -150,8 +171,8 @@ export function removeFirstOccurrences(str, value)  {
  *   '<a>' => 'a'
  */
 export function unbracketTag(str) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return str.split('').slice(1, -1).join('');
+  // throw new Error('Not implemented');
 }
 
 
@@ -166,8 +187,8 @@ export function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 export function convertToUpperCase(str) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return str.toUpperCase();
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -182,8 +203,8 @@ export function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 export function extractEmails(str) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return str.split(';');
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -227,14 +248,34 @@ export function getRectangleString(width, height) {
  *   'hello' => 'uryyb'
  *   'Why did the chicken cross the road?' => 'Jul qvq gur puvpxra pebff gur ebnq?'
  *   'Gb trg gb gur bgure fvqr!' => 'To get to the other side!'
- *   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' => 
+ *   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' =>
  *          'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
+
+
 export function encodeToRot13(str) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+
+//  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' =>
+//        'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
+  let strEng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ?!';
+  let strRot = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm ?!';
+  let Alphabeth = {};
+  let j = 0;
+
+  for (let i of strEng) {
+    Alphabeth[i] = strRot[j];
+    j++;
+  }
+
+  let result = '';
+  for (let i of str) {
+    result += Alphabeth[i];
+  }
+
+  return result;
 }
+
 
 /**
  * Returns true if the value is string; otherwise false.
@@ -249,9 +290,22 @@ export function encodeToRot13(str) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-export function isString(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+export function isString(str) {
+  let result = false;
+  try {
+
+    if (str.charAt(1)) {
+      return result = true;
+    }else{
+      throw new Error();
+
+    }
+
+  } catch (e){
+
+  }
+
+  return result;
 }
 
 
@@ -280,6 +334,13 @@ export function isString(value) {
  *   'K♠' => 51
  */
 export function getCardId(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let myAlpha={};
+  let cardsArr=['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  for (let i=0;i<=cardsArr.length-1;i++){
+    myAlpha[cardsArr[i]]=i;
+  }
+  return myAlpha[value];
 }

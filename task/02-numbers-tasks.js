@@ -113,8 +113,8 @@ export function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 export function getAngleBetweenVectors(x1, y1, x2, y2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let result = Math.abs(Math.atan2(y2, x2) - Math.atan2(y1, x1));
+  return result;
 }
 
 /**
@@ -209,8 +209,13 @@ export function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 export function isPrime(n) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  if (n <= 3) { return true;}
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i===0) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**

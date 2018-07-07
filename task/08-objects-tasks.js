@@ -60,15 +60,15 @@ export function getJSON(obj) {
  *    var r = fromJSON(Rectangle.prototype, '{"width":10, "height":20}');
  *
  */
-// export function  fromJSON(proto, json) {
-//
-//
-//   let obj=JSON.parse(json);
-//   let obj=new proto.constructor(obj.width,obj.height);
-//
-//
-//   return obj;
-// }
+export function  fromJSON(proto, json) {
+
+
+  let obj=JSON.parse(json);
+  obj.__proto__ = proto;
+
+
+  return obj;
+}
 
 
 /**

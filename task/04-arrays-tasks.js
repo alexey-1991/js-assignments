@@ -22,11 +22,9 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 export function findElement(arr, value) {
-  let result=-1;
-  arr.map((elem,i)=>{
-    (elem===value) ? result=i:null
+  return arr.findIndex((elem)=>{
+    return (elem === value)
   });
-  return result;
 }
 
 /**
@@ -62,9 +60,8 @@ export function generateOdds(len) {
  *    [] => []
  */
 export function doubleArray(arr) {
-  let result=[];
-  result=arr.concat(arr);
-  return result;
+
+  return arr.concat(arr);
 }
 
 
@@ -80,11 +77,9 @@ export function doubleArray(arr) {
  *    [] => []
  */
 export function getArrayOfPositives(arr) {
-  let result=[];
-  for (let i=0;i<=arr.length-1;i++){
-    if (arr[i]>0) result.push(arr[i]);
-  }
-  return result;
+  return arr.filter((elem)=>{
+    return elem>0;
+  });
 }
 
 /**
@@ -99,12 +94,9 @@ export function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 export function getArrayOfStrings(arr) {
-  let result=[];
-  for (let i=0;i<=arr.length-1;i++){
-    if ((typeof arr[i])==='string') result.push(arr[i]);
-  }
-  return result;
-
+  return arr.filter((elem)=>{
+    return (elem.charAt)
+  })
 }
 
 /**
@@ -159,11 +151,9 @@ export function getUpperCaseStrings(arr) {
  */
 export function getStringsLength(arr) {
 
-  let result=[];
-  for (let i=0;i<=arr.length-1;i++){
-    result.push(arr[i].length);
-  }
-  return result;
+  return arr.map((elem)=>{
+    return elem.length;
+  })
 }
 
 /**
@@ -258,10 +248,9 @@ export function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 export function toArrayOfSquares(arr) {
-  for (let i=0;i<=arr.length-1;i++){
-    arr[i]=Math.pow(arr[i], 2);
-  }
-  return arr;
+  return arr.map((elem)=>{
+    return elem*elem;
+  })
 }
 
 
@@ -280,13 +269,11 @@ export function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 export function getMovingSum(arr) {
-  let sum=0;
-  for (let i=0;i<=arr.length-1;i++){
-    if (i>0) {
-      arr[i] = arr[i-1]+arr[i];
-    }
-  }
-  return arr;
+
+  return arr.map((elem,i,arr)=>{
+    if (i===0) return elem;
+    return arr[i]=arr[i-1]+elem
+  })
 }
 
 /**

@@ -43,7 +43,7 @@ export function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 export function getJSON(obj) {
-//?????????????????????????????????
+
   return JSON.stringify(obj);
 
 }
@@ -62,11 +62,8 @@ export function getJSON(obj) {
  */
 export function  fromJSON(proto, json) {
 
-
   let obj=JSON.parse(json);
   obj.__proto__ = proto;
-
-
   return obj;
 }
 
@@ -126,7 +123,7 @@ export function  fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-// export const cssSelectorBuilder = {
+export function cssSelectorBuilder() {
 //
 // result:'',
 //   idValue:'',
@@ -178,4 +175,6 @@ export function  fromJSON(proto, json) {
 //   return this.result;
 // }
 //
-// };
+  throw new Error('Not implemented')
+
+}

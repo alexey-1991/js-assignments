@@ -39,11 +39,11 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  let arr=[];
-  for (let i=0;i<=len-1;i++){
-    arr.push(2*i+1);
-  }
-  return arr;
+  let result=new Array(len);
+  result.fill(0);
+  return result.map((elem,i)=>{
+    return 2*i+1;
+  });
 }
 
 
@@ -113,11 +113,9 @@ export function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 export function removeFalsyValues(arr) {
-  let res=[];
-  for (let i=0;i<=arr.length-1;i++){
-    if (arr[i]) {res.push(arr[i]);}
-  }
-  return res;
+  return arr.filter((elem)=>{
+    return elem;
+  });
 }
 
 /**
@@ -132,10 +130,9 @@ export function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 export function getUpperCaseStrings(arr) {
-  for (let i=0;i<=arr.length-1;i++){
-    arr[i]=arr[i].toUpperCase();
-  }
-  return arr;
+  return arr.map((elem)=>{
+    return elem.toUpperCase();
+  });
 }
 
 
@@ -185,9 +182,7 @@ export function insertItem(arr, item, index) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
 export function getHead(arr, n) {
-
   return arr.slice(0, n);
-
 }
 
 
@@ -289,9 +284,9 @@ export function getMovingSum(arr) {
  */
 export function getSecondItems(arr) {
   let result=[];
-  for (let i=0;i<=arr.length-1;i++){
-    if ((i+1)%2==0 && i >0) result.push(arr[i]);
-  }
+  arr.map((elem,i)=>{
+    if (i%2!==0)  return result.push(elem)
+  });
   return result;
 }
 
@@ -312,12 +307,10 @@ export function getSecondItems(arr) {
  */
 export function propagateItemsByPositionIndex(arr) {
   let result=[];
-  for (let i=0;i<=arr.length-1;i++){
-    for (let j=0;j<=i;j++) {
-      result.push(arr[i]);
-    }
-  }
-  return result;
+  arr.map((elem, i)=>{
+    result=result.concat(new Array(i+1).fill(elem));
+  });
+  return result
 }
 
 

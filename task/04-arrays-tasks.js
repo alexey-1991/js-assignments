@@ -351,11 +351,10 @@ export function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 export function getPositivesCount(arr) {
-  let result=[];
-  for (let i=0;i<=arr.length-1;i++){
-    if (arr[i]>0 && typeof arr[i]=== 'number') {result.push(arr[i]);}
-  }
-  return result.length;
+  return arr.filter((elem)=>{
+    if (elem.length) return null;
+    return elem>0
+  }).length
 }
 
 /**
@@ -372,6 +371,7 @@ export function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 export function sortDigitNamesByNumericOrder(arr) {
+
   //step 0
   let myNum={
     'zero':0,
@@ -385,23 +385,20 @@ export function sortDigitNamesByNumericOrder(arr) {
     'eight':8,
     'nine':9
   };
+
   //step 1 - myarr
-  let myarr=[];
-  for (let i=0;i<=arr.length-1;i++){
-    myarr.push(myNum[arr[i]]);
-  }
+  let myarr=arr.map((elem)=>{
+    return myNum[elem];
+  });
+
   //step 2 - sort
   myarr.sort(function(a, b){return a-b;});
+
   //step 3 - return result
-  let result=[];
-  for (let i=0;i<=myarr.length-1;i++) {
-    for (var elem in myNum) {
-      if (myNum[elem] ==myarr[i]){
-        result.push(elem);
-      }
-    }
-  }
-  return result;
+  let res=Object.keys(myNum);
+  return myarr.map((elem)=>{
+    return res[elem]
+  });
 
 }
 

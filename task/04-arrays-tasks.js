@@ -415,11 +415,9 @@ export function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 export function getItemsSum(arr) {
-  let sum=0;
-  for (let i=0;i<=arr.length-1;i++){
-    sum+=arr[i];
-  }
-  return sum;
+  return arr.reduce((prev,curr)=>{
+    return prev+curr;
+  })
 }
 
 /**
@@ -435,11 +433,9 @@ export function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 export function getFalsyValuesCount(arr) {
-  let fal=0;//number of false values
-  for (let i=0;i<=arr.length-1;i++){
-    if (!arr[i]) {fal++;}
-  }
-  return fal;
+  return arr.filter((elem)=>{
+    if (!elem) return '1';
+  }).length;
 }
 
 /**
@@ -457,13 +453,9 @@ export function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 export function findAllOccurences(arr, item) {
-
-  let occ=0;//number of occurences
-  for (let i=0;i<=arr.length-1;i++){
-    if (arr[i]===item) {occ++;}
-  }
-  return occ;
-
+  return arr.filter((elem)=>{
+    if (elem===item) return '1';
+  }).length
 }
 
 /**

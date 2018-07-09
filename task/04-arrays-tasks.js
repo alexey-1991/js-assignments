@@ -352,8 +352,7 @@ export function get3TopItems(arr) {
  */
 export function getPositivesCount(arr) {
   return arr.filter((elem)=>{
-    if (elem.length) return null;
-    return elem>0
+    return ((elem>0) && (typeof(elem)==='number' ))
   }).length
 }
 
@@ -417,7 +416,7 @@ export function sortDigitNamesByNumericOrder(arr) {
 export function getItemsSum(arr) {
   return arr.reduce((prev,curr)=>{
     return prev+curr;
-  })
+  },0)
 }
 
 /**

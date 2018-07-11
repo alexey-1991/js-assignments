@@ -222,13 +222,11 @@ export function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 export function toCsvText(arr) {
-  let str='';
-  for (let i=0;i<=arr.length-1;i++){
-    if (i!=arr.length-1) {
-      str += `${arr[i].join(',')}\n`;
-    } else {str += `${arr[i].join(',')}`;}
-  }
-  return str;
+  return arr.reduce((prev,curr,i)=>{
+    let n='\n';
+    if (i===arr.length-1) n='';
+    return prev+curr.join(',')+n
+  },'');
 }
 
 /**
@@ -532,19 +530,13 @@ export function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 export function getIdentityMatrix(n) {
-
-  let res=[];
-
-  for (let j=0;j<=n-1;j++) {
-    res.push([]);
-    for (let i=0;i<=n-1;i++){
-      res[j][i]=0;
-    }
-    res[j][j]=1;
-  }
-  return res;
-
-
+  let arr=new Array(n).fill(new Array(n).fill(0))
+  return arr.map((curr,i)=>{
+    return curr.map((current,j)=>{
+      if (i===j) current=1;
+      return current
+    })
+  });
 }
 
 /**
@@ -561,11 +553,10 @@ export function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 export function getIntervalArray(start, end) {
-  let res=[];
-  for (let i=start;i<=end;i++){
-    res.push(i);
-  }
-  return res;
+  let arr=new Array(end-start+1).fill(0);
+  return arr.map(()=>{
+    return start++
+  })
 }
 
 /**
@@ -580,23 +571,11 @@ export function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 export function distinct(arr) {
-
-  let obj={};
-  let res=[];
-
-  for (let i=0;i<=arr.length-1;i++){
-
-    obj[arr[i]]=1;
-
-  }
-
-  for (let key in obj){
-    if (+key){
-      res.push(+key);
-    } else {res.push(key);}
-  }
-  return res;
-
+  let result=[];
+  arr.map((curr)=>{
+    if (!result.includes(curr)) return result.push(curr)
+  });
+  return result
 }
 
 /**
@@ -629,25 +608,17 @@ export function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-export function group(array, keySelector, valueSelector) {
-
+export function group(array, keySelector, valueSelector){
   let map=new Map();
-  let arrOfValue=[];
-
-  for (let elem of array){
-
-    for (let item of array){
-
-      if (keySelector(item)==keySelector(elem)) {
-        arrOfValue.push(valueSelector(item));
-      }
-    }
-    // if (map.get(keySelector(elem))) {continue};
-
-    map.set(keySelector(elem), arrOfValue);
-    arrOfValue=[];
-  }
-  return map;
+  array.map((element)=>{
+    let res=[]
+    array.map((elem)=>{
+      if (map.get(keySelector(element))===[]) return;
+      if (keySelector(elem)===keySelector(element)) return res.push(valueSelector(elem))
+    });
+    map.set(keySelector(element),res)
+  })
+  return map
 }
 /**
  * Projects each element of the specified array to a sequence and flattens the
@@ -663,15 +634,13 @@ export function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 export function selectMany(arr, childrenSelector) {
-
-  let res=[];
-
-  for (let i=0;i<=arr.length-1;i++){
-    for (let j of arr[i]) {
-      res.push(childrenSelector(j));
-    }
-  }
-  return res;
+  let result=[];
+  arr.map((curr)=>{
+    return childrenSelector(curr).map((current)=>{
+      return result.push(current)
+    })
+  });
+  return result
 }
 
 

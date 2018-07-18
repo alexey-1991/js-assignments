@@ -155,21 +155,16 @@ export function timeSpanToString(startDate, endDate) {
  */
 export function angleBetweenClockHands(date) {
 
-  //time variables
-  let hours=60*60*1000;
+  let DateUTC=new Date(Date.parse(date))
 
-  let yy=date.getUTCFullYear();
-  let mo=date.getUTCMonth();
-  let dd=date.getUTCDate();
+  let M=DateUTC.getUTCMinutes();
+  let H=DateUTC.getUTCHours();
 
+  let res=0.5*(60*H-11*M);
+  while (res>=360) {
+    res-=360;
+  }
+  if (res>180) res=360-res;
 
-  let date0=new Date(yy, mo, dd);
-  let time=+date-+date0;
-  if (time>12*hours && time<=18*hours) {time-=12*hours;}
-  if (time>18*hours && time<=24*hours) {time-=18*hours;}
-
-  let value=2*Math.PI/(12*hours);
-
-  return value*time;
-
+  return res*Math.PI/180
 }

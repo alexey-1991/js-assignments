@@ -105,7 +105,7 @@ describe('08-objects-tasks', () => {
 
 
   it.optional('cssSelectorBuilder should creates css selector object with stringify() method', () => {
-    const builder = cssSelectorBuilder;
+    const builder = cssSelectorBuilder();
 
     // Test simple selectors
     assert.equal(

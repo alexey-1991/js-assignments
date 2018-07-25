@@ -23,7 +23,7 @@ export function concatenateStrings(value1, value2) {
   return value1+value2;
   // throw new Error('Not implemented');
 }
-// console.log(concatenateStrings('sdf', 'ffd'));
+
 /**
  * Returns the length of given string.
  *

@@ -123,58 +123,92 @@ export function  fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-export function cssSelectorBuilder() {
-//
-// result:'',
-//   idValue:'',
-//   classValue:'',
-//
-//   id(value) {
-//   // this.idValue='#'+value;
-//   this.result=this.result+'#'+value;
-//   return this;
-// },
-//
-// class(value) {
-//   // this.classValue='.'+value;
-//   this.result=this.result+'.'+value;
-//   return this;
-//
-// },
-//
-// attr(value) {
-//   this.result=this.result+'['+value+']';
-//   return this;
-// },
-//
-// element(value) {
-//   this.result=this.result+value;
-//   return this;
-// },
-//
-// pseudoClass(value) {
-//   this.result=this.result+':'+value;
-//   return this;
-// },
-//
-// pseudoElement(value) {
-//   this.result=this.result+'::'+value;
-//   return this;
-// },
-//
-// combine(selector1, combinator, selector2) {
-//   let space=' ';
-//   if (combinator===' ') space='';
-//
-//
-//   this.result=this.result+selector1+space+combinator+space+selector2;
-//   return this;
-// },
-//
-// stringify() {
-//   return this.result;
-// }
-//
-  throw new Error('Not implemented')
+export function cssSelectorBuilder(){
+  return new cssSelectorBuilderClass()
+};
+
+class cssSelectorBuilderClass{
+  constructor(){
+    this.result='';
+    this.errorOrder="Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element";
+  }
+
+  element(str){
+    if (!this.wrongOrder(['#','\.',']',':','::'])) throw new Error(this.errorOrder);
+    str=this.checkResult(str);
+
+    let nextBuilder=new cssSelectorBuilderClass();
+    nextBuilder.result+=this.result+str;
+    return nextBuilder;
+  }
+  id(str){
+    console.log(this.wrongOrder(['\.',']',':','::']))
+    if (!this.wrongOrder(['\.',']',':','::'])) throw new Error(this.errorOrder);
+    str=this.checkResult(str,'#');
+
+    let nextBuilder=new cssSelectorBuilderClass();
+    nextBuilder.result+=this.result+str;
+    return nextBuilder;
+  }
+
+  class(str){
+    if (!this.wrongOrder([']',':','::'])) throw new Error(this.errorOrder);
+    str=this.checkResult(str,'\\.');
+
+    let nextBuilder=new cssSelectorBuilderClass();
+    nextBuilder.result+=this.result+str;
+    return nextBuilder;
+  }
+  attr(str){
+    if (!this.wrongOrder([':','::'])) throw new Error(this.errorOrder);
+    str=this.checkResult(str,']');
+
+    let nextBuilder=new cssSelectorBuilderClass();
+    nextBuilder.result+=this.result+str;
+    return nextBuilder;
+  }
+  pseudoClass(str){
+    if (!this.wrongOrder(['::'])) throw new Error(this.errorOrder);
+    str=this.checkResult(str,':');
+
+    let nextBuilder=new cssSelectorBuilderClass();
+    nextBuilder.result+=this.result+str;
+    return nextBuilder;
+  }
+  pseudoElement(str){
+    str=this.checkResult(str,'::');
+
+    let nextBuilder=new cssSelectorBuilderClass();
+    nextBuilder.result+=this.result+str;
+    return nextBuilder;
+  }
+  wrongOrder(elements){
+    return elements.find((elem)=>{
+      let reg=new RegExp(`[\\${elem}]`);
+      return (this.result.search(reg)>=0)
+    });
+  }
+  checkResult(str,elem){
+    if (this.result.search(new RegExp(elem))>=0 && elem){
+      return '';
+    }
+    if (this.result.search(/^[a-z]/i)>=0 && !elem){
+      return '';
+    }
+    if (!elem){return str}
+    if (elem[0]==='\\'){elem = elem.replace('\\','')}
+    if (elem===']'){return `[${str}]`}
+    return elem+str;
+  }
+  combine(obj1,separator,obj2){
+    let nextBuilder=new cssSelectorBuilderClass();
+    nextBuilder.result=obj1.result+' '+separator+' '+obj2.result;
+    return nextBuilder
+  }
+  stringify(){
+    this.result='';
+    return this.result;
+  }
 
 }
+

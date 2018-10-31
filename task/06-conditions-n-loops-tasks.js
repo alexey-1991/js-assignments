@@ -688,6 +688,83 @@ function getValue(m1,m2,row,col){
  *
  */
 export function evaluateTicTacToePosition(position) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const dimension=position.length;
+
+  //check rows (horizont)
+  for (let row=0;row<dimension;row++){
+      let currentRow=position[row].join('').split('');
+      if (currentRow.length!==dimension) continue;
+      
+
+      if (position[row].every(elem=>elem==="0")){
+          return "0"
+      }
+      
+      if (position[row].every(elem=>elem==="X")){
+          return "X"
+      }
+  }
+  
+
+  //check columns (vertical)
+  for (let col=0;col<dimension;col++){
+      let currentCol=[];
+      for (let row=0;row<dimension;row++){
+          currentCol.push(position[row][col])
+      }
+
+  
+      if (currentCol.join('').split('').length!==dimension) continue;
+
+      if (currentCol.every(elem=>elem==="0")){
+          return "0"
+      }
+      if (currentCol.every(elem=>elem==="X")){
+          return "X"
+      }
+  }
+
+  //check diagonal1
+  let diagonal1=[];
+  let c1=0;
+  let r1=0;
+  while (r1<=dimension-1 && c1<=dimension-1){
+
+      diagonal1.push(position[r1][c1])
+      r1++;
+      c1++;
+  }
+
+  if (diagonal1.join('').split('').length===dimension){
+
+      if (diagonal1.every(elem=>elem==="0")){
+          return "0"
+      }
+      if (diagonal1.every(elem=>elem==="X")){
+          return "X"
+      }
+
+  } 
+
+  //check diagonal2
+  let diagonal2=[];
+  let c2=dimension-1;
+  let r2=0;
+  while (r2<=dimension-1 && c2>=0){
+      diagonal2.push(position[r2][c2])
+      r2++;
+      c2--
+  }
+  
+  if (diagonal2.join('').split('').length===dimension){
+
+      if (diagonal2.every(elem=>elem==="0")){
+          return "0"
+      }
+      if (diagonal2.every(elem=>elem==="X")){
+          return "X"
+      }
+  }
+
+  return undefined;
 }

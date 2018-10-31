@@ -22,15 +22,12 @@
  *    console.log(r.getArea());   // => 200
  */
 export function Rectangle(width, height) {
-
   this.width=width;
   this.height=height;
-  this.getArea=function(){
-    return this.width*this.height;
-  };
-
 }
-
+Rectangle.prototype.getArea=function(){
+  return this.width*this.height;
+};
 
 /**
  * Returns the JSON representation of specified object
@@ -43,9 +40,7 @@ export function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 export function getJSON(obj) {
-
   return JSON.stringify(obj);
-
 }
 
 
@@ -61,10 +56,9 @@ export function getJSON(obj) {
  *
  */
 export function  fromJSON(proto, json) {
-
-  let obj=JSON.parse(json);
-  obj.__proto__ = proto;
-  return obj;
+  const object=JSON.parse(json);
+  object.__proto__=proto;
+  return object;
 }
 
 

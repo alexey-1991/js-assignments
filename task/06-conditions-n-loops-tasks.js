@@ -560,8 +560,7 @@ export function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 export function toNaryString(num, n) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+    return num.toString(n)
 }
 
 
@@ -623,8 +622,38 @@ export function getCommonDirectoryPath(pathes) {
  *
  */
 export function getMatrixProduct(m1, m2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const width1=m1[0].length;
+  const height1=m1.length;
+
+  const width2=m2[0].length;
+  const height2=m2.length;
+
+  const widthRes=height1;
+  const heightRes=width2;
+  
+  let  result=new Array(heightRes);
+  
+
+  for (let row=0;row<heightRes;row++){
+      result[row]=new Array(widthRes);
+
+      for (let col=0;col<widthRes;col++){
+          result[row][col]=getValue(m1,m2,row,col);
+      }    
+  }
+
+  return result;
+}
+
+function getValue(m1,m2,row,col){
+  const width1=m1[0].length;
+  let value=0;
+
+  for (let i=0;i<width1;i++){
+      value=value+m1[row][i]*m2[i][col]
+  }
+
+  return value;
 }
 
 

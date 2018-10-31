@@ -38,3 +38,6 @@ node_modules
 .idea
 
 task/train.js
+
+# my train directory
+myfolder

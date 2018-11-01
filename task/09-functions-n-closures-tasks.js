@@ -25,10 +25,7 @@
  *
  */
 export function getComposition(f, g) {
-  return function(x) {
-    return f(g(x));
-  };
-  // throw new Error('Not implemented');
+  return x=>f(g(x))
 }
 
 
@@ -49,11 +46,7 @@ export function getComposition(f, g) {
  *
  */
 export function getPowerFunction(exponent) {
-
-  return function(x) {
-    return Math.pow(x, exponent);
-  };
-
+  return x=>Math.pow(x, exponent);
 }
 
 
@@ -72,60 +65,23 @@ export function getPowerFunction(exponent) {
  */
 export function getPolynom() {
 
-  let args=[].slice.apply(arguments);
+  const args=[].slice.apply(arguments);
 
-  if (args.length==3) {
-
-    let a = args[0];
-    if (!a) {
-      a = 0;
-    }
-
-    let b = args[1];
-    if (!b) {
-      b = 0;
-    }
-
-    let c = args[2];
-    if (!c) {
-      c = 0;
-    }
-
-
-    return function (x) {
-      return a * x * x + b * x + c;
-    };
-  }
-  if (args.length==2) {
-    let a = args[0];
-    if (!a) {
-      a = 0;
-    }
-
-    let b = args[1];
-    if (!b) {
-      b = 0;
-    }
-
-    return function (x) {
-      return a * x + b;
-    };
-  }
-  if (args.length==1) {
-    let a = args[0];
-    if (!a) {
-      a = 0;
-    }
-
-    return function() {
-      return a;
-    };
-  }
-  if (args.length==0) {
-
-    return function(x) {
+  switch (args.length){
+    case 3:
+      const a = args[0] || 0;
+      const b = args[1] || 0;
+      const c = args[2] || 0;
+      return x=>a * x * x + b * x + c;
+    case 2:
+      const d = args[0] || 0;
+      const e = args[1] || 0;
+      return x=> d * x + e;
+    case 1:
+      const g = args[0] || 0;
+      return ()=>g
+    default:
       return null;
-    };
   }
 }
 
@@ -148,7 +104,6 @@ export function memoize(func) {
 
   return function() {
     if (!cache) {
-
       cache=func();
       return cache;
     }
@@ -271,16 +226,17 @@ function getRightString(args){
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 export function partialUsingArguments(fn) {
-// I dont know another way to solve this exercise.This is bad solution
-  let argsOne=[].slice.apply(arguments).slice(1);
+  const args1=[].slice.apply(arguments);
+  const func=args1[0];
+  const argsInit=args1.slice(1,args1.length);
 
-  return function() {
+  return function(){
+      const argsEnd=[].slice.apply(arguments);
+      const allArgs=argsInit.concat(argsEnd);
 
-    let argsTwo=[].slice.apply(arguments);
-    let args=argsOne.concat(argsTwo);
-    return fn(args[0], args[1], args[2], args[3]);//<==if x5 is not undefined my code will be bad;
-  };
-
+      return func.apply(this,allArgs);
+  }
+  
 }
 
 /**
@@ -301,11 +257,5 @@ export function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 export function getIdGeneratorFunction(startFrom) {
-
-  let counter=startFrom;
-
-  return function(){
-    return startFrom++;
-  };
-
+  return ()=>startFrom++;
 }

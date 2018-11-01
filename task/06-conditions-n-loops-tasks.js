@@ -692,6 +692,7 @@ export function evaluateTicTacToePosition(position) {
 
   //check rows (horizont)
   for (let row=0;row<dimension;row++){
+      //condition below is needed to remove empty spaces
       let currentRow=position[row].join('').split('');
       if (currentRow.length!==dimension) continue;
       

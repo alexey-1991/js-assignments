@@ -124,85 +124,94 @@ export function cssSelectorBuilder(){
 class cssSelectorBuilderClass{
   constructor(){
     this.result='';
-    this.errorOrder="Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element";
+    this.order=[];// array consists of selectors in call order;
   }
 
   element(str){
-    if (!this.wrongOrder(['#','\.',']',':','::'])) throw new Error(this.errorOrder);
-    str=this.checkResult(str);
+    const order=this.order.concat(['element']);
+    str=this.result+`${str}`;
 
-    let nextBuilder=new cssSelectorBuilderClass();
-    nextBuilder.result+=this.result+str;
-    return nextBuilder;
+    return this.createNextBuilder(str,order);
   }
   id(str){
-    console.log(this.wrongOrder(['\.',']',':','::']))
-    if (!this.wrongOrder(['\.',']',':','::'])) throw new Error(this.errorOrder);
-    str=this.checkResult(str,'#');
+    const order=this.order.concat(['id']);
+    str=this.result+`#${str}`;
 
-    let nextBuilder=new cssSelectorBuilderClass();
-    nextBuilder.result+=this.result+str;
-    return nextBuilder;
+    return this.createNextBuilder(str,order);
   }
-
   class(str){
-    if (!this.wrongOrder([']',':','::'])) throw new Error(this.errorOrder);
-    str=this.checkResult(str,'\\.');
+    const order=this.order.concat(['class']);
+    str=this.result+`.${str}`;
 
-    let nextBuilder=new cssSelectorBuilderClass();
-    nextBuilder.result+=this.result+str;
-    return nextBuilder;
+    return this.createNextBuilder(str,order);
   }
   attr(str){
-    if (!this.wrongOrder([':','::'])) throw new Error(this.errorOrder);
-    str=this.checkResult(str,']');
+    const order=this.order.concat(['attr']);
+    str=this.result+`[${str}]`;
 
-    let nextBuilder=new cssSelectorBuilderClass();
-    nextBuilder.result+=this.result+str;
-    return nextBuilder;
+    return this.createNextBuilder(str,order);
   }
   pseudoClass(str){
-    if (!this.wrongOrder(['::'])) throw new Error(this.errorOrder);
-    str=this.checkResult(str,':');
+    const order=this.order.concat(['pseudoClass'])
+    str=this.result+`:${str}`;
 
-    let nextBuilder=new cssSelectorBuilderClass();
-    nextBuilder.result+=this.result+str;
-    return nextBuilder;
+    return this.createNextBuilder(str,order);
   }
   pseudoElement(str){
-    str=this.checkResult(str,'::');
+    const order=this.order.concat(['pseudoElement'])
+    str=this.result+`::${str}`;
 
+    return this.createNextBuilder(str,order);
+  }
+
+  createNextBuilder(initStr,order){
     let nextBuilder=new cssSelectorBuilderClass();
-    nextBuilder.result+=this.result+str;
+    nextBuilder.result+=initStr;
+    nextBuilder.order=order;
+
+    this.checkRepeats(order); //if smth wrong it throws err
+    this.checkOrder(order);   //if smth wrong it throws err
+
     return nextBuilder;
   }
-  wrongOrder(elements){
-    return elements.find((elem)=>{
-      let reg=new RegExp(`[\\${elem}]`);
-      return (this.result.search(reg)>=0)
-    });
-  }
-  checkResult(str,elem){
-    if (this.result.search(new RegExp(elem))>=0 && elem){
-      return '';
+  checkRepeats(order){
+    if (!order) return;
+    const condElem=order.filter(elem=>elem==="element").length>1;
+    const condId=order.filter(elem=>elem==="id").length>1;
+    const condPseudoElem=order.filter(elem=>elem==="pseudoElement").length>1;
+
+    if (condElem || condId || condPseudoElem){
+      throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
     }
-    if (this.result.search(/^[a-z]/i)>=0 && !elem){
-      return '';
+  }
+  checkOrder(order){
+    if (!order) return;
+    const rightOrder=['element', 'id', 'class', 'attr', 'pseudoClass', 'pseudoElement'];
+    const indexOrder = order.map(elem => rightOrder.indexOf(elem));
+    for (let i=0;i<indexOrder.length-1;i++){
+
+      const curr=indexOrder[i];
+      const next=indexOrder[i+1];
+
+      if((next-curr)<0){
+        throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+      }
     }
-    if (!elem){return str}
-    if (elem[0]==='\\'){elem = elem.replace('\\','')}
-    if (elem===']'){return `[${str}]`}
-    return elem+str;
-  }
-  combine(obj1,separator,obj2){
-    let nextBuilder=new cssSelectorBuilderClass();
-    nextBuilder.result=obj1.result+' '+separator+' '+obj2.result;
-    return nextBuilder
-  }
-  stringify(){
-    this.result='';
-    return this.result;
   }
 
+  combine(obj1,separator,obj2){
+    const selector1=obj1.stringify();
+    const selector2=obj2.stringify();
+    const newSelector=selector1+" "+separator+" "+selector2;
+
+    return this.createNextBuilder(newSelector);
+  }
+
+  stringify(){
+    const res=this.result;
+    this.result='';
+    this.order=[];
+    return res;
+  }
 }
 

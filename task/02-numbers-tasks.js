@@ -113,8 +113,7 @@ export function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 export function getAngleBetweenVectors(x1, y1, x2, y2) {
-  let result = Math.abs(Math.atan2(y2, x2) - Math.atan2(y1, x1));
-  return result;
+  return Math.abs(Math.atan2(y2, x2) - Math.atan2(y1, x1));
 }
 
 /**
@@ -131,8 +130,7 @@ export function getAngleBetweenVectors(x1, y1, x2, y2) {
  */
 export function getLastDigit(value) {
   let str=String(value);
-  let G=str.charAt(str.length-1);
-  return +G;
+  return +str.charAt(str.length-1);
 }
 
 
@@ -186,8 +184,7 @@ export function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 export function roundToPowerOfTen(num, pow) {
-  let n=Math.pow(10, pow);
-
+  const n=Math.pow(10, pow);
   return Math.round(num/n)*n;
 }
 
@@ -234,9 +231,5 @@ export function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 export function toNumber(value, def) {
-  let result=def;
-  try{
-    if (+value) return result=+value;
-  } catch (e){}
-  return result;
+  return (+value)? +value: def
 }

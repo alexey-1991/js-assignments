@@ -212,22 +212,49 @@ export function retry(func, attempts) {
  *
  */
 export function logger(func, logFunc) {
+  const functionName=func.name;
 
-  throw new Error('Not implemented');
-//   const logger=logFunc;
-//   return function() {
-//
-//     let args=[].slice.apply(arguments);
-//     console.log(args);
-//     let LogStart1=func.name+'(';
-//     let LogStart2=') '+'starts';
-//     let LogEnd1=func.name+'('
-//     let LogEnd2=') '+'ends';
-//     logger(LogStart1,args,LogStart2);
-//     logger(LogEnd1,args,LogEnd2);
-//     return func(args);
-//
-//   }
+    return function(){
+        const args=[].slice.call(arguments);
+        const argsString=getRightString(args);
+
+        logFunc(`${functionName}(${argsString}) starts`)
+
+        return (()=>{
+            const result=func.apply(this,args)
+            return (()=>{
+                logFunc(`${functionName}(${argsString}) ends`);
+                return result
+            })()
+        })()   
+    }
+}
+
+function getRightString(args){
+  return args.reduce((acc,curr)=>{
+  
+      if(curr.reduce){
+          curr=curr.map(elem=>{
+              if ((typeof elem)==="string"){
+                  return `"${elem}"`;
+              }
+              if ((typeof elem)==="number"){
+                  return `${elem}`;
+              }
+          }).join(",");
+          curr=`[${curr}]` 
+      }
+
+      if((typeof curr)==='number'){
+          curr=`${curr}`
+      }
+
+      if (acc!==""){
+          curr=`,${curr}`
+      }
+
+      return acc+curr
+  },"")
 }
 
 /**

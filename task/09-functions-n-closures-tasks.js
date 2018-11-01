@@ -80,17 +80,17 @@ export function getPolynom() {
     if (!a) {
       a = 0;
     }
-    
+
     let b = args[1];
     if (!b) {
       b = 0;
     }
-    
+
     let c = args[2];
     if (!c) {
       c = 0;
     }
-    
+
 
     return function (x) {
       return a * x * x + b * x + c;
@@ -101,12 +101,12 @@ export function getPolynom() {
     if (!a) {
       a = 0;
     }
-    
+
     let b = args[1];
     if (!b) {
       b = 0;
     }
-    
+
     return function (x) {
       return a * x + b;
     };
@@ -116,7 +116,7 @@ export function getPolynom() {
     if (!a) {
       a = 0;
     }
-    
+
     return function() {
       return a;
     };
@@ -173,22 +173,18 @@ export function memoize(func) {
  * retryer() => 2
  */
 export function retry(func, attempts) {
-  throw new Error('Not implemented');
-  // var isError;
-  // var attempt;
-  // return function res(){
-  //   attempt++;
-  //   try{
-  //     return func();
-  //   }catch (e){
-  //     isError=e.name;
-  //   }
-  //
-  //   if (attempt<=attempts && typeof isError=="string") {
-  //     return res();
-  //   } else {return attempts};
-  // }
+  let attempt=0;
 
+  return ()=>{
+    while (attempt<=attempts){
+      try {
+        return func();
+
+      } catch(err){
+        attempt++;
+      }
+    }
+  };
 }
 
 

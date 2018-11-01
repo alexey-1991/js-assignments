@@ -36,10 +36,7 @@ export function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 export function getStringLength(value) {
-  /* implement your code here */
-
   return value.length;
-  // throw new Error('Not implemented');
 }
 
 /**
@@ -87,9 +84,7 @@ export function  extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 export function getFirstChar(value) {
-  let A=value.charAt(0);
-  return A;
-  // throw new Error('Not implemented');
+  return value.charAt(0);
 }
 
 /**
@@ -112,9 +107,8 @@ export function removeLeadingAndTrailingWhitespaces(value) {
   while (arr[arr.length-1]===' ' ) {
     arr.splice(arr.length-1, 1);
   }
-  let str=arr.join('');
 
-  return str;
+  return arr.join('');
 }
 
 /**
@@ -135,7 +129,6 @@ export function repeatString(value, count) {
     result+=value;
   }
   return result;
-  // throw new Error('Not implemented');
 }
 
 /**
@@ -151,12 +144,9 @@ export function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 export function removeFirstOccurrences(str, value)  {
-  let A=str.indexOf(value);
-  let B=value.split('');
-  let arr=str.split('');
-  if (A>0) {arr.splice(A, B.length);}
-  return arr.join('');
-  // throw new Error('Not implemented');
+  return ((new RegExp(" "+value+" ")).test(str))?
+        str=str.replace(new RegExp(" "+value+" ")," "):
+        str=str.replace(new RegExp(value),"")
 }
 
 /**
@@ -172,7 +162,6 @@ export function removeFirstOccurrences(str, value)  {
  */
 export function unbracketTag(str) {
   return str.split('').slice(1, -1).join('');
-  // throw new Error('Not implemented');
 }
 
 
@@ -188,7 +177,6 @@ export function unbracketTag(str) {
  */
 export function convertToUpperCase(str) {
   return str.toUpperCase();
-  // throw new Error('Not implemented');
 }
 
 /**
@@ -204,7 +192,6 @@ export function convertToUpperCase(str) {
  */
 export function extractEmails(str) {
   return str.split(';');
-  // throw new Error('Not implemented');
 }
 
 /**
@@ -360,13 +347,11 @@ export function isString(str) {
       return result = true;
     }else{
       throw new Error();
-
     }
 
   } catch (e){
 
   }
-
   return result;
 }
 

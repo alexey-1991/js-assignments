@@ -164,16 +164,6 @@ export function getZigZagMatrix(n) {
 
   // creating Array
 
-  //First way to create Array
-  // let result=new Array(n).fill(new Array(n).fill(1));
-  //
-  // result[1][1]=20;
-  // console.log( result);
-
-  //console.log( result):
-  // [ [ 1, 20, 1 ], [ 1, 20, 1 ], [ 1, 20, 1 ] ] --- ????? object???
-
-
   //Second way to create Array
   let result=[];
 
@@ -245,8 +235,79 @@ export function getZigZagMatrix(n) {
  *
  */
 export function canDominoesMakeRow(dominoes) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+     
+  const startIndex=0;
+
+  let sideLeft=0;
+  let indexLeft=startIndex;
+  let dominoLeft=dominoes[indexLeft];
+
+  let sideRight=1;
+  let indexRight=startIndex;
+  let dominoRight=dominoes[indexRight];
+
+  
+  //movement to the right
+  for (let i=0;i<dominoes.length;i++){
+      const elem=dominoes[i];
+      if (!elem[0] && !elem[1]) continue;
+      if ( i===indexRight ) continue;
+  
+
+      if (elem[0]===dominoRight[sideRight] ){
+          elem[0]=null;
+          dominoRight[sideRight]=null;
+
+          indexRight=i;
+          dominoRight=elem;
+          sideRight=1;
+          i=0;
+          continue;
+      }
+
+      if (elem[1]===dominoRight[sideRight] ){
+          elem[1]=null;
+          dominoRight[sideRight]=null;
+
+          indexRight=i;
+          dominoRight=elem;
+          sideRight=0;
+          i=0;
+          continue;
+      }
+  } 
+
+  //movement to the left
+  for (let i=0;i<dominoes.length;i++){
+      const elem=dominoes[i];
+      if (!elem[0] && !elem[1]) continue;
+      if ( i===indexLeft ) continue;
+  
+
+      if (elem[0]===dominoLeft[sideLeft] ){
+          elem[0]=null;
+          dominoLeft[sideLeft]=null;
+
+          indexLeft=i;
+          dominoRight=elem;
+          sideLeft=1;
+          i=0;
+          continue;
+      }
+
+      if (elem[1]===dominoLeft[sideLeft] ){
+          elem[1]=null;
+          dominoLeft[sideLeft]=null;
+
+          indexLeft=i;
+          dominoLeft=elem;
+          sideLeft=0;
+          i=0;
+          continue;
+      }
+  } 
+  
+  return !!!dominoes.find(elem=>elem[0] && elem[1])
 }
 
 
@@ -272,6 +333,33 @@ export function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 export function extractRanges(nums) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let result="";
+  result+=nums[0];
+  for (let i=1; i<nums.length;i++){
+
+      const prev=nums[i-1];
+      const curr=nums[i];
+      const next=nums[i+1];
+
+      const diffPrev=((curr-prev)===1 );
+      const diffNext=((next-curr)===1 );
+
+      if (i===1 && !diffPrev){
+          result+=`,`;
+      }
+      if (diffPrev && !diffNext){
+          const separator=((curr-nums[i-2])===2)?"-":","
+          result+=`${separator}${curr}`;
+          if (i!==nums.length-1) result+=`,`;
+      }
+      if (!diffPrev && !diffNext){
+          result+=`${curr}`;
+          if (i!==nums.length-1) result+=`,`;
+      }
+      if (!diffPrev && diffNext){
+          result+=`${curr}`;
+      }
+  }
+
+  return result
 }

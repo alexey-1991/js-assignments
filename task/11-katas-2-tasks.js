@@ -36,8 +36,44 @@
  *
  */
 export function parseBankAccount(bankAccount) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+ 
+  const arr=bankAccount.split("\n").slice(0,-1);
+  const stringNum=[];//array with numbers parsed from string
+  const length=arr[0].length;
+  let num=0;
+
+  for (let i=0;i<length;i++){
+      if ((i+1)%3===0){
+          arr.forEach(elem=>{
+              
+              if (!stringNum[num]){
+                  stringNum.push(elem.slice(i-2,i+1))
+              } else {
+                  
+                  stringNum[num]+=elem.slice(i-2,i+1)
+              } 
+              
+          })
+          num++;
+      }
+  }
+
+  const presets={
+      "     |  |":"1",
+      " _  _||_ ":"2",
+      " _  _| _|":"3",
+      "   |_|  |":"4",
+      " _ |_  _|":"5",
+      " _ |_ |_|":"6",
+      " _   |  |":"7",
+      " _ |_||_|":"8",
+      " _ |_| _|":"9",
+      " _ | ||_|":"0",
+  }
+
+  return +stringNum.reduce((acc,elem)=>{
+      return acc+presets[elem];
+  },"")
 }
 
 
@@ -69,8 +105,30 @@ export function parseBankAccount(bankAccount) {
  *      'characters.'
  */
 export function* wrapText(text, columns) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  
+  const arrWords=text.split(' ');
+ 
+  let output=[];
+  let indexWord=0;
+
+  for (let i=0; i<arrWords.length;i++){
+      const word =arrWords[i];
+
+      const newOutput=output.concat([word])
+      const newOutputString=newOutput.join(' ').length;
+
+      
+      if (newOutputString>columns) {
+          yield output.join(' ');
+          output=[];
+          i--;
+          
+      } else {
+          output=newOutput;
+          if (i===arrWords.length-1) yield output.join(' ');
+      }
+  }
+
 }
 
 

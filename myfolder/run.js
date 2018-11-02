@@ -1,87 +1,48 @@
-function canDominoesMakeRow(dominoes) {
-    
-    const startIndex=0;
+function parseBankAccount(bankAccount) {
+ 
+    const arr=bankAccount.split("\n").slice(0,-1);
+    const stringNum=[];//array with numbers parsed from string
+    const length=arr[0].length;
+    let num=0;
 
-    let sideLeft=0;
-    let indexLeft=startIndex;
-    let dominoLeft=dominoes[indexLeft];
-
-    let sideRight=1;
-    let indexRight=startIndex;
-    let dominoRight=dominoes[indexRight];
-
-    
-    //movement to the right
-    for (let i=0;i<dominoes.length;i++){
-        const elem=dominoes[i];
-        if (!elem[0] && !elem[1]) continue;
-        if ( i===indexRight ) continue;
-    
-
-        if (elem[0]===dominoRight[sideRight] ){
-            elem[0]=null;
-            dominoRight[sideRight]=null;
-
-            indexRight=i;
-            dominoRight=elem;
-            sideRight=1;
-            i=0;
-            continue;
+    for (let i=0;i<length;i++){
+        if ((i+1)%3===0){
+            arr.forEach(elem=>{
+                
+                if (!stringNum[num]){
+                    stringNum.push(elem.slice(i-2,i+1))
+                } else {
+                    
+                    stringNum[num]+=elem.slice(i-2,i+1)
+                } 
+                
+            })
+            num++;
         }
+    }
 
-        if (elem[1]===dominoRight[sideRight] ){
-            elem[1]=null;
-            dominoRight[sideRight]=null;
+    const presets={
+        "     |  |":"1",
+        " _  _||_ ":"2",
+        " _  _| _|":"3",
+        "   |_|  |":"4",
+        " _ |_  _|":"5",
+        " _ |_ |_|":"6",
+        " _   |  |":"7",
+        " _ |_||_|":"8",
+        " _ |_| _|":"9",
+        " _ | ||_|":"0",
+    }
 
-            indexRight=i;
-            dominoRight=elem;
-            sideRight=0;
-            i=0;
-            continue;
-        }
-    } 
-
-    //movement to the left
-    for (let i=0;i<dominoes.length;i++){
-        const elem=dominoes[i];
-        if (!elem[0] && !elem[1]) continue;
-        if ( i===indexLeft ) continue;
-    
-
-        if (elem[0]===dominoLeft[sideLeft] ){
-            elem[0]=null;
-            dominoLeft[sideLeft]=null;
-
-            indexLeft=i;
-            dominoRight=elem;
-            sideLeft=1;
-            i=0;
-            continue;
-        }
-
-        if (elem[1]===dominoLeft[sideLeft] ){
-            elem[1]=null;
-            dominoLeft[sideLeft]=null;
-
-            indexLeft=i;
-            dominoLeft=elem;
-            sideLeft=0;
-            i=0;
-            continue;
-        }
-    } 
-    
-    return !!!dominoes.find(elem=>elem[0] && elem[1])
+    return +stringNum.reduce((acc,elem)=>{
+        return acc+presets[elem];
+    },"")
 }
 
-const dom0=[null,  null];
-const dom1=[[0,1],  [1,1]];
-const dom2=[[1,1], [2,2], [1,5], [5,6], [6,3]];
-const dom3=[[1,3], [2,3], [1,4], [2,4], [1,5], [2,5]];
-const dom4=[[0,0], [0,1], [1,1], [0,2], [1,2], [2,2], [0,3], [1,3], [2,3], [3,3]];
 
-// console.log(canDominoesMakeRow(dom0))
-// console.log(canDominoesMakeRow(dom1))
-// console.log(canDominoesMakeRow(dom2)) 
-// console.log(canDominoesMakeRow(dom3))
-console.log(canDominoesMakeRow(dom4)) 
+const str1= '    _  _     _  _  _  _  _ \n'+
+            '  | _| _||_||_ |_   ||_||_|\n'+
+            '  ||_  _|  | _||_|  ||_| _|\n'
+
+
+console.log(parseBankAccount(str1)); 

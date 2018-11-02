@@ -235,8 +235,79 @@ export function getZigZagMatrix(n) {
  *
  */
 export function canDominoesMakeRow(dominoes) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+     
+  const startIndex=0;
+
+  let sideLeft=0;
+  let indexLeft=startIndex;
+  let dominoLeft=dominoes[indexLeft];
+
+  let sideRight=1;
+  let indexRight=startIndex;
+  let dominoRight=dominoes[indexRight];
+
+  
+  //movement to the right
+  for (let i=0;i<dominoes.length;i++){
+      const elem=dominoes[i];
+      if (!elem[0] && !elem[1]) continue;
+      if ( i===indexRight ) continue;
+  
+
+      if (elem[0]===dominoRight[sideRight] ){
+          elem[0]=null;
+          dominoRight[sideRight]=null;
+
+          indexRight=i;
+          dominoRight=elem;
+          sideRight=1;
+          i=0;
+          continue;
+      }
+
+      if (elem[1]===dominoRight[sideRight] ){
+          elem[1]=null;
+          dominoRight[sideRight]=null;
+
+          indexRight=i;
+          dominoRight=elem;
+          sideRight=0;
+          i=0;
+          continue;
+      }
+  } 
+
+  //movement to the left
+  for (let i=0;i<dominoes.length;i++){
+      const elem=dominoes[i];
+      if (!elem[0] && !elem[1]) continue;
+      if ( i===indexLeft ) continue;
+  
+
+      if (elem[0]===dominoLeft[sideLeft] ){
+          elem[0]=null;
+          dominoLeft[sideLeft]=null;
+
+          indexLeft=i;
+          dominoRight=elem;
+          sideLeft=1;
+          i=0;
+          continue;
+      }
+
+      if (elem[1]===dominoLeft[sideLeft] ){
+          elem[1]=null;
+          dominoLeft[sideLeft]=null;
+
+          indexLeft=i;
+          dominoLeft=elem;
+          sideLeft=0;
+          i=0;
+          continue;
+      }
+  } 
+  
+  return !!!dominoes.find(elem=>elem[0] && elem[1])
 }
 
 

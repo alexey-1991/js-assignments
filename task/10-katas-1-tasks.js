@@ -164,16 +164,6 @@ export function getZigZagMatrix(n) {
 
   // creating Array
 
-  //First way to create Array
-  // let result=new Array(n).fill(new Array(n).fill(1));
-  //
-  // result[1][1]=20;
-  // console.log( result);
-
-  //console.log( result):
-  // [ [ 1, 20, 1 ], [ 1, 20, 1 ], [ 1, 20, 1 ] ] --- ????? object???
-
-
   //Second way to create Array
   let result=[];
 
@@ -272,6 +262,33 @@ export function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 export function extractRanges(nums) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let result="";
+  result+=nums[0];
+  for (let i=1; i<nums.length;i++){
+
+      const prev=nums[i-1];
+      const curr=nums[i];
+      const next=nums[i+1];
+
+      const diffPrev=((curr-prev)===1 );
+      const diffNext=((next-curr)===1 );
+
+      if (i===1 && !diffPrev){
+          result+=`,`;
+      }
+      if (diffPrev && !diffNext){
+          const separator=((curr-nums[i-2])===2)?"-":","
+          result+=`${separator}${curr}`;
+          if (i!==nums.length-1) result+=`,`;
+      }
+      if (!diffPrev && !diffNext){
+          result+=`${curr}`;
+          if (i!==nums.length-1) result+=`,`;
+      }
+      if (!diffPrev && diffNext){
+          result+=`${curr}`;
+      }
+  }
+
+  return result
 }

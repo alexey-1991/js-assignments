@@ -120,20 +120,22 @@ export function* getFibonacciSequence() {
  *
  */
 export function* depthTraversalTree(root) {
-
   throw new Error('Not implemented');
   yield root;
 
   if (root.children) {
 
-    for (let node of root.children){
+      for (let node of root.children){
 
-      if (node.children) {
-        yield* depthTraversalTree(node);
-      } else yield node;
-    }
+          if (node.children) {
+              yield* depthTraversalTree(node);
+          } else {
+              yield node;
+          };
+
+      }
+
   }
-
 }
 
 

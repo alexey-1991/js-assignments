@@ -105,8 +105,30 @@ export function parseBankAccount(bankAccount) {
  *      'characters.'
  */
 export function* wrapText(text, columns) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  
+  const arrWords=text.split(' ');
+ 
+  let output=[];
+  let indexWord=0;
+
+  for (let i=0; i<arrWords.length;i++){
+      const word =arrWords[i];
+
+      const newOutput=output.concat([word])
+      const newOutputString=newOutput.join(' ').length;
+
+      
+      if (newOutputString>columns) {
+          yield output.join(' ');
+          output=[];
+          i--;
+          
+      } else {
+          output=newOutput;
+          if (i===arrWords.length-1) yield output.join(' ');
+      }
+  }
+
 }
 
 

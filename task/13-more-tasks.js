@@ -72,8 +72,17 @@ export function lowerLetters(value) {
  */
 
 export function titleCaseConvert(title, minorWords) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+    if (!minorWords) minorWords="";
+
+    const lowerTitleArr=title.toLowerCase().split(" ");
+    const minorWordsArr=minorWords.split(' ').map(word=>word.toLowerCase());
+
+    const resultTitleArr=lowerTitleArr.map((word,i)=>{
+        if (minorWordsArr.includes(word) && i!==0) return word;
+        return word[0].toUpperCase()+word.slice(1) ;
+    })
+
+    return resultTitleArr.join(" ")
 }
 
 /**

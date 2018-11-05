@@ -103,6 +103,47 @@ export function titleCaseConvert(title, minorWords) {
  */
 
 export function calcRPN(expr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+    if (!expr) return 0; 
+
+    const orerandReg=/\*|\+|-|\//;
+    const numberReg=/\d/;
+    let buffer=[];
+    let exprArr=expr.split(" ");
+
+    
+    if (!orerandReg.test(expr)) return exprArr[exprArr.length-1];
+
+    while (exprArr.length!==1){
+
+        for (let i=0;i<exprArr.length;i++){
+            const elem=exprArr[i];
+
+            let prevPrevElem;
+            let prevElem;
+                
+            if (i>=2){
+                prevElem=exprArr[i-1];
+                prevPrevElem=exprArr[i-2];
+            }
+
+            if (orerandReg.test(elem) && i>=2) {
+                buffer=[prevPrevElem,prevElem];
+                const newvalue=countBuffer(buffer,elem);
+                exprArr=[].concat(
+                    exprArr.slice(0,i-2),
+                    [newvalue],
+                    exprArr.slice(i+1)
+                )
+                break;
+            } 
+            if (i<2 && orerandReg.test(elem)) console
+                            .log("syntax error: incorrect input")
+        }
+    }
+
+    return exprArr[0];
+}
+
+function countBuffer(buffer,operand){
+    return eval(buffer.join(operand))
 }

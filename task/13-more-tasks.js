@@ -42,8 +42,15 @@ export function distinctLettersString(value1, value2) {
  */
 
 export function lowerLetters(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const lettersObj={};
+    const reg=/[a-z]*/g
+    const lettersArr= value.match(reg).join("").split("");
+
+    lettersArr.forEach(elem => {
+        lettersObj[elem]=lettersObj[elem]+1||1;
+    });
+
+    return lettersObj;
 }
 
 /**

@@ -1,24 +1,15 @@
-function distinctLettersString(value1, value2) {
+function lowerLetters(value) {
     
-    const initialArr=[value1,value2];
-    const letters={};
+    const lettersObj={};
+    const reg=/[a-z]*/g
+    const lettersArr= value.match(reg).join("").split("");
 
-    initialArr.forEach(str=>{
-        str.split('').forEach(letter=>{
-            letters[letter]=1;
-        })
-    })
+    lettersArr.forEach(elem => {
+        lettersObj[elem]=lettersObj[elem]+1||1;
+    });
 
-    const keys=Object.keys(letters);
-    const sortArr=keys.sort((a,b)=>a.charCodeAt(0)-b.charCodeAt(0))
+    return lettersObj;
 
-    return sortArr.join("");
 }
-
-const s1='abcdefghijklmnop';
-const s2='lmnopqrstuvwxyz';
-
-const s3='azy';
-const s4='bk';
-
-console.log(distinctLettersString(s1,s2))
+const str='Who you are, Buddy?';
+console.log(lowerLetters(str))

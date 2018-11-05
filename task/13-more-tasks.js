@@ -12,8 +12,20 @@
  *   'abcdefghijklmnop',  'lmnopqrstuvwxyz'  => 'abcdefghijklmnopqrstuvwxyz'
  */
 export function distinctLettersString(value1, value2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  
+  const initialArr=[value1,value2];
+  const letters={};
+
+  initialArr.forEach(str=>{
+      str.split('').forEach(letter=>{
+          letters[letter]=1;
+      })
+  })
+
+  const keys=Object.keys(letters);
+  const sortArr=keys.sort((a,b)=>a.charCodeAt(0)-b.charCodeAt(0))
+
+  return sortArr.join("");
 }
 
 

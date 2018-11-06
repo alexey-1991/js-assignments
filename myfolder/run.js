@@ -1,60 +1,65 @@
-function calcRPN(expr) {
-    if (!expr) return 0; 
-
-    const orerandReg=/\*|\+|-|\//;
-    const numberReg=/\d/;
-    let buffer=[];
-    let exprArr=expr.split(" ");
-
+function* mergeSortedSequences(source1, source2) {
     
-    if (!orerandReg.test(expr)) return exprArr[exprArr.length-1];
+    const iterator1=source1();
+    const iterator2=source2();
 
-    while (exprArr.length!==1){
+    let num1=iterator1.next().value;
+    let num2=iterator2.next().value;
 
-        for (let i=0;i<exprArr.length;i++){
-            const elem=exprArr[i];
-
-            let prevPrevElem;
-            let prevElem;
-                
-            if (i>=2){
-                prevElem=exprArr[i-1];
-                prevPrevElem=exprArr[i-2];
-            }
-
-            if (orerandReg.test(elem) && i>=2) {
-                buffer=[prevPrevElem,prevElem];
-                const newvalue=countBuffer(buffer,elem);
-                exprArr=[].concat(
-                    exprArr.slice(0,i-2),
-                    [newvalue],
-                    exprArr.slice(i+1)
-                )
-                break;
-            } 
-            if (i<2 && orerandReg.test(elem)) console
-                            .log("syntax error: incorrect input")
+    while (true){
+        
+        if(num1<=num2){
+            yield num1;
+            num1=iterator1.next().value;
+            continue;
+        } 
+        if(num2<num1){
+            yield num2;
+            num2=iterator2.next().value;
+            continue;
         }
+        if (!num1) {
+            yield num2;
+            num2=iterator2.next().value;
+            continue;
+        }
+        if (!num2) {
+            yield num1;
+            num1=iterator1.next().value;
+            continue;
+        }
+        return console.log("Something Wrong!!!")
     }
-
-    return exprArr[0]
 }
 
-function countBuffer(buffer,operand){
-    return eval(buffer.join(operand))
-}
+const odds = function* () {
+    
+    for (let i = 1; true; i += 2) {
+        // if (i>10) return;
+        yield i;
+    }
+};
+const evens = function* () {
+   
+    for (let i = 2; true; i += 2) {
+        // if (i>10) return;
+        yield i;
+    }
+};
+
+const zero = function* () { yield -1; };
 
 
-const expr='';
-const expr1='1 2 3';
-const expr2='4 2 +';
-const expr3='2 5 * 2 + 3 /';
-const expr4='5 1 2 + 4 * + 3 -';
 
-console.log(calcRPN(expr))
-console.log(calcRPN(expr1))
-console.log(calcRPN(expr2))
-console.log(calcRPN(expr3))
-console.log(calcRPN(expr4))
+
+const sequence=mergeSortedSequences(odds,zero);
+console.log(sequence.next())
+console.log(sequence.next())
+console.log(sequence.next())
+console.log(sequence.next())
+console.log(sequence.next())
+console.log(sequence.next())
+console.log(sequence.next())
+
 
 

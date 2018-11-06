@@ -1,31 +1,45 @@
-function* depthTraversalTree(root) {
+function* depthTraversalTree_ver2(root) {
+ 
+  let currentNode=root;
+  let nextNode;
 
-  let chain=[root];
-  let current=chain[0];
-  let index=0;
-  yield current;
+  let visitedNodes={};//obj with names of the visited nodes
+  let yielded={};//obj with obj when they are yielded;
 
-  while(current.children){
+  yield currentNode;
 
-    current=current.children[index];
-    chain.push(current);
+  while (!visitedNodes["1"]){    
+      
+      if (currentNode.children){
 
-    yield current;
+          for (let i=0;i<currentNode.children.length;i++){
+              const node=currentNode.children[i];
+              if (!visitedNodes[node.n+""]){
+                  nextNode=node;
+                  break;
+              }
+          }
 
+          if (nextNode){
+              currentNode=nextNode;
+              nextNode=null;
 
+              if (!yielded[currentNode.n+""]){
+                  yield currentNode;
+                  yielded[currentNode.n+""]=1;
+              }
+              
+          } else {
+              visitedNodes[currentNode.n+""]=1;
+              currentNode=root;
+              continue;
+          }
 
-    //moving up to find node with childrens
-    let j=0;//index for iterate childrens
-    while(!current.children){
-      chain=chain.slice(0,-1);
-
-      current=chain[chain.length-1];
-      current.children=null;
-
-    }
-
+      } else {
+          visitedNodes[currentNode.n+""]=1;
+          currentNode=root;
+      }
   }
-
 }
 
 const node1 = { n: 1 };

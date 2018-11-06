@@ -120,22 +120,47 @@ export function* getFibonacciSequence() {
  *
  */
 export function* depthTraversalTree(root) {
-  throw new Error('Not implemented');
-  yield root;
+ 
+    let currentNode=root;
+    let nextNode;
+    let stack=[];
+    let visitedNodes={};//obj with names of the visited nodes
 
-  if (root.children) {
+    stack.push(currentNode);
+    yield currentNode;
 
-      for (let node of root.children){
+    while (stack.length!==0){    
+        
+        if (currentNode.children){
 
-          if (node.children) {
-              yield* depthTraversalTree(node);
-          } else {
-              yield node;
-          };
+            for (let i=0;i<currentNode.children.length;i++){
+                const node=currentNode.children[i];
+                if (!visitedNodes[node.n+""]){
+                    nextNode=node;
+                    break;
+                }
+            }
 
-      }
+            if (nextNode){
+                currentNode=nextNode;
+                nextNode=null;
+                yield currentNode;
+            } else {
+                stack.pop();
+                // stack=stack.slice(0,-1);
+                visitedNodes[currentNode.n+""]=1;
+                currentNode=stack[stack.length-1]
+                continue;
+            }
+            stack.push(currentNode);
 
-  }
+        } else {
+            stack.pop();
+            // stack=stack.slice(0,-1);
+            visitedNodes[currentNode.n+""]=1;
+            currentNode=stack[stack.length-1]
+        }
+    }
 }
 
 

@@ -1,5 +1,5 @@
 function getMostProfitFromStockQuotes(quotes) {
-  let income = 0;
+  let expense = 0;
   let profit = [];
 
   for (let day = 0; day < quotes.length; day++) {
@@ -8,9 +8,9 @@ function getMostProfitFromStockQuotes(quotes) {
       continue;
     }
 
-    income += quotes[day - 1];
-    const expense = (day) * quotes[day];
-    const currentProfit = expense - income;
+    expense += quotes[day - 1];
+    const income = (day) * quotes[day];
+    const currentProfit = income - expense;
 
     profit.push(currentProfit);
   }
@@ -18,5 +18,5 @@ function getMostProfitFromStockQuotes(quotes) {
   // return profit.sort((a,b)=>b-a)[0];
 }
 
-const quote = [1, 20, 1, 30, 1, 40, 1, 50, 1, 40, 1, 30, 1, 20, 1];
+const quote = [1, 6, 5, 10, 8, 7];
 console.log(getMostProfitFromStockQuotes(quote))

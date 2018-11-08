@@ -4,7 +4,7 @@
   "description": "JS training tasks",
   "scripts": {
     "lint": "eslint ./task/*.js",
-    "precommitssss": "lint-staged",
+    "precommits": "lint-staged",
     "test": "./node_modules/.bin/mocha --require babel-core/register",
     "test-debug": "./node_modules/.bin/mocha --debug-brk"
   },

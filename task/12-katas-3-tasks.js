@@ -112,8 +112,30 @@ export function findStringInSnakingPuzzle(puzzle, searchStr) {
  *    'abc' => 'abc','acb','bac','bca','cab','cba'
  */
 export function* getPermutations(chars) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const n = fact(chars.length);
+  const array = chars.split('');
+
+  for (let j = 0; j < n; j++) {
+    yield nth_permutation(array, j);
+  }
+}
+
+function nth_permutation(array, index) {
+  let result = '';
+  let workArray = [].concat(array);
+  const length = workArray.length;
+  for (let i = 0; i < length; i++) {
+    let item = index % workArray.length;
+    index = Math.floor(index / workArray.length);
+    result += workArray[item];
+    workArray.splice(item, 1);
+  }
+  return result;
+}
+
+function fact(n) {
+  if (n === 0 || n === 1) return 1;
+  return n * fact(n - 1);
 }
 
 

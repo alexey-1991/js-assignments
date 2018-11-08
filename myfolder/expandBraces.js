@@ -1,3 +1,6 @@
+
+
+
 function* expandBraces(str) {
 
     //searching braces type of
@@ -22,36 +25,6 @@ function* expandBraces(str) {
     });
 
     //combinations
-    let result = [];
-    let combinations = [];
-    for (let m = 0; m < editableArr.length; m++) {
-        const name = `br${m}`;
-        const regName = new RegExp(name);
-        for (let n = 0; n < editableArr[m].length; n++) {
-
-            if (m === 0) {
-                const combination = workStr.replace(regName, editableArr[m][n]);
-                combinations.push(combination);
-            } else {
-
-                const newCombinations = combinations.map(elem => {
-                    return elem.replace(regName, editableArr[m][n]);
-                });
-                result = result.concat(newCombinations)
-            }
-        }
-    }
-
-    console.log('combinations:', combinations)
-    console.log('result:', result)
-
-
-
-    const stringReplaced = str.replace(reg, '###');
-
-
-
-
 
 
     yield 'asdsad';

@@ -1,86 +1,30 @@
-function getRectangleString(width, height) {
-  let result = '';
+function encodeToRot13(str) {
 
-  for (let row = 1; row <= height; row++) {
+  const strEng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const strRot = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  // const Alphabeth = {};
+  // const reg=/[^a-z]/i;
+  // let j = 0;
 
-    switch (row) {
-    case 1:
+  // for (let char of strEng) {
+  //   Alphabeth[char] = strRot[j];
+  //   j++;
+  // }
 
-      for (let col = 1; col <= width; col++) {
-        switch (col) {
-        case 1:
-          result = result + '┌';
-          break;
-        case width:
-          result = result + '┐\n';
-          break;
-        default:
-          result = result + '─';
-          break;
+  // let result = '';
+  // for (let char of str) {
+  //   if (reg.test(char)) { 
+  //     result += char;
+  //   } else {
+  //     result += Alphabeth[char];
+  //   }
+  // }
+  // return result;
 
-        }
-      }
-
-      break;
-
-    case height:
-
-      for (let col = 1; col <= width; col++) {
-        switch (col) {
-        case 1:
-
-          result = result + '└';
-          break;
-        case width:
-          result = result + '┘\n';
-          break;
-        default:
-          result = result + '─';
-          break;
-        }
-      }
-      break;
-
-    default:
-
-      for (let col = 1; col <= width; col++) {
-        switch (col) {
-        case 1:
-          result = result + '│';
-          break;
-        case width:
-          result = result + '│\n';
-          break;
-        default:
-          result = result + ' ';
-          break;
-        }
-      }
-      break;
-
-    }
-
-  }
-
-  return result;
+  return str.split('').map(elem=>{
+    const item=strRot[strEng.indexOf(elem)];
+    return (item)? item : elem
+  }).join('');
 }
 
-
-function getRectangleString2(width, height){
-  let result='';
-  for (let row = 0; row < height; row++) {
-      
-    if (row===0){
-      result+=`┌${'─'.repeat(width-2)}┐\n`;
-      continue;
-    };
-    if (row===height-1){
-      result+=`└${'─'.repeat(width-2)}┘\n`;
-      continue;
-    };
-    result+=`│${' '.repeat(width-2)}│\n`;
-  }
-  return result;
-}
-
-console.log(getRectangleString2(6,4))
+console.log('a'.charCodeAt(0))

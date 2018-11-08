@@ -17,5 +17,6 @@ function getMostProfitFromStockQuotes(quotes) {
   return profit
   // return profit.sort((a,b)=>b-a)[0];
 }
+
 const quote = [1, 20, 1, 30, 1, 40, 1, 50, 1, 40, 1, 30, 1, 20, 1];
 console.log(getMostProfitFromStockQuotes(quote))

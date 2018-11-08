@@ -200,20 +200,9 @@ export function extractEmails(str) {
  *
  */
 export function getRectangleString(width, height) {
-  let result='';
-  for (let row = 0; row < height; row++) {
-      
-    if (row===0){
-      result+=`┌${'─'.repeat(width-2)}┐\n`;
-      continue;
-    }
-    if (row===height-1){
-      result+=`└${'─'.repeat(width-2)}┘\n`;
-      continue;
-    }
-    result+=`│${' '.repeat(width-2)}│\n`;
-  }
-  return result;
+  return  `┌${'─'.repeat(width-2)}┐\n`+
+          `│${' '.repeat(width-2)}│\n`.repeat(height-2)+
+          `└${'─'.repeat(width-2)}┘\n`;
 }
 
 
@@ -239,24 +228,11 @@ export function encodeToRot13(str) {
 
   const strEng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   const strRot = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-  const Alphabeth = {};
-  const reg=/[^a-z]/i;
-  let j = 0;
 
-  for (let char of strEng) {
-    Alphabeth[char] = strRot[j];
-    j++;
-  }
-
-  let result = '';
-  for (let char of str) {
-    if (reg.test(char)) { 
-      result += char;
-    } else {
-      result += Alphabeth[char];
-    }
-  }
-  return result;
+  return str.split('').map(elem=>{
+    const item=strRot[strEng.indexOf(elem)];
+    return (item)? item : elem;
+  }).join('');
 }
 
 

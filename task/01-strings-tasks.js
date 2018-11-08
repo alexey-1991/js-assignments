@@ -128,9 +128,7 @@ export function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 export function removeFirstOccurrences(str, value) {
-  return ((new RegExp(` ${value} `)).test(str)) ?
-    str = str.replace(new RegExp(` ${value} `), ' ') :
-    str = str.replace(new RegExp(value), '');
+  return str.replace(value, '');
 }
 
 /**
@@ -145,7 +143,7 @@ export function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 export function unbracketTag(str) {
-  return str.split('').slice(1, -1).join('');
+  return str.slice(1, -1);
 }
 
 
@@ -202,69 +200,19 @@ export function extractEmails(str) {
  *
  */
 export function getRectangleString(width, height) {
-  let result = '';
-
-  for (let row = 1; row <= height; row++) {
-
-    switch (row) {
-    case 1:
-
-      for (let col = 1; col <= width; col++) {
-        switch (col) {
-        case 1:
-          result = result + '┌';
-          break;
-        case width:
-          result = result + '┐\n';
-          break;
-        default:
-          result = result + '─';
-          break;
-
-        }
-      }
-
-      break;
-
-    case height:
-
-      for (let col = 1; col <= width; col++) {
-        switch (col) {
-        case 1:
-
-          result = result + '└';
-          break;
-        case width:
-          result = result + '┘\n';
-          break;
-        default:
-          result = result + '─';
-          break;
-        }
-      }
-      break;
-
-    default:
-
-      for (let col = 1; col <= width; col++) {
-        switch (col) {
-        case 1:
-          result = result + '│';
-          break;
-        case width:
-          result = result + '│\n';
-          break;
-        default:
-          result = result + ' ';
-          break;
-        }
-      }
-      break;
-
+  let result='';
+  for (let row = 0; row < height; row++) {
+      
+    if (row===0){
+      result+=`┌${'─'.repeat(width-2)}┐\n`;
+      continue;
     }
-
+    if (row===height-1){
+      result+=`└${'─'.repeat(width-2)}┘\n`;
+      continue;
+    }
+    result+=`│${' '.repeat(width-2)}│\n`;
   }
-
   return result;
 }
 
@@ -289,23 +237,25 @@ export function getRectangleString(width, height) {
 
 export function encodeToRot13(str) {
 
-  //  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' =>
-  //        'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
-  let strEng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ?!';
-  let strRot = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm ?!';
-  let Alphabeth = {};
+  const strEng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const strRot = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  const Alphabeth = {};
+  const reg=/[^a-z]/i;
   let j = 0;
 
-  for (let i of strEng) {
-    Alphabeth[i] = strRot[j];
+  for (let char of strEng) {
+    Alphabeth[char] = strRot[j];
     j++;
   }
 
   let result = '';
-  for (let i of str) {
-    result += Alphabeth[i];
+  for (let char of str) {
+    if (reg.test(char)) { 
+      result += char;
+    } else {
+      result += Alphabeth[char];
+    }
   }
-
   return result;
 }
 
@@ -324,18 +274,7 @@ export function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 export function isString(str) {
-  let result = false;
-  try {
-
-    if (str.charAt(1)) {
-      return result = true;
-    } else {
-      throw new Error();
-    }
-  } catch (e) {
-    return result;
-  }
-  
+  return ((str instanceof String) || (typeof str==='string'));
 }
 
 
@@ -364,13 +303,9 @@ export function isString(str) {
  *   'K♠' => 51
  */
 export function getCardId(value) {
-  let myAlpha = {};
-  let cardsArr = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+  const cardsArr = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
     'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
     'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
     'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
-  for (let i = 0; i <= cardsArr.length - 1; i++) {
-    myAlpha[cardsArr[i]] = i;
-  }
-  return myAlpha[value];
+  return cardsArr.indexOf(value);
 }

@@ -64,23 +64,3 @@ function getRectangleString(width, height) {
 
   return result;
 }
-
-
-function getRectangleString2(width, height){
-  let result='';
-  for (let row = 0; row < height; row++) {
-      
-    if (row===0){
-      result+=`┌${'─'.repeat(width-2)}┐\n`;
-      continue;
-    };
-    if (row===height-1){
-      result+=`└${'─'.repeat(width-2)}┘\n`;
-      continue;
-    };
-    result+=`│${' '.repeat(width-2)}│\n`;
-  }
-  return result;
-}
-
-console.log(getRectangleString2(6,4))

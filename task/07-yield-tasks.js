@@ -9,7 +9,7 @@
 
 
 /**
- * Returns the lines sequence of "99 Bottles of Beer" song:
+ * Returns the lines sequence of '99 Bottles of Beer' song:
  *
  *  '99 bottles of beer on the wall, 99 bottles of beer.'
  *  'Take one down and pass it around, 98 bottles of beer on the wall.'
@@ -35,11 +35,11 @@ export function* get99BottlesOfBeer() {
   let messageFirst;
   let messageSecond;
 
-  for (let i=99;i>=2;i--){
+  for (let i = 99; i >= 2; i--) {
 
-    if (i==2){
+    if (i === 2) {
       yield `2 bottles of beer on the wall, 2 bottles of beer.`;
-      yield  `Take one down and pass it around, 1 bottle of beer on the wall.`;
+      yield `Take one down and pass it around, 1 bottle of beer on the wall.`;
       yield '1 bottle of beer on the wall, 1 bottle of beer.';
       yield 'Take one down and pass it around, no more bottles of beer on the wall.';
       yield 'No more bottles of beer on the wall, no more bottles of beer.';
@@ -47,8 +47,8 @@ export function* get99BottlesOfBeer() {
       return;
     }
 
-    messageFirst=`${i} bottles of beer on the wall, ${i} bottles of beer.`;
-    messageSecond=`Take one down and pass it around, ${i-1} bottles of beer on the wall.`;
+    messageFirst = `${i} bottles of beer on the wall, ${i} bottles of beer.`;
+    messageSecond = `Take one down and pass it around, ${i - 1} bottles of beer on the wall.`;
 
     yield messageFirst;
     yield messageSecond;
@@ -69,7 +69,7 @@ export function* get99BottlesOfBeer() {
  *
  */
 export function* getFibonacciSequence() {
-  let arr=[];
+  let arr = [];
   let elem;
 
   arr.push(0);
@@ -121,50 +121,50 @@ export function* getFibonacciSequence() {
  */
 export function* depthTraversalTree(root) {
   throw new Error('Not implemented');
-/*   const visitedNodes={};
-
-  let currentNode=root;
-  let nextNode;
-
-  let stack=[];
-  stack.push(currentNode);
-  yield currentNode;
-
-  while(stack.length!==0){
-
-    if (currentNode.children){
-
-      for(let i=0;i<currentNode.children.length;i++){
-        if (!visitedNodes[currentNode.children[i].n+""]){
-          nextNode=currentNode.children[i];
-          break;
+  /*   const visitedNodes={};
+  
+    let currentNode=root;
+    let nextNode;
+  
+    let stack=[];
+    stack.push(currentNode);
+    yield currentNode;
+  
+    while(stack.length!==0){
+  
+      if (currentNode.children){
+  
+        for(let i=0;i<currentNode.children.length;i++){
+          if (!visitedNodes[currentNode.children[i].n+'']){
+            nextNode=currentNode.children[i];
+            break;
+          }
         }
-      }
-
-      if (nextNode){
-
-        currentNode=nextNode;
-        nextNode=null;
-        stack.push(currentNode);
-        yield currentNode;
-
+  
+        if (nextNode){
+  
+          currentNode=nextNode;
+          nextNode=null;
+          stack.push(currentNode);
+          yield currentNode;
+  
+        } else {
+          visitedNodes[currentNode.n+'']=1;
+  
+          stack.pop();
+          currentNode=stack[stack.length-1];
+          nextNode=null;
+        }
+  
       } else {
-        visitedNodes[currentNode.n+""]=1;
-
+        visitedNodes[currentNode.n+'']=1;
+  
         stack.pop();
         currentNode=stack[stack.length-1];
         nextNode=null;
       }
-
-    } else {
-      visitedNodes[currentNode.n+""]=1;
-
-      stack.pop();
-      currentNode=stack[stack.length-1];
-      nextNode=null;
-    }
-
-  } */
+  
+    } */
 }
 
 
@@ -209,34 +209,34 @@ export function* breadthTraversalTree(root) {
  */
 export function* mergeSortedSequences(source1, source2) {
 
-  const iterator1=source1();
-  const iterator2=source2();
+  const iterator1 = source1();
+  const iterator2 = source2();
 
-  let num1=iterator1.next().value;
-  let num2=iterator2.next().value;
+  let num1 = iterator1.next().value;
+  let num2 = iterator2.next().value;
 
-  while (true){
+  while (true) {
 
-      if(num1<=num2){
-          yield num1;
-          num1=iterator1.next().value;
-          continue;
-      }
-      if(num2<num1){
-          yield num2;
-          num2=iterator2.next().value;
-          continue;
-      }
-      if (!num1) {
-          yield num2;
-          num2=iterator2.next().value;
-          continue;
-      }
-      if (!num2) {
-          yield num1;
-          num1=iterator1.next().value;
-          continue;
-      }
-      return console.log("Something Wrong!!!")
+    if (num1 <= num2) {
+      yield num1;
+      num1 = iterator1.next().value;
+      continue;
+    }
+    if (num2 < num1) {
+      yield num2;
+      num2 = iterator2.next().value;
+      continue;
+    }
+    if (!num1) {
+      yield num2;
+      num2 = iterator2.next().value;
+      continue;
+    }
+    if (!num2) {
+      yield num1;
+      num1 = iterator1.next().value;
+      continue;
+    }
+    return;
   }
 }

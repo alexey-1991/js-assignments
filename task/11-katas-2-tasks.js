@@ -37,43 +37,43 @@
  */
 export function parseBankAccount(bankAccount) {
 
-  const arr=bankAccount.split("\n").slice(0,-1);
-  const stringNum=[];//array with numbers parsed from string
-  const length=arr[0].length;
-  let num=0;
+  const arr = bankAccount.split('\n').slice(0, -1);
+  const stringNum = [];//array with numbers parsed from string
+  const length = arr[0].length;
+  let num = 0;
 
-  for (let i=0;i<length;i++){
-      if ((i+1)%3===0){
-          arr.forEach(elem=>{
+  for (let i = 0; i < length; i++) {
+    if ((i + 1) % 3 === 0) {
+      arr.forEach(elem => {
 
-              if (!stringNum[num]){
-                  stringNum.push(elem.slice(i-2,i+1))
-              } else {
+        if (!stringNum[num]) {
+          stringNum.push(elem.slice(i - 2, i + 1));
+        } else {
 
-                  stringNum[num]+=elem.slice(i-2,i+1)
-              }
+          stringNum[num] += elem.slice(i - 2, i + 1);
+        }
 
-          })
-          num++;
-      }
+      });
+      num++;
+    }
   }
 
-  const presets={
-      "     |  |":"1",
-      " _  _||_ ":"2",
-      " _  _| _|":"3",
-      "   |_|  |":"4",
-      " _ |_  _|":"5",
-      " _ |_ |_|":"6",
-      " _   |  |":"7",
-      " _ |_||_|":"8",
-      " _ |_| _|":"9",
-      " _ | ||_|":"0",
-  }
+  const presets = {
+    '     |  |': '1',
+    ' _  _||_ ': '2',
+    ' _  _| _|': '3',
+    '   |_|  |': '4',
+    ' _ |_  _|': '5',
+    ' _ |_ |_|': '6',
+    ' _   |  |': '7',
+    ' _ |_||_|': '8',
+    ' _ |_| _|': '9',
+    ' _ | ||_|': '0'
+  };
 
-  return +stringNum.reduce((acc,elem)=>{
-      return acc+presets[elem];
-  },"")
+  return +stringNum.reduce((acc, elem) => {
+    return acc + presets[elem];
+  }, '');
 }
 
 
@@ -106,27 +106,25 @@ export function parseBankAccount(bankAccount) {
  */
 export function* wrapText(text, columns) {
 
-  const arrWords=text.split(' ');
+  const arrWords = text.split(' ');
+  let output = [];
 
-  let output=[];
-  let indexWord=0;
+  for (let i = 0; i < arrWords.length; i++) {
+    const word = arrWords[i];
 
-  for (let i=0; i<arrWords.length;i++){
-      const word =arrWords[i];
-
-      const newOutput=output.concat([word])
-      const newOutputString=newOutput.join(' ').length;
+    const newOutput = output.concat([word]);
+    const newOutputString = newOutput.join(' ').length;
 
 
-      if (newOutputString>columns) {
-          yield output.join(' ');
-          output=[];
-          i--;
+    if (newOutputString > columns) {
+      yield output.join(' ');
+      output = [];
+      i--;
 
-      } else {
-          output=newOutput;
-          if (i===arrWords.length-1) yield output.join(' ');
-      }
+    } else {
+      output = newOutput;
+      if (i === arrWords.length - 1) yield output.join(' ');
+    }
   }
 
 }
@@ -163,147 +161,147 @@ export const PokerRank = {
   OnePair: 1,
   HighCard: 0
 };
-const cardOrder={
-  "A":1,
-  "2":2,
-  "3":3,
-  "4":4,
-  "5":5,
-  "6":6,
-  "7":7,
-  "8":8,
-  "9":9,
-  "10":10,
-  "J":11,
-  "Q":12,
-  "K":13,
+const cardOrder = {
+  'A': 1,
+  '2': 2,
+  '3': 3,
+  '4': 4,
+  '5': 5,
+  '6': 6,
+  '7': 7,
+  '8': 8,
+  '9': 9,
+  '10': 10,
+  'J': 11,
+  'Q': 12,
+  'K': 13
 };
-function checkStraightFlush(hand){
+function checkStraightFlush(hand) {
   //check for similar ♥ ♦ ♣ ♠
-  const reg1=/♥/;
-  const reg2=/♦/;
-  const reg3=/♣/;
-  const reg4=/♠/;
+  const reg1 = /♥/;
+  const reg2 = /♦/;
+  const reg3 = /♣/;
+  const reg4 = /♠/;
 
-  const checkSF1=(
-    hand.every(card=>reg1.test(card))||
-    hand.every(card=>reg2.test(card))||
-    hand.every(card=>reg3.test(card))||
-    hand.every(card=>reg4.test(card))
+  const checkSF1 = (
+    hand.every(card => reg1.test(card)) ||
+        hand.every(card => reg2.test(card)) ||
+        hand.every(card => reg3.test(card)) ||
+        hand.every(card => reg4.test(card))
   );
 
   if (!checkSF1) return false;
 
   //get array with with view of [1,1,...,1,1] if order is correct
   //if Ace:1
-  const order1=hand.map(card=>{
-    return cardOrder[card[0]]||10;
+  const order1 = hand.map(card => {
+    return cardOrder[card[0]] || 10;
   });
-  order1.sort((a,b)=>a-b)
-  const diff1=order1.map((elem,i,arr)=>{
-    const curr=elem;
-    const next=arr[i+1]||curr+1;
-    return next-curr;
-  });
-
-  //if Ace:14
-  const order2=hand.map(card=>{
-    if (card[0]==='A') return 14;
-    return cardOrder[card[0]]||10;
-  });
-  order2.sort((a,b)=>a-b)
-  const diff2=order2.map((elem,i,arr)=>{
-    const curr=elem;
-    const next=arr[i+1]||curr+1;
-    return next-curr;
+  order1.sort((a, b) => a - b);
+  const diff1 = order1.map((elem, i, arr) => {
+    const curr = elem;
+    const next = arr[i + 1] || curr + 1;
+    return next - curr;
   });
 
-  const checkSF2= diff1.every(elem=>elem===1) ||
-    diff2.every(elem=>elem===1);
+    //if Ace:14
+  const order2 = hand.map(card => {
+    if (card[0] === 'A') return 14;
+    return cardOrder[card[0]] || 10;
+  });
+  order2.sort((a, b) => a - b);
+  const diff2 = order2.map((elem, i, arr) => {
+    const curr = elem;
+    const next = arr[i + 1] || curr + 1;
+    return next - curr;
+  });
+
+  const checkSF2 = diff1.every(elem => elem === 1) ||
+        diff2.every(elem => elem === 1);
 
 
   return checkSF2 && checkSF2;
 }
-function checkFourOfKind(hand){
+function checkFourOfKind(hand) {
 
-  const comb1=hand.filter(card=>hand[0][0]===card[0]);
-  const comb2=hand.filter(card=>hand[1][0]===card[0]);
-  return (comb1.length===4) || (comb2.length===4)
+  const comb1 = hand.filter(card => hand[0][0] === card[0]);
+  const comb2 = hand.filter(card => hand[1][0] === card[0]);
+  return (comb1.length === 4) || (comb2.length === 4);
 }
-function checkFullHouse(hand){
-  const comb1=hand.filter(card=>hand[0][0]===card[0]);
-  const comb2=hand.filter(card=>hand[0][0]!==card[0]);
+function checkFullHouse(hand) {
+  const comb1 = hand.filter(card => hand[0][0] === card[0]);
+  const comb2 = hand.filter(card => hand[0][0] !== card[0]);
 
   //check comb2 for similar cards
-  const condtoComb2=comb2.every(card=> comb2[0][0]===card[0]);
+  const condtoComb2 = comb2.every(card => comb2[0][0] === card[0]);
 
-  return ((comb1.length===2) && (comb2.length===3) && condtoComb2) ||
-    ((comb1.length===3) && (comb2.length===2) && condtoComb2)
+  return ((comb1.length === 2) && (comb2.length === 3) && condtoComb2) ||
+        ((comb1.length === 3) && (comb2.length === 2) && condtoComb2);
 }
-function checkFlush(hand){
-  return  hand.every(card=>card[card.length-1]==="♥") ||
-    hand.every(card=>card[card.length-1]==="♦") ||
-    hand.every(card=>card[card.length-1]==="♠") ||
-    hand.every(card=>card[card.length-1]==="♣");
+function checkFlush(hand) {
+  return hand.every(card => card[card.length - 1] === '♥') ||
+        hand.every(card => card[card.length - 1] === '♦') ||
+        hand.every(card => card[card.length - 1] === '♠') ||
+        hand.every(card => card[card.length - 1] === '♣');
 }
-function checkStraight(hand){
+function checkStraight(hand) {
   //get array with with view of [1,1,...,1,1] if order is correct
   //if Ace:1
-  const order1=hand.map(card=>{
-    return cardOrder[card[0]]||10;
+  const order1 = hand.map(card => {
+    return cardOrder[card[0]] || 10;
   });
-  order1.sort((a,b)=>a-b);
-  const diff1=order1.map((elem,i,arr)=>{
-    const curr=elem;
-    const next=arr[i+1]||curr+1;
-    return next-curr;
-  });
-
-  //if Ace:14
-  const order2=hand.map(card=>{
-    if (card[0]==='A') return 14;
-    return cardOrder[card[0]]||10;
-  });
-  order2.sort((a,b)=>a-b);
-  const diff2=order2.map((elem,i,arr)=>{
-    const curr=elem;
-    const next=arr[i+1]||curr+1;
-    return next-curr;
+  order1.sort((a, b) => a - b);
+  const diff1 = order1.map((elem, i, arr) => {
+    const curr = elem;
+    const next = arr[i + 1] || curr + 1;
+    return next - curr;
   });
 
-  return  diff1.every(elem=>elem===1) ||
-    diff2.every(elem=>elem===1);
+    //if Ace:14
+  const order2 = hand.map(card => {
+    if (card[0] === 'A') return 14;
+    return cardOrder[card[0]] || 10;
+  });
+  order2.sort((a, b) => a - b);
+  const diff2 = order2.map((elem, i, arr) => {
+    const curr = elem;
+    const next = arr[i + 1] || curr + 1;
+    return next - curr;
+  });
+
+  return diff1.every(elem => elem === 1) ||
+        diff2.every(elem => elem === 1);
 }
-function checkThreeOfKind(hand){
+function checkThreeOfKind(hand) {
 
-  const comb1=hand.filter(card=>hand[0][0]===card[0]);
-  const comb2=hand.filter(card=>hand[1][0]===card[0]);
-  const comb3=hand.filter(card=>hand[2][0]===card[0]);
+  const comb1 = hand.filter(card => hand[0][0] === card[0]);
+  const comb2 = hand.filter(card => hand[1][0] === card[0]);
+  const comb3 = hand.filter(card => hand[2][0] === card[0]);
 
-  return (comb1.length===3) || (comb2.length===3) || (comb3.length===3)
+  return (comb1.length === 3) || (comb2.length === 3) || (comb3.length === 3);
 }
 function checkTwoPairs(hand) {
-  const comb1=hand.filter(card=>hand[0][0]===card[0]);
-  const comb2=hand.filter(card=>hand[1][0]===card[0]);
-  const comb3=hand.filter(card=>hand[2][0]===card[0]);
-  const comb4=hand.filter(card=>hand[3][0]===card[0]);
+  const comb1 = hand.filter(card => hand[0][0] === card[0]);
+  const comb2 = hand.filter(card => hand[1][0] === card[0]);
+  const comb3 = hand.filter(card => hand[2][0] === card[0]);
+  const comb4 = hand.filter(card => hand[3][0] === card[0]);
 
-  const combLengthTwo=[comb1,comb2,comb3,comb4]
-    .filter(elem=>elem.length===2);
+  const combLengthTwo = [comb1, comb2, comb3, comb4]
+    .filter(elem => elem.length === 2);
 
-  return combLengthTwo.length>=3;
+  return combLengthTwo.length >= 3;
 }
 function checkOnePair(hand) {
-  const comb1=hand.filter(card=>hand[0][0]===card[0]);
-  const comb2=hand.filter(card=>hand[1][0]===card[0]);
-  const comb3=hand.filter(card=>hand[2][0]===card[0]);
-  const comb4=hand.filter(card=>hand[3][0]===card[0]);
+  const comb1 = hand.filter(card => hand[0][0] === card[0]);
+  const comb2 = hand.filter(card => hand[1][0] === card[0]);
+  const comb3 = hand.filter(card => hand[2][0] === card[0]);
+  const comb4 = hand.filter(card => hand[3][0] === card[0]);
 
-  const combLengthTwo=[comb1,comb2,comb3,comb4]
-    .filter(elem=>elem.length===2);
+  const combLengthTwo = [comb1, comb2, comb3, comb4]
+    .filter(elem => elem.length === 2);
 
-  return  combLengthTwo.length===1 ||
-    combLengthTwo.length===2
+  return combLengthTwo.length === 1 ||
+        combLengthTwo.length === 2;
 }
 
 export function getPokerHandRank(hand) {
@@ -356,180 +354,180 @@ export function getPokerHandRank(hand) {
 export function* getFigureRectangles(figure) {
 
 
-  const array=figure.split('\n').slice(0,-1);
-  const tipCordinates=[];
+  const array = figure.split('\n').slice(0, -1);
+  const tipCordinates = [];
   let currentWidth;
   let currentHeight;
 
-  
+
   //get tip Coordinates
-  for (let row=0;row<array.length;row++){
-      for (let col=0;col<array[0].length;col++){
-          if (array[row][col]==='+'){
-              const coord={row:row,col:col}
-              tipCordinates.push(coord);
-          }
+  for (let row = 0; row < array.length; row++) {
+    for (let col = 0; col < array[0].length; col++) {
+      if (array[row][col] === '+') {
+        const coord = { row: row, col: col };
+        tipCordinates.push(coord);
       }
+    }
   }
-  
+
   // revise tips:
-  for (let num=0;num<tipCordinates.length;num++){
-      const tip=tipCordinates[num];
-      
-      
-      
-      if (tip.col+1>=array[0].length || 
-          tip.row===array.length-1) continue;
-         
-      let row=tip.row;
-      let col=tip.col+1;
-      let side=1;//1-top; 2-right; 3-bottom; 4-left
+  for (let num = 0; num < tipCordinates.length; num++) {
+    const tip = tipCordinates[num];
 
-      while (row!==tip.row || col!==tip.col){
-          if (!array[row] || !array[0][col]) {
-              col=tip.col;
-              row=tip.row;
-              continue;
+
+
+    if (tip.col + 1 >= array[0].length ||
+            tip.row === array.length - 1) continue;
+
+    let row = tip.row;
+    let col = tip.col + 1;
+    let side = 1;//1-top; 2-right; 3-bottom; 4-left
+
+    while (row !== tip.row || col !== tip.col) {
+      if (!array[row] || !array[0][col]) {
+        col = tip.col;
+        row = tip.row;
+        continue;
+      }
+      switch (side) {
+      case 1:
+        if (array[row][col] === '-') {
+          col++;
+          continue;
+        }
+        if (array[row][col] === '+') {
+
+          if (array[row + 1][col] === '|' ||
+                            array[row + 1][col] === '+') {
+            side++;
+            row++;
+
+            currentWidth = col - tip.col + 1;
+
+            continue;
+          } else {
+            col++;
+            continue;
           }
-          switch (side){
-              case 1:
-                  if (array[row][col]==="-"){
-                      col++;
-                      continue;
-                  } 
-                  if (array[row][col]==="+"){
-                      
-                      if (array[row+1][col]==="|" || 
-                          array[row+1][col]==="+"){
-                          side++;
-                          row++;
+        }
+        col = tip.col;
+        row = tip.row;
+        continue;
+      case 2:
+        if (array[row][col] === '|') {
+          row++;
+          continue;
+        }
+        if (array[row][col] === '+') {
 
-                          currentWidth=col-tip.col+1;
+          if (array[row][col - 1] === '-' ||
+                            array[row][col - 1] === '+') {
+            side++;
+            col--;
 
-                          continue;   
-                      } else {
-                          col++;
-                          continue;
-                      }
-                  } 
-                  col=tip.col;
-                  row=tip.row;
-                  continue;
-              case 2:
-                  if (array[row][col]==="|"){
-                      row++;
-                      continue;
-                  } 
-                  if (array[row][col]==="+" ){
-                      
-                      if (array[row][col-1]==="-" ||
-                          array[row][col-1]==="+"){
-                          side++;
-                          col--;
+            currentHeight = row - tip.row + 1;
 
-                          currentHeight=row-tip.row+1;
-
-                          continue;
-                      } else {
-                          row++;
-                          continue;
-                      } 
-                  }
-                  col=tip.col;
-                  row=tip.row;
-                  continue;
-              case 3:
-                  if (array[row][col]==="-"){
-                      col--;
-                      continue;
-                  } 
-                  if (array[row][col]==="+" ){
-                      
-                      if (array[row-1][col]==="|" ||
-                          array[row-1][col]==="+"){
-                          side++;
-                          row--;
-
-                          if (row===tip.row ){  
-                              if (col===tip.col){
-                                  const square=renderSquare(currentWidth,currentHeight);
-                                  yield square;
-                              } else {
-                                  col=tip.col;
-                                  row=tip.row;
-                              } 
-                          }
-
-                          continue;
-                      } else {
-                          col--;
-                          continue;
-                      }      
-                  } 
-                  col=tip.col;
-                  row=tip.row;
-                  continue;
-              case 4:
-                  if (array[row][col]==="|"){
-                      row--;
-                      if (row===tip.row ){  
-                          if (col===tip.col){
-                              const square=renderSquare(currentWidth,currentHeight);
-                              yield square;
-                          } else {
-                              col=tip.col;
-                              row=tip.row;
-                          } 
-                      }
-                      continue;
-                  } 
-                  col=tip.col;
-                  row=tip.row;
-                  continue;
-              default:
-                  break;
+            continue;
+          } else {
+            row++;
+            continue;
           }
-      } 
+        }
+        col = tip.col;
+        row = tip.row;
+        continue;
+      case 3:
+        if (array[row][col] === '-') {
+          col--;
+          continue;
+        }
+        if (array[row][col] === '+') {
+
+          if (array[row - 1][col] === '|' ||
+                            array[row - 1][col] === '+') {
+            side++;
+            row--;
+
+            if (row === tip.row) {
+              if (col === tip.col) {
+                const square = renderSquare(currentWidth, currentHeight);
+                yield square;
+              } else {
+                col = tip.col;
+                row = tip.row;
+              }
+            }
+
+            continue;
+          } else {
+            col--;
+            continue;
+          }
+        }
+        col = tip.col;
+        row = tip.row;
+        continue;
+      case 4:
+        if (array[row][col] === '|') {
+          row--;
+          if (row === tip.row) {
+            if (col === tip.col) {
+              const square = renderSquare(currentWidth, currentHeight);
+              yield square;
+            } else {
+              col = tip.col;
+              row = tip.row;
+            }
+          }
+          continue;
+        }
+        col = tip.col;
+        row = tip.row;
+        continue;
+      default:
+        break;
+      }
+    }
 
   }
 }
 
-function renderSquare(width,height){
-  const arr=new Array(height);
+function renderSquare(width, height) {
+  const arr = new Array(height);
 
 
-  for (let row=0;row<height;row++){
-      const newRow=new Array(width);
-          arr[row]=newRow;
+  for (let row = 0; row < height; row++) {
+    const newRow = new Array(width);
+    arr[row] = newRow;
 
-      for (let col=0;col<width;col++){
-          
+    for (let col = 0; col < width; col++) {
 
-          if ((row===0 && col===0) ||
-              (row===0 && col===width-1) ||
-              (row===height-1 && col===0) ||
-              (row===height-1 && col===width-1)      ){
-              arr[row][col]='+';
-              continue;
-          }
 
-          if ((row===0 && col>0 && col<width-1) ||
-              (row===height-1 && col>0 && col<width-1)){
-              arr[row][col]='-';
-              continue;
-          }
-
-          if ((col===0 && row>0 && row<height-1) ||
-              (col===width-1 && row>0 && row<height-1)){
-              arr[row][col]='|';
-              continue;
-          }
-
-          arr[row][col]=' ';
-
+      if ((row === 0 && col === 0) ||
+                (row === 0 && col === width - 1) ||
+                (row === height - 1 && col === 0) ||
+                (row === height - 1 && col === width - 1)) {
+        arr[row][col] = '+';
+        continue;
       }
-      arr[row]=arr[row].join('');
+
+      if ((row === 0 && col > 0 && col < width - 1) ||
+                (row === height - 1 && col > 0 && col < width - 1)) {
+        arr[row][col] = '-';
+        continue;
+      }
+
+      if ((col === 0 && row > 0 && row < height - 1) ||
+                (col === width - 1 && row > 0 && row < height - 1)) {
+        arr[row][col] = '|';
+        continue;
+      }
+
+      arr[row][col] = ' ';
+
+    }
+    arr[row] = arr[row].join('');
   }
 
-  return arr.join("\n")+"\n";
+  return arr.join('\n') + '\n';
 }

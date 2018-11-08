@@ -1,9 +1,9 @@
 
 /**
  * Returns true if word occurrs in the specified word snaking puzzle.
- * Each words can be constructed using "snake" path inside a grid with top, left,
+ * Each words can be constructed using 'snake' path inside a grid with top, left,
  * right and bottom directions.
- * Each char can be used only once ("snake" should not cross itself).
+ * Each char can be used only once ('snake' should not cross itself).
  *
  * @param {array} puzzle
  * @param {array} searchStr
@@ -28,38 +28,38 @@
  *   'NULL'      => false
  */
 export function findStringInSnakingPuzzle(puzzle, searchStr) {
-  const puzzleArray=puzzle.map(elem=>{
+  const puzzleArray = puzzle.map(elem => {
     return elem.split('');
   });
 
 
-  for (let i=0;i<puzzleArray.length;i++){
-    for (let j=0;j<puzzleArray[0].length;j++){
-      const workArray=[].concat(puzzleArray);
-      const columns=workArray[0].length-1;
-      const rows=workArray.length-1;
+  for (let i = 0; i < puzzleArray.length; i++) {
+    for (let j = 0; j < puzzleArray[0].length; j++) {
+      const workArray = [].concat(puzzleArray);
+      const columns = workArray[0].length - 1;
+      const rows = workArray.length - 1;
 
-      let m=0;
+      let m = 0;
 
-      let row=i;
-      let col=j;
+      let row = i;
+      let col = j;
 
-      if (workArray[i][j]!==searchStr[m]) continue;
-      workArray[row][col]=null;
+      if (workArray[i][j] !== searchStr[m]) continue;
+      workArray[row][col] = null;
       m++;
 
-      while (m!==searchStr.length){
+      while (m !== searchStr.length) {
 
-        if (row-1>=0) {
-          if (workArray[row-1][col]===searchStr[m]) {
-            row=row-1;
-            workArray[row][col]=null;
+        if (row - 1 >= 0) {
+          if (workArray[row - 1][col] === searchStr[m]) {
+            row = row - 1;
+            workArray[row][col] = null;
             m++;
             continue;
           }
         }
 
-        if (col-1>=0) {
+        if (col - 1 >= 0) {
           if (workArray[row][col - 1] === searchStr[m]) {
             col = col - 1;
             workArray[row][col] = null;
@@ -68,7 +68,7 @@ export function findStringInSnakingPuzzle(puzzle, searchStr) {
           }
         }
 
-        if (col+1<=columns) {
+        if (col + 1 <= columns) {
           if (workArray[row][col + 1] === searchStr[m]) {
             col = col + 1;
             workArray[row][col] = null;
@@ -77,7 +77,7 @@ export function findStringInSnakingPuzzle(puzzle, searchStr) {
           }
         }
 
-        if (row+1<=rows) {
+        if (row + 1 <= rows) {
           if (workArray[row + 1][col] === searchStr[m]) {
             row = row + 1;
             workArray[row][col] = null;
@@ -89,7 +89,7 @@ export function findStringInSnakingPuzzle(puzzle, searchStr) {
         break;
       }
 
-      if (m===searchStr.length) return true;
+      if (m === searchStr.length) return true;
 
     }
   }
@@ -156,8 +156,8 @@ export function getMostProfitFromStockQuotes(quotes) {
  */
 export function UrlShortener() {
   this.urlAllowedChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-                          'abcdefghijklmnopqrstuvwxyz' +
-                          "0123456789-_.~!*'();:@&=+$,/?#[]";
+    'abcdefghijklmnopqrstuvwxyz' +
+    '0123456789-_.~!*"();:@&=+$,/?#[]';
 }
 
 UrlShortener.prototype = {

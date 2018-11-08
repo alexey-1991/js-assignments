@@ -22,11 +22,11 @@
  *    console.log(r.getArea());   // => 200
  */
 export function Rectangle(width, height) {
-  this.width=width;
-  this.height=height;
+  this.width = width;
+  this.height = height;
 }
-Rectangle.prototype.getArea=function(){
-  return this.width*this.height;
+Rectangle.prototype.getArea = function () {
+  return this.width * this.height;
 };
 
 /**
@@ -37,7 +37,7 @@ Rectangle.prototype.getArea=function(){
  *
  * @example
  *    [1,2,3]   =>  '[1,2,3]'
- *    { width: 10, height : 20 } => '{"height":10,"width":20}'
+ *    { width: 10, height : 20 } => '{'height':10,'width':20}'
  */
 export function getJSON(obj) {
   return JSON.stringify(obj);
@@ -52,12 +52,12 @@ export function getJSON(obj) {
  * @return {object}
  *
  * @example
- *    var r = fromJSON(Rectangle.prototype, '{"width":10, "height":20}');
+ *    var r = fromJSON(Rectangle.prototype, '{'width':10, 'height':20}');
  *
  */
-export function  fromJSON(proto, json) {
-  const object=JSON.parse(json);
-  object.__proto__=proto;
+export function fromJSON(proto, json) {
+  const object = JSON.parse(json);
+  object.__proto__ = proto;
   return object;
 }
 
@@ -96,8 +96,8 @@ export function  fromJSON(proto, json) {
  *  builder.id('main').class('container').class('editable').stringify() =>
  *    '#main.container.editable'
  *
- *  builder.element('a').attr('href$=".png"').pseudoClass('focus').stringify() =>
- *    'a[href$=".png"]:focus'
+ *  builder.element('a').attr('href$='.png'').pseudoClass('focus').stringify() =>
+ *    'a[href$='.png']:focus'
  *
  *  builder.combine(
  *      builder.element('div').id('main').class('container').class('draggable'),
@@ -117,100 +117,100 @@ export function  fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-export function cssSelectorBuilder(){
-  return new cssSelectorBuilderClass()
-};
+export function cssSelectorBuilder() {
+  return new cssSelectorBuilderClass();
+}
 
-class cssSelectorBuilderClass{
-  constructor(){
-    this.result='';
-    this.order=[];// array consists of selectors in call order;
+class cssSelectorBuilderClass {
+  constructor() {
+    this.result = '';
+    this.order = [];// array consists of selectors in call order;
   }
 
-  element(str){
-    const order=this.order.concat(['element']);
-    str=this.result+`${str}`;
+  element(str) {
+    const order = this.order.concat(['element']);
+    str = this.result + `${str}`;
 
-    return this.createNextBuilder(str,order);
+    return this.createNextBuilder(str, order);
   }
-  id(str){
-    const order=this.order.concat(['id']);
-    str=this.result+`#${str}`;
+  id(str) {
+    const order = this.order.concat(['id']);
+    str = this.result + `#${str}`;
 
-    return this.createNextBuilder(str,order);
+    return this.createNextBuilder(str, order);
   }
-  class(str){
-    const order=this.order.concat(['class']);
-    str=this.result+`.${str}`;
+  class(str) {
+    const order = this.order.concat(['class']);
+    str = this.result + `.${str}`;
 
-    return this.createNextBuilder(str,order);
+    return this.createNextBuilder(str, order);
   }
-  attr(str){
-    const order=this.order.concat(['attr']);
-    str=this.result+`[${str}]`;
+  attr(str) {
+    const order = this.order.concat(['attr']);
+    str = this.result + `[${str}]`;
 
-    return this.createNextBuilder(str,order);
+    return this.createNextBuilder(str, order);
   }
-  pseudoClass(str){
-    const order=this.order.concat(['pseudoClass'])
-    str=this.result+`:${str}`;
+  pseudoClass(str) {
+    const order = this.order.concat(['pseudoClass']);
+    str = this.result + `:${str}`;
 
-    return this.createNextBuilder(str,order);
+    return this.createNextBuilder(str, order);
   }
-  pseudoElement(str){
-    const order=this.order.concat(['pseudoElement'])
-    str=this.result+`::${str}`;
+  pseudoElement(str) {
+    const order = this.order.concat(['pseudoElement']);
+    str = this.result + `::${str}`;
 
-    return this.createNextBuilder(str,order);
+    return this.createNextBuilder(str, order);
   }
 
-  createNextBuilder(initStr,order){
-    let nextBuilder=new cssSelectorBuilderClass();
-    nextBuilder.result+=initStr;
-    nextBuilder.order=order;
+  createNextBuilder(initStr, order) {
+    let nextBuilder = new cssSelectorBuilderClass();
+    nextBuilder.result += initStr;
+    nextBuilder.order = order;
 
     this.checkRepeats(order); //if smth wrong it throws err
     this.checkOrder(order);   //if smth wrong it throws err
 
     return nextBuilder;
   }
-  checkRepeats(order){
+  checkRepeats(order) {
     if (!order) return;
-    const condElem=order.filter(elem=>elem==="element").length>1;
-    const condId=order.filter(elem=>elem==="id").length>1;
-    const condPseudoElem=order.filter(elem=>elem==="pseudoElement").length>1;
+    const condElem = order.filter(elem => elem === 'element').length > 1;
+    const condId = order.filter(elem => elem === 'id').length > 1;
+    const condPseudoElem = order.filter(elem => elem === 'pseudoElement').length > 1;
 
-    if (condElem || condId || condPseudoElem){
-      throw new Error("Element, id and pseudo-element should not occur more then one time inside the selector");
+    if (condElem || condId || condPseudoElem) {
+      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
     }
   }
-  checkOrder(order){
+  checkOrder(order) {
     if (!order) return;
-    const rightOrder=['element', 'id', 'class', 'attr', 'pseudoClass', 'pseudoElement'];
+    const rightOrder = ['element', 'id', 'class', 'attr', 'pseudoClass', 'pseudoElement'];
     const indexOrder = order.map(elem => rightOrder.indexOf(elem));
-    for (let i=0;i<indexOrder.length-1;i++){
+    for (let i = 0; i < indexOrder.length - 1; i++) {
 
-      const curr=indexOrder[i];
-      const next=indexOrder[i+1];
+      const curr = indexOrder[i];
+      const next = indexOrder[i + 1];
 
-      if((next-curr)<0){
-        throw new Error("Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element");
+      if ((next - curr) < 0) {
+        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
       }
     }
   }
 
-  combine(obj1,separator,obj2){
-    const selector1=obj1.stringify();
-    const selector2=obj2.stringify();
-    const newSelector=selector1+" "+separator+" "+selector2;
+  combine(obj1, separator, obj2) {
+    const selector1 = obj1.stringify();
+    const selector2 = obj2.stringify();
+    const newSelector = selector1 + ' ' + separator + ' ' + selector2;
 
     return this.createNextBuilder(newSelector);
   }
 
-  stringify(){
-    const res=this.result;
-    this.result='';
-    this.order=[];
+  stringify() {
+    const res = this.result;
+    this.result = '';
+    this.order = [];
     return res;
   }
 }

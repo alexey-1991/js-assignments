@@ -21,7 +21,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 export function parseDataFromRfc2822(value) {
-  let date= Date.parse(value);
+  let date = Date.parse(value);
   return new Date(date);
 }
 
@@ -37,7 +37,7 @@ export function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 export function parseDataFromIso8601(value) {
-  let date= Date.parse(value);
+  let date = Date.parse(value);
   return new Date(date);
 }
 
@@ -57,85 +57,50 @@ export function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 export function isLeapYear(date) {
-  let ddate=new Date(Date.parse(date));
-  let YYYY=ddate.getFullYear();
+  let ddate = new Date(Date.parse(date));
+  let YYYY = ddate.getFullYear();
 
-  if (YYYY%4!=0) {return false;
-  } else if (YYYY%100!=0){return true;
-  } else if (YYYY%400!=0) {return false;
-  } else {return true;}
+  if (YYYY % 4 !== 0) {
+    return false;
+  } else if (YYYY % 100 !== 0) {
+    return true;
+  } else if (YYYY % 400 !== 0) {
+    return false;
+  } 
+  return true;
 }
 
 
 /**
  * Returns the string represention of the timespan between two dates.
- * The format of output string is "HH:mm:ss.sss"
+ * The format of output string is 'HH:mm:ss.sss'
  *
  * @param {date} startDate
  * @param {date} endDate
  * @return {string}
  *
  * @example:
- *    Date(2000,1,1,10,0,0),  Date(2000,1,1,11,0,0)   => "01:00:00.000"
- *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,30,0)       => "00:30:00.000"
- *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,20)        => "00:00:20.000"
- *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
- *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
+ *    Date(2000,1,1,10,0,0),  Date(2000,1,1,11,0,0)   => '01:00:00.000'
+ *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,30,0)       => '00:30:00.000'
+ *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,20)        => '00:00:20.000'
+ *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => '00:00:00.250'
+ *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => '05:20:10.453'
  */
 export function timeSpanToString(startDate, endDate) {
 
-  let date1=+startDate;
-  let date2=+endDate;
-  let diff=date2-date1;
+  const difference=new Date(endDate-startDate);
 
-  //time variables
-  let seconds=1000;
-  let minutes=60*1000;
-  let hours=60*60*1000;
-  var hh;
-  var mm;
-  var ss;
+  let hh=difference.getUTCHours();
+  let mm=difference.getUTCMinutes();
+  let ss=difference.getUTCSeconds();
+  let mss=difference.getUTCMilliseconds();
 
+  if (hh < 10) hh = `0${hh}`;
+  if (mm < 10) mm = `0${mm}`;
+  if (ss < 10) ss = `0${ss}`;
+  if (mss < 10) { mss = `00${mss}`; } else if (mss < 100) mss = `0${mss}`;
 
-  //hours
-  if (diff%hours!=0 && diff!=0){
-    hh=Math.floor(diff/hours);
-    diff=diff-hh*hours;
-  } else {
-    hh=diff/hours;
-    diff=0;
-  }
-  //minutes
-  if (
-    diff%minutes!=0 && diff!=0) {
-    mm = Math.floor(diff / minutes);
-    diff = diff - mm * minutes;
-  } else {
-    mm=diff/minutes;
-    diff=0;
-  }
-  //seconds
-  if (diff%seconds!=0 && diff!=0) {
-    ss = Math.floor(diff / seconds);
-    diff = diff - ss * seconds;
-  } else {
-    ss=diff/seconds;
-    diff=0;
-  }
-  //milliseconds
-  let mms=diff;
-
-  hh=Math.abs(hh);
-  mm=Math.abs(mm);
-  ss=Math.abs(ss);
-  mms=Math.abs(mms);
-
-  if (hh<10) hh='0'+hh;
-  if (mm<10) mm='0'+mm;
-  if (ss<10) ss='0'+ss;
-  if (mms<10) {mms='00'+mms;} else if (mms<100) mms='0'+mms;
-
-  return hh+':'+mm+':'+ss+'.'+mms;
+  return `${hh}:${mm}:${ss}.${mss}`;
 }
 
 
@@ -155,16 +120,16 @@ export function timeSpanToString(startDate, endDate) {
  */
 export function angleBetweenClockHands(date) {
 
-  let DateUTC=new Date(Date.parse(date))
+  let DateUTC = new Date(Date.parse(date));
 
-  let M=DateUTC.getUTCMinutes();
-  let H=DateUTC.getUTCHours();
+  let M = DateUTC.getUTCMinutes();
+  let H = DateUTC.getUTCHours();
 
-  let res=0.5*(60*H-11*M);
-  while (res>=360) {
-    res-=360;
+  let res = 0.5 * (60 * H - 11 * M);
+  while (res >= 360) {
+    res -= 360;
   }
-  if (res>180) res=360-res;
+  if (res > 180) res = 360 - res;
 
-  return res*Math.PI/180
+  return res * Math.PI / 180;
 }

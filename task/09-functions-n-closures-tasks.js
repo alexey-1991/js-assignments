@@ -25,7 +25,7 @@
  *
  */
 export function getComposition(f, g) {
-  return x=>f(g(x))
+  return x => f(g(x));
 }
 
 
@@ -46,7 +46,7 @@ export function getComposition(f, g) {
  *
  */
 export function getPowerFunction(exponent) {
-  return x=>Math.pow(x, exponent);
+  return x => Math.pow(x, exponent);
 }
 
 
@@ -65,24 +65,27 @@ export function getPowerFunction(exponent) {
  */
 export function getPolynom() {
 
-  const args=[].slice.apply(arguments);
+  const args = [].slice.apply(arguments);
 
-  switch (args.length){
-    case 3:
-      const a = args[0] || 0;
-      const b = args[1] || 0;
-      const c = args[2] || 0;
-      return x=>a * x * x + b * x + c;
-    case 2:
-      const d = args[0] || 0;
-      const e = args[1] || 0;
-      return x=> d * x + e;
-    case 1:
-      const g = args[0] || 0;
-      return ()=>g
-    default:
-      return null;
+  switch (args.length) {
+  case 3:{
+    const a = args[0] || 0;
+    const b = args[1] || 0;
+    const c = args[2] || 0;
+    return x => a * x * x + b * x + c;
   }
+  case 2:{
+    const d = args[0] || 0;
+    const e = args[1] || 0;
+    return x => d * x + e;
+  }
+  case 1:{
+    const g = args[0] || 0;
+    return () => g;
+  }
+  default:{
+    return null;
+  }}
 }
 
 /**
@@ -100,11 +103,11 @@ export function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 export function memoize(func) {
-  let cache=false;
+  let cache = false;
 
-  return function() {
+  return function () {
     if (!cache) {
-      cache=func();
+      cache = func();
       return cache;
     }
     return cache;
@@ -128,14 +131,14 @@ export function memoize(func) {
  * retryer() => 2
  */
 export function retry(func, attempts) {
-  let attempt=0;
+  let attempt = 0;
 
-  return ()=>{
-    while (attempt<=attempts){
+  return () => {
+    while (attempt <= attempts) {
       try {
         return func();
 
-      } catch(err){
+      } catch (err) {
         attempt++;
       }
     }
@@ -167,49 +170,49 @@ export function retry(func, attempts) {
  *
  */
 export function logger(func, logFunc) {
-  const functionName=func.name;
+  const functionName = func.name;
 
-    return function(){
-        const args=[].slice.call(arguments);
-        const argsString=getRightString(args);
+  return function () {
+    const args = [].slice.call(arguments);
+    const argsString = getRightString(args);
 
-        logFunc(`${functionName}(${argsString}) starts`)
+    logFunc(`${functionName}(${argsString}) starts`);
 
-        return (()=>{
-            const result=func.apply(this,args)
-            return (()=>{
-                logFunc(`${functionName}(${argsString}) ends`);
-                return result
-            })()
-        })()   
-    }
+    return (() => {
+      const result = func.apply(this, args);
+      return (() => {
+        logFunc(`${functionName}(${argsString}) ends`);
+        return result;
+      })();
+    })();
+  };
 }
 
-function getRightString(args){
-  return args.reduce((acc,curr)=>{
-  
-      if(curr.reduce){
-          curr=curr.map(elem=>{
-              if ((typeof elem)==="string"){
-                  return `"${elem}"`;
-              }
-              if ((typeof elem)==="number"){
-                  return `${elem}`;
-              }
-          }).join(",");
-          curr=`[${curr}]` 
-      }
+function getRightString(args) {
+  return args.reduce((acc, curr) => {
 
-      if((typeof curr)==='number'){
-          curr=`${curr}`
-      }
+    if (curr.reduce) {
+      curr = curr.map(elem => {
+        if ((typeof elem) === 'string') {
+          return `"${elem}"`;
+        }
+        if ((typeof elem) === 'number') {
+          return `${elem}`;
+        }
+      }).join(',');
+      curr = `[${curr}]`;
+    }
 
-      if (acc!==""){
-          curr=`,${curr}`
-      }
+    if ((typeof curr) === 'number') {
+      curr = `${curr}`;
+    }
 
-      return acc+curr
-  },"")
+    if (acc !== '') {
+      curr = `,${curr}`;
+    }
+
+    return acc + curr;
+  }, '');
 }
 
 /**
@@ -226,17 +229,17 @@ function getRightString(args){
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 export function partialUsingArguments(fn) {
-  const args1=[].slice.apply(arguments);
-  const func=args1[0];
-  const argsInit=args1.slice(1,args1.length);
+  const args1 = [].slice.apply(arguments);
+  const func = args1[0];
+  const argsInit = args1.slice(1, args1.length);
 
-  return function(){
-      const argsEnd=[].slice.apply(arguments);
-      const allArgs=argsInit.concat(argsEnd);
+  return function () {
+    const argsEnd = [].slice.apply(arguments);
+    const allArgs = argsInit.concat(argsEnd);
 
-      return func.apply(this,allArgs);
-  }
-  
+    return func.apply(this, allArgs);
+  };
+
 }
 
 /**
@@ -257,5 +260,5 @@ export function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 export function getIdGeneratorFunction(startFrom) {
-  return ()=>startFrom++;
+  return () => startFrom++;
 }

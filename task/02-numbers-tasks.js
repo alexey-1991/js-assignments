@@ -21,7 +21,7 @@
  *   5, 5  => 25
  */
 export function getRectangleArea(width, height) {
-  return width*height;
+  return width * height;
 }
 
 
@@ -37,7 +37,7 @@ export function getRectangleArea(width, height) {
  *   0    => 0
  */
 export function getCicleCircumference(radius) {
-  return Math.PI*2*radius;
+  return Math.PI * 2 * radius;
 }
 
 /**
@@ -53,7 +53,7 @@ export function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 export function getAverage(value1, value2) {
-  return value1/2+value2/2;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -72,9 +72,9 @@ export function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 export function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  let dx=x2-x1;
-  let dy=y2-y1;
-  return Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
+  let dx = x2 - x1;
+  let dy = y2 - y1;
+  return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 }
 
 /**
@@ -90,7 +90,7 @@ export function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 export function getLinearEquationRoot(a, b) {
-  return -b/a;
+  return -b / a;
 }
 
 
@@ -129,8 +129,7 @@ export function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 export function getLastDigit(value) {
-  let str=String(value);
-  return +str.charAt(str.length-1);
+  return value % 10;
 }
 
 
@@ -163,7 +162,7 @@ export function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 export function getParallelipidedDiagonal(a, b, c) {
-  return Math.sqrt(a*a+b*b+c*c);
+  return Math.hypot(a, b, c);
 }
 
 /**
@@ -184,8 +183,8 @@ export function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 export function roundToPowerOfTen(num, pow) {
-  const n=Math.pow(10, pow);
-  return Math.round(num/n)*n;
+  const n = Math.pow(10, pow);
+  return Math.round(num / n) * n;
 }
 
 /**
@@ -206,9 +205,9 @@ export function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 export function isPrime(n) {
-  if (n <= 3) { return true;}
+  if (n <= 3) { return true; }
   for (let i = 2; i <= Math.sqrt(n); i++) {
-    if (n % i===0) {
+    if (n % i === 0) {
       return false;
     }
   }
@@ -231,5 +230,5 @@ export function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 export function toNumber(value, def) {
-  return (+value)? +value: def
+  return (+value) ? +value : def;
 }

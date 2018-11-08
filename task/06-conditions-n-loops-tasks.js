@@ -29,15 +29,15 @@
  *
  */
 export function getFizzBuzz(num) {
-  let value=false;
-  if (num==0) return 0;
-  if (num%3==0){value='Fizz';}
-  if (num%5==0){
-    if (value=='Fizz') {
+  let value = false;
+  if (num === 0) return 0;
+  if (num % 3 === 0) { value = 'Fizz'; }
+  if (num % 5 === 0) {
+    if (value === 'Fizz') {
       value = 'FizzBuzz';
-    } else {value='Buzz';}
+    } else { value = 'Buzz'; }
   }
-  if (value==false){return num;}
+  if (value === false) { return num; }
   return value;
 }
 
@@ -55,9 +55,9 @@ export function getFizzBuzz(num) {
  */
 export function getFactorial(n) {
 
-  let res=1;
-  while (n>0){
-    res*=n;
+  let res = 1;
+  while (n > 0) {
+    res *= n;
     n--;
   }
   return res;
@@ -79,10 +79,10 @@ export function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 export function getSumBetweenNumbers(n1, n2) {
-  let x=n1;
-  let sum=0;
-  while (x<=n2){
-    sum+=x;
+  let x = n1;
+  let sum = 0;
+  while (x <= n2) {
+    sum += x;
     x++;
   }
   return sum;
@@ -106,7 +106,7 @@ export function getSumBetweenNumbers(n1, n2) {
  */
 export function isTriangle(a, b, c) {
 
-  if (a<b+c && b<a+c && c<b+a){
+  if (a < b + c && b < a + c && c < b + a) {
     return true;
   }
   return false;
@@ -150,39 +150,39 @@ export function doRectanglesOverlap(rect1, rect2) {
   //a1,a2,  c1,c2 - coordinates along X
   //b1,b2,  d1,d2 - coordinates along Y
 
-  let Rect1={
-    a1:rect1.left,
-    a2:rect1.left+rect1.width,
-    c1:rect1.top,
-    c2:rect1.top+rect1.height
+  let Rect1 = {
+    a1: rect1.left,
+    a2: rect1.left + rect1.width,
+    c1: rect1.top,
+    c2: rect1.top + rect1.height
   };
 
-  let Rect2={
-    b1:rect2.left,
-    b2:rect2.left+rect2.width,
-    d1:rect2.top,
-    d2:rect2.top+rect2.height
+  let Rect2 = {
+    b1: rect2.left,
+    b2: rect2.left + rect2.width,
+    d1: rect2.top,
+    d2: rect2.top + rect2.height
   };
 
   //check for overlap along X
-  let overlapX=false;
+  let overlapX = false;
 
-  if (Rect2.b1>=Rect1.a1 && Rect2.b1<=Rect1.a2) overlapX=true;
-  if (Rect2.b2>=Rect1.a1 && Rect2.b2<=Rect1.a2) overlapX=true;
-  if (Rect2.b1<=Rect1.a1 && Rect2.b2>=Rect1.a2) overlapX=true;
+  if (Rect2.b1 >= Rect1.a1 && Rect2.b1 <= Rect1.a2) overlapX = true;
+  if (Rect2.b2 >= Rect1.a1 && Rect2.b2 <= Rect1.a2) overlapX = true;
+  if (Rect2.b1 <= Rect1.a1 && Rect2.b2 >= Rect1.a2) overlapX = true;
 
   //check for overlap along X
-  let overlapY=false;
+  let overlapY = false;
 
-  if (Rect2.d1>=Rect1.c1 && Rect2.d1<=Rect1.c2) overlapY=true;
-  if (Rect2.d2>=Rect1.c1 && Rect2.d2<=Rect1.c2) overlapY=true;
-  if (Rect2.d1<=Rect1.c1 && Rect2.d2>=Rect1.c2) overlapY=true;
+  if (Rect2.d1 >= Rect1.c1 && Rect2.d1 <= Rect1.c2) overlapY = true;
+  if (Rect2.d2 >= Rect1.c1 && Rect2.d2 <= Rect1.c2) overlapY = true;
+  if (Rect2.d1 <= Rect1.c1 && Rect2.d2 >= Rect1.c2) overlapY = true;
 
   //final check
 
-  if (overlapX==true && overlapY==true) {
+  if (overlapX === true && overlapY === true) {
     return true;
-  } else {return false;}
+  } else { return false; }
 
 }
 
@@ -214,10 +214,10 @@ export function doRectanglesOverlap(rect1, rect2) {
  *
  */
 export function isInsideCircle(circle, point) {
-  let dx=Math.abs(circle.center.x-point.x);
-  let dy=Math.abs(circle.center.y-point.y);
-  let delta=Math.sqrt(dx*dx+dy*dy);
-  if (delta<circle.radius) return true;
+  let dx = Math.abs(circle.center.x - point.x);
+  let dy = Math.abs(circle.center.y - point.y);
+  let delta = Math.sqrt(dx * dx + dy * dy);
+  if (delta < circle.radius) return true;
   return false;
 }
 
@@ -235,18 +235,17 @@ export function isInsideCircle(circle, point) {
  */
 export function findFirstSingleChar(str) {
 
-  let myObj={};
-  let arrString=str.split('');
+  let arrString = str.split('');
   let numberofRepeats;
 
-  for (let i=0;i<=arrString.length-1;i++){
-    numberofRepeats=0;
-    for (let j=0;j<=arrString.length-1;j++){
-      if (arrString[i]===arrString[j]) {
+  for (let i = 0; i <= arrString.length - 1; i++) {
+    numberofRepeats = 0;
+    for (let j = 0; j <= arrString.length - 1; j++) {
+      if (arrString[i] === arrString[j]) {
         numberofRepeats++;
       }
     }
-    if (numberofRepeats==1){return arrString[i];}
+    if (numberofRepeats === 1) { return arrString[i]; }
   }
   return null;
 }
@@ -276,17 +275,17 @@ export function findFirstSingleChar(str) {
  */
 export function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
 
-  if (a>b) {
-    let ab=a;
-    a=b;
-    b=ab;
+  if (a > b) {
+    let ab = a;
+    a = b;
+    b = ab;
   }
 
-  let resultString='';
+  let resultString = '';
 
-  if (isStartIncluded) {resultString+='[';} else {resultString+='(';}
-  resultString+=`${a}, ${b}`;
-  if (isEndIncluded) {resultString+=']';} else {resultString+=')';}
+  if (isStartIncluded) { resultString += '['; } else { resultString += '('; }
+  resultString += `${a}, ${b}`;
+  if (isEndIncluded) { resultString += ']'; } else { resultString += ')'; }
 
   return resultString;
 }
@@ -305,9 +304,9 @@ export function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 export function reverseString(str) {
-  let resultStr='';
-  for (let elem of str){
-    resultStr=elem+resultStr;
+  let resultStr = '';
+  for (let elem of str) {
+    resultStr = elem + resultStr;
   }
 
   return resultStr;
@@ -327,10 +326,10 @@ export function reverseString(str) {
  *   34143 => 34143
  */
 export function reverseInteger(num) {
-  num=num+'';
-  let resultStr='';
-  for (let elem of num){
-    resultStr=elem+resultStr;
+  num = num + '';
+  let resultStr = '';
+  for (let elem of num) {
+    resultStr = elem + resultStr;
   }
   return +resultStr;
 }
@@ -359,24 +358,24 @@ export function reverseInteger(num) {
 export function isCreditCardNumber(ccn) {
 
   //Stage1
-  let ccnString=ccn+'';
-  let Stage1=ccnString.split('');
-  let Stage2=[];
+  let ccnString = ccn + '';
+  let Stage1 = ccnString.split('');
+  let Stage2 = [];
 
   //Stage2
-  Stage2=Stage1;
-  for (let i=Stage1.length-2;i>=0;i-=2){
-    if (2*Stage1[i]>=10) {Stage2[i]=2*Stage1[i]-9;} else {Stage2[i]=2*Stage1[i];}
+  Stage2 = Stage1;
+  for (let i = Stage1.length - 2; i >= 0; i -= 2) {
+    if (2 * Stage1[i] >= 10) { Stage2[i] = 2 * Stage1[i] - 9; } else { Stage2[i] = 2 * Stage1[i]; }
   }
 
   //Stage3
-  let Stage3 = Stage2.reduce(function(sum, current) {
+  let Stage3 = Stage2.reduce(function (sum, current) {
     return sum + +current;
   }, 0);
 
   //result
 
-  if (Stage3%10==0) return true;
+  if (Stage3 % 10 === 0) return true;
   return false;
 
 }
@@ -398,20 +397,20 @@ export function isCreditCardNumber(ccn) {
  */
 export function getDigitalRoot(num) {
   //Part 1
-  let numString=num+'';
-  let sumofNum=0;
-  for (let elem of numString){
-    sumofNum+=(+elem);
+  let numString = num + '';
+  let sumofNum = 0;
+  for (let elem of numString) {
+    sumofNum += (+elem);
   }
 
   //Part 2
-  let sumofSum=0;
-  let sumString=sumofNum+'';
-  for (let elem of sumString){
-    sumofSum+=(+elem);
+  let sumofSum = 0;
+  let sumString = sumofNum + '';
+  for (let elem of sumString) {
+    sumofSum += (+elem);
   }
 
-  if (+sumofSum<+sumofNum) return sumofSum;
+  if (+sumofSum < +sumofNum) return sumofSum;
   return sumofNum;
 
 }
@@ -440,30 +439,30 @@ export function getDigitalRoot(num) {
  */
 export function isBracketsBalanced(str) {
 
-  let brackets=['()', '[]', '{}', '<>'];
+  let brackets = ['()', '[]', '{}', '<>'];
   let position;
-  let workString=str;
+  let workString = str;
   //searching for brackets
-  for (let i=0; i<=brackets.length-1;i++){
-    position=workString.indexOf(brackets[i]);
-    while (position>=0){
+  for (let i = 0; i <= brackets.length - 1; i++) {
+    position = workString.indexOf(brackets[i]);
+    while (position >= 0) {
 
 
       //removing current brackets
-      workString=workString.split('');
-      workString[position]='';
-      workString[position+1]='';
-      workString=workString.join('');
+      workString = workString.split('');
+      workString[position] = '';
+      workString[position + 1] = '';
+      workString = workString.join('');
 
-      position=workString.indexOf(brackets[i]);
+      position = workString.indexOf(brackets[i]);
 
       //turn i to 0;
-      if (position===-1){i=-1;}
+      if (position === -1) { i = -1; }
     }
   }
-  if (workString=='') {
+  if (workString === '') {
     return true;
-  } else {return false;}
+  } else { return false; }
 
 }
 
@@ -501,39 +500,38 @@ export function isBracketsBalanced(str) {
  */
 export function timespanToHumanString(startDate, endDate) {
 
-  let date0=+startDate;
-  let date1=+endDate;
+  let date0 = +startDate;
+  let date1 = +endDate;
 
-  let diff=date1-date0;
+  let diff = date1 - date0;
 
   //time variables
-  let seconds=1000;
-  let minutes=60*1000;
-  let hours=60*60*1000;
-  let days=24*hours;
-  let months=30*days;
-  let years=365*days;
+  let seconds = 1000;
+  let minutes = 60 * 1000;
+  let hours = 60 * 60 * 1000;
+  let days = 24 * hours;
+  let months = 30 * days;
+  let years = 365 * days;
 
   //diff time
-  let dseconds=Math.round(diff/1000);
-  let dminutes=Math.round((diff-1)/minutes);
-  let dhours=Math.round((diff-1)/hours);
-  let ddays=Math.round((diff-1)/days);
-  let dmonths=Math.round((diff-1)/months);
-  let dyears=Math.round((diff-1)/years);
+  let dminutes = Math.round((diff - 1) / minutes);
+  let dhours = Math.round((diff - 1) / hours);
+  let ddays = Math.round((diff - 1) / days);
+  let dmonths = Math.round((diff - 1) / months);
+  let dyears = Math.round((diff - 1) / years);
 
   // Condition
-  if (diff>=0 && diff<=45*seconds) return 'a few seconds ago';
-  if (diff>45*seconds && diff<=90*seconds) return 'a minute ago';
-  if (diff>90*seconds && diff<=45*minutes) return `${dminutes} minutes ago`;
-  if (diff>45*minutes && diff<=90*minutes) return `an hour ago`;
-  if (diff>90*minutes && diff<=22*hours) return `${dhours} hours ago`;
-  if (diff>22*hours && diff<=36*hours) return `a day ago`;
-  if (diff>36*hours && diff<=25*days) return `${ddays} days ago`;
-  if (diff>25*days && diff<=45*days) return `a month ago`;
-  if (diff>45*days && diff<=345*days) return `${dmonths} months ago`;
-  if (diff>345*days && diff<=545*days) return `a year ago`;
-  if (diff>546*days) return `${dyears} years ago`;
+  if (diff >= 0 && diff <= 45 * seconds) return 'a few seconds ago';
+  if (diff > 45 * seconds && diff <= 90 * seconds) return 'a minute ago';
+  if (diff > 90 * seconds && diff <= 45 * minutes) return `${dminutes} minutes ago`;
+  if (diff > 45 * minutes && diff <= 90 * minutes) return `an hour ago`;
+  if (diff > 90 * minutes && diff <= 22 * hours) return `${dhours} hours ago`;
+  if (diff > 22 * hours && diff <= 36 * hours) return `a day ago`;
+  if (diff > 36 * hours && diff <= 25 * days) return `${ddays} days ago`;
+  if (diff > 25 * days && diff <= 45 * days) return `a month ago`;
+  if (diff > 45 * days && diff <= 345 * days) return `${dmonths} months ago`;
+  if (diff > 345 * days && diff <= 545 * days) return `a year ago`;
+  if (diff > 546 * days) return `${dyears} years ago`;
 
 
 }
@@ -560,7 +558,7 @@ export function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 export function toNaryString(num, n) {
-    return num.toString(n)
+  return num.toString(n);
 }
 
 
@@ -578,23 +576,23 @@ export function toNaryString(num, n) {
  */
 export function getCommonDirectoryPath(pathes) {
 
-  let myObj={'':''};
-  let result='';
-  let i=0;
+  let myObj = { '': '' };
+  let result = '';
+  let i = 0;
 
-  while (Object.keys(myObj).length==1){
-    result+=Object.keys(myObj)[0];
-    myObj={};
+  while (Object.keys(myObj).length === 1) {
+    result += Object.keys(myObj)[0];
+    myObj = {};
 
-    for (let elem of pathes){
-      myObj[elem[i]]=0;
+    for (let elem of pathes) {
+      myObj[elem[i]] = 0;
     }
 
     i++;
   }
 
-  if (result.length>0) {
-    while (result[result.length - 1] != '/') {
+  if (result.length > 0) {
+    while (result[result.length - 1] !== '/') {
       result = result.slice(0, -1);
     }
   }
@@ -622,35 +620,33 @@ export function getCommonDirectoryPath(pathes) {
  *
  */
 export function getMatrixProduct(m1, m2) {
-  const width1=m1[0].length;
-  const height1=m1.length;
-
-  const width2=m2[0].length;
-  const height2=m2.length;
-
-  const widthRes=height1;
-  const heightRes=width2;
   
-  let  result=new Array(heightRes);
-  
+  const height1 = m1.length;
+  const width2 = m2[0].length;
+ 
+  const widthRes = height1;
+  const heightRes = width2;
 
-  for (let row=0;row<heightRes;row++){
-      result[row]=new Array(widthRes);
+  let result = new Array(heightRes);
 
-      for (let col=0;col<widthRes;col++){
-          result[row][col]=getValue(m1,m2,row,col);
-      }    
+
+  for (let row = 0; row < heightRes; row++) {
+    result[row] = new Array(widthRes);
+
+    for (let col = 0; col < widthRes; col++) {
+      result[row][col] = getValue(m1, m2, row, col);
+    }
   }
 
   return result;
 }
 
-function getValue(m1,m2,row,col){
-  const width1=m1[0].length;
-  let value=0;
+function getValue(m1, m2, row, col) {
+  const width1 = m1[0].length;
+  let value = 0;
 
-  for (let i=0;i<width1;i++){
-      value=value+m1[row][i]*m2[i][col]
+  for (let i = 0; i < width1; i++) {
+    value = value + m1[row][i] * m2[i][col];
   }
 
   return value;
@@ -688,83 +684,83 @@ function getValue(m1,m2,row,col){
  *
  */
 export function evaluateTicTacToePosition(position) {
-  const dimension=position.length;
+  const dimension = position.length;
 
   //check rows (horizont)
-  for (let row=0;row<dimension;row++){
-      //condition below is needed to remove empty spaces
-      let currentRow=position[row].join('').split('');
-      if (currentRow.length!==dimension) continue;
-      
+  for (let row = 0; row < dimension; row++) {
+    //condition below is needed to remove empty spaces
+    let currentRow = position[row].join('').split('');
+    if (currentRow.length !== dimension) continue;
 
-      if (position[row].every(elem=>elem==="0")){
-          return "0"
-      }
-      
-      if (position[row].every(elem=>elem==="X")){
-          return "X"
-      }
+
+    if (position[row].every(elem => elem === '0')) {
+      return '0';
+    }
+
+    if (position[row].every(elem => elem === 'X')) {
+      return 'X';
+    }
   }
-  
+
 
   //check columns (vertical)
-  for (let col=0;col<dimension;col++){
-      let currentCol=[];
-      for (let row=0;row<dimension;row++){
-          currentCol.push(position[row][col])
-      }
+  for (let col = 0; col < dimension; col++) {
+    let currentCol = [];
+    for (let row = 0; row < dimension; row++) {
+      currentCol.push(position[row][col]);
+    }
 
-  
-      if (currentCol.join('').split('').length!==dimension) continue;
 
-      if (currentCol.every(elem=>elem==="0")){
-          return "0"
-      }
-      if (currentCol.every(elem=>elem==="X")){
-          return "X"
-      }
+    if (currentCol.join('').split('').length !== dimension) continue;
+
+    if (currentCol.every(elem => elem === '0')) {
+      return '0';
+    }
+    if (currentCol.every(elem => elem === 'X')) {
+      return 'X';
+    }
   }
 
   //check diagonal1
-  let diagonal1=[];
-  let c1=0;
-  let r1=0;
-  while (r1<=dimension-1 && c1<=dimension-1){
+  let diagonal1 = [];
+  let c1 = 0;
+  let r1 = 0;
+  while (r1 <= dimension - 1 && c1 <= dimension - 1) {
 
-      diagonal1.push(position[r1][c1])
-      r1++;
-      c1++;
+    diagonal1.push(position[r1][c1]);
+    r1++;
+    c1++;
   }
 
-  if (diagonal1.join('').split('').length===dimension){
+  if (diagonal1.join('').split('').length === dimension) {
 
-      if (diagonal1.every(elem=>elem==="0")){
-          return "0"
-      }
-      if (diagonal1.every(elem=>elem==="X")){
-          return "X"
-      }
+    if (diagonal1.every(elem => elem === '0')) {
+      return '0';
+    }
+    if (diagonal1.every(elem => elem === 'X')) {
+      return 'X';
+    }
 
-  } 
+  }
 
   //check diagonal2
-  let diagonal2=[];
-  let c2=dimension-1;
-  let r2=0;
-  while (r2<=dimension-1 && c2>=0){
-      diagonal2.push(position[r2][c2])
-      r2++;
-      c2--
+  let diagonal2 = [];
+  let c2 = dimension - 1;
+  let r2 = 0;
+  while (r2 <= dimension - 1 && c2 >= 0) {
+    diagonal2.push(position[r2][c2]);
+    r2++;
+    c2--;
   }
-  
-  if (diagonal2.join('').split('').length===dimension){
 
-      if (diagonal2.every(elem=>elem==="0")){
-          return "0"
-      }
-      if (diagonal2.every(elem=>elem==="X")){
-          return "X"
-      }
+  if (diagonal2.join('').split('').length === dimension) {
+
+    if (diagonal2.every(elem => elem === '0')) {
+      return '0';
+    }
+    if (diagonal2.every(elem => elem === 'X')) {
+      return 'X';
+    }
   }
 
   return undefined;

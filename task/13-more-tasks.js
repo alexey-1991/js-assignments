@@ -12,20 +12,20 @@
  *   'abcdefghijklmnop',  'lmnopqrstuvwxyz'  => 'abcdefghijklmnopqrstuvwxyz'
  */
 export function distinctLettersString(value1, value2) {
-  
-  const initialArr=[value1,value2];
-  const letters={};
 
-  initialArr.forEach(str=>{
-      str.split('').forEach(letter=>{
-          letters[letter]=1;
-      })
-  })
+  const initialArr = [value1, value2];
+  const letters = {};
 
-  const keys=Object.keys(letters);
-  const sortArr=keys.sort((a,b)=>a.charCodeAt(0)-b.charCodeAt(0))
+  initialArr.forEach(str => {
+    str.split('').forEach(letter => {
+      letters[letter] = 1;
+    });
+  });
 
-  return sortArr.join("");
+  const keys = Object.keys(letters);
+  const sortArr = keys.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
+
+  return sortArr.join('');
 }
 
 
@@ -42,15 +42,15 @@ export function distinctLettersString(value1, value2) {
  */
 
 export function lowerLetters(value) {
-  const lettersObj={};
-    const reg=/[a-z]*/g
-    const lettersArr= value.match(reg).join("").split("");
+  const lettersObj = {};
+  const reg = /[a-z]*/g;
+  const lettersArr = value.match(reg).join('').split('');
 
-    lettersArr.forEach(elem => {
-        lettersObj[elem]=lettersObj[elem]+1||1;
-    });
+  lettersArr.forEach(elem => {
+    lettersObj[elem] = lettersObj[elem] + 1 || 1;
+  });
 
-    return lettersObj;
+  return lettersObj;
 }
 
 /**
@@ -72,17 +72,17 @@ export function lowerLetters(value) {
  */
 
 export function titleCaseConvert(title, minorWords) {
-    if (!minorWords) minorWords="";
+  if (!minorWords) minorWords = '';
 
-    const lowerTitleArr=title.toLowerCase().split(" ");
-    const minorWordsArr=minorWords.split(' ').map(word=>word.toLowerCase());
+  const lowerTitleArr = title.toLowerCase().split(' ');
+  const minorWordsArr = minorWords.split(' ').map(word => word.toLowerCase());
 
-    const resultTitleArr=lowerTitleArr.map((word,i)=>{
-        if (minorWordsArr.includes(word) && i!==0) return word;
-        return word[0].toUpperCase()+word.slice(1) ;
-    })
+  const resultTitleArr = lowerTitleArr.map((word, i) => {
+    if (minorWordsArr.includes(word) && i !== 0) return word;
+    return word[0].toUpperCase() + word.slice(1);
+  });
 
-    return resultTitleArr.join(" ")
+  return resultTitleArr.join(' ');
 }
 
 /**
@@ -103,47 +103,44 @@ export function titleCaseConvert(title, minorWords) {
  */
 
 export function calcRPN(expr) {
-    if (!expr) return 0; 
+  if (!expr) return 0;
 
-    const orerandReg=/\*|\+|-|\//;
-    const numberReg=/\d/;
-    let buffer=[];
-    let exprArr=expr.split(" ");
+  const orerandReg = /\*|\+|-|\//;
+  let buffer = [];
+  let exprArr = expr.split(' ');
 
-    
-    if (!orerandReg.test(expr)) return exprArr[exprArr.length-1];
 
-    while (exprArr.length!==1){
+  if (!orerandReg.test(expr)) return exprArr[exprArr.length - 1];
 
-        for (let i=0;i<exprArr.length;i++){
-            const elem=exprArr[i];
+  while (exprArr.length !== 1) {
 
-            let prevPrevElem;
-            let prevElem;
-                
-            if (i>=2){
-                prevElem=exprArr[i-1];
-                prevPrevElem=exprArr[i-2];
-            }
+    for (let i = 0; i < exprArr.length; i++) {
+      const elem = exprArr[i];
 
-            if (orerandReg.test(elem) && i>=2) {
-                buffer=[prevPrevElem,prevElem];
-                const newvalue=countBuffer(buffer,elem);
-                exprArr=[].concat(
-                    exprArr.slice(0,i-2),
-                    [newvalue],
-                    exprArr.slice(i+1)
-                )
-                break;
-            } 
-            if (i<2 && orerandReg.test(elem)) console
-                            .log("syntax error: incorrect input")
-        }
+      let prevPrevElem;
+      let prevElem;
+
+      if (i >= 2) {
+        prevElem = exprArr[i - 1];
+        prevPrevElem = exprArr[i - 2];
+      }
+
+      if (orerandReg.test(elem) && i >= 2) {
+        buffer = [prevPrevElem, prevElem];
+        const newvalue = countBuffer(buffer, elem);
+        exprArr = [].concat(
+          exprArr.slice(0, i - 2),
+          [newvalue],
+          exprArr.slice(i + 1)
+        );
+        break;
+      }
     }
+  }
 
-    return exprArr[0];
+  return exprArr[0];
 }
 
-function countBuffer(buffer,operand){
-    return eval(buffer.join(operand))
+function countBuffer(buffer, operand) {
+  return eval(buffer.join(operand));
 }

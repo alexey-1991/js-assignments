@@ -16,72 +16,72 @@
  *  ]
  */
 export function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
-  let azimuth=0.00;
-  let stepAzimuth=11.25;
-  let currentIndex=1;
-  let result=[
+  let azimuth = 0.00;
+  let stepAzimuth = 11.25;
+  let currentIndex = 1;
+  let result = [
     { abbreviation: sides[0], azimuth: azimuth }
   ];
 
-  while (currentIndex<=3){
+  while (currentIndex <= 3) {
 
-    let pV=sides[currentIndex-1]; // previousValue
-    let cV=sides[currentIndex]; //currentValue
-    let nV=sides[currentIndex+1]; //nextValue
-    if (!nV){nV=sides[0]}
+    let pV = sides[currentIndex - 1]; // previousValue
+    let cV = sides[currentIndex]; //currentValue
+    let nV = sides[currentIndex + 1]; //nextValue
+    if (!nV) { nV = sides[0]; }
 
 
-    azimuth+=stepAzimuth;
+    azimuth += stepAzimuth;
     result.push({ abbreviation: `${pV}b${cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({ abbreviation: `${pV+pV+cV}`, azimuth: azimuth });
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${pV + pV + cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({ abbreviation: `${pV+cV}b${pV}`, azimuth: azimuth });
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${pV + cV}b${pV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({ abbreviation: `${pV+cV}`, azimuth: azimuth });
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${pV + cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({ abbreviation: `${pV+cV}b${cV}`, azimuth: azimuth });
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${pV + cV}b${cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({ abbreviation: `${cV+pV+cV}`, azimuth: azimuth });
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${cV + pV + cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
+    azimuth += stepAzimuth;
     result.push({ abbreviation: `${cV}b${pV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({abbreviation: `${cV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({abbreviation: `${cV}b${nV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${cV}b${nV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({abbreviation: `${cV+nV+cV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${cV + nV + cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({abbreviation: `${nV+cV}b${cV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${nV + cV}b${cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({abbreviation: `${nV+cV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${nV + cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({abbreviation: `${nV+cV}b${nV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${nV + cV}b${nV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({abbreviation: `${nV+nV+cV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${nV + nV + cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    result.push({abbreviation: `${nV}b${cV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    result.push({ abbreviation: `${nV}b${cV}`, azimuth: azimuth });
 
-    azimuth+=stepAzimuth;
-    if (azimuth!==360) {
-      result.push({abbreviation: `${nV}`, azimuth: azimuth});
+    azimuth += stepAzimuth;
+    if (azimuth !== 360) {
+      result.push({ abbreviation: `${nV}`, azimuth: azimuth });
     }
 
-    currentIndex+=2;
+    currentIndex += 2;
   }
 
   return result;
@@ -157,53 +157,53 @@ export function* expandBraces(str) {
  *
  */
 export function getZigZagMatrix(n) {
-  let i=0;
-  let j=0;
-  let value=0;
+  let i = 0;
+  let j = 0;
+  let value = 0;
 
 
   // creating Array
 
   //Second way to create Array
-  let result=[];
+  let result = [];
 
-  for (let x=0;x<=n-1;x++){
-    result[x]=[];
-    for (let y=0;y<=n-1;y++){
-      result[x][y]=1;
+  for (let x = 0; x <= n - 1; x++) {
+    result[x] = [];
+    for (let y = 0; y <= n - 1; y++) {
+      result[x][y] = 1;
     }
   }
 
 
   // fill Array
-  result[i][j]=value;
+  result[i][j] = value;
 
-  while (i!==n-1 || j!==n-1){
+  while (i !== n - 1 || j !== n - 1) {
 
-    if (result[i][j+1]){
-      result[i][++j]=++value;
+    if (result[i][j + 1]) {
+      result[i][++j] = ++value;
     } else {
-      result[++i][j]=++value;
+      result[++i][j] = ++value;
     }
 
-    if (result[i+1]){
-      while (result[i+1][j-1]){
-        result[++i][--j]=++value;
-        if (!result[i+1]) break;
+    if (result[i + 1]) {
+      while (result[i + 1][j - 1]) {
+        result[++i][--j] = ++value;
+        if (!result[i + 1]) break;
       }
     }
 
 
-    if (result[i+1]){
-      result[++i][j]=++value;
+    if (result[i + 1]) {
+      result[++i][j] = ++value;
     } else {
-      result[i][++j]=++value;
+      result[i][++j] = ++value;
     }
 
-    if (result[i-1]){
-      while (result[i-1][j+1]){
-        result[--i][++j]=++value;
-        if (!result[i-1]) break;
+    if (result[i - 1]) {
+      while (result[i - 1][j + 1]) {
+        result[--i][++j] = ++value;
+        if (!result[i - 1]) break;
       }
     }
 
@@ -235,79 +235,79 @@ export function getZigZagMatrix(n) {
  *
  */
 export function canDominoesMakeRow(dominoes) {
-     
-  const startIndex=0;
 
-  let sideLeft=0;
-  let indexLeft=startIndex;
-  let dominoLeft=dominoes[indexLeft];
+  const startIndex = 0;
 
-  let sideRight=1;
-  let indexRight=startIndex;
-  let dominoRight=dominoes[indexRight];
+  let sideLeft = 0;
+  let indexLeft = startIndex;
+  let dominoLeft = dominoes[indexLeft];
 
-  
+  let sideRight = 1;
+  let indexRight = startIndex;
+  let dominoRight = dominoes[indexRight];
+
+
   //movement to the right
-  for (let i=0;i<dominoes.length;i++){
-      const elem=dominoes[i];
-      if (!elem[0] && !elem[1]) continue;
-      if ( i===indexRight ) continue;
-  
+  for (let i = 0; i < dominoes.length; i++) {
+    const elem = dominoes[i];
+    if (!elem[0] && !elem[1]) continue;
+    if (i === indexRight) continue;
 
-      if (elem[0]===dominoRight[sideRight] ){
-          elem[0]=null;
-          dominoRight[sideRight]=null;
 
-          indexRight=i;
-          dominoRight=elem;
-          sideRight=1;
-          i=0;
-          continue;
-      }
+    if (elem[0] === dominoRight[sideRight]) {
+      elem[0] = null;
+      dominoRight[sideRight] = null;
 
-      if (elem[1]===dominoRight[sideRight] ){
-          elem[1]=null;
-          dominoRight[sideRight]=null;
+      indexRight = i;
+      dominoRight = elem;
+      sideRight = 1;
+      i = 0;
+      continue;
+    }
 
-          indexRight=i;
-          dominoRight=elem;
-          sideRight=0;
-          i=0;
-          continue;
-      }
-  } 
+    if (elem[1] === dominoRight[sideRight]) {
+      elem[1] = null;
+      dominoRight[sideRight] = null;
+
+      indexRight = i;
+      dominoRight = elem;
+      sideRight = 0;
+      i = 0;
+      continue;
+    }
+  }
 
   //movement to the left
-  for (let i=0;i<dominoes.length;i++){
-      const elem=dominoes[i];
-      if (!elem[0] && !elem[1]) continue;
-      if ( i===indexLeft ) continue;
-  
+  for (let i = 0; i < dominoes.length; i++) {
+    const elem = dominoes[i];
+    if (!elem[0] && !elem[1]) continue;
+    if (i === indexLeft) continue;
 
-      if (elem[0]===dominoLeft[sideLeft] ){
-          elem[0]=null;
-          dominoLeft[sideLeft]=null;
 
-          indexLeft=i;
-          dominoRight=elem;
-          sideLeft=1;
-          i=0;
-          continue;
-      }
+    if (elem[0] === dominoLeft[sideLeft]) {
+      elem[0] = null;
+      dominoLeft[sideLeft] = null;
 
-      if (elem[1]===dominoLeft[sideLeft] ){
-          elem[1]=null;
-          dominoLeft[sideLeft]=null;
+      indexLeft = i;
+      dominoRight = elem;
+      sideLeft = 1;
+      i = 0;
+      continue;
+    }
 
-          indexLeft=i;
-          dominoLeft=elem;
-          sideLeft=0;
-          i=0;
-          continue;
-      }
-  } 
-  
-  return !!!dominoes.find(elem=>elem[0] && elem[1])
+    if (elem[1] === dominoLeft[sideLeft]) {
+      elem[1] = null;
+      dominoLeft[sideLeft] = null;
+
+      indexLeft = i;
+      dominoLeft = elem;
+      sideLeft = 0;
+      i = 0;
+      continue;
+    }
+  }
+
+  return !dominoes.find(elem => elem[0] && elem[1]);
 }
 
 
@@ -333,33 +333,33 @@ export function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 export function extractRanges(nums) {
-  let result="";
-  result+=nums[0];
-  for (let i=1; i<nums.length;i++){
+  let result = '';
+  result += nums[0];
+  for (let i = 1; i < nums.length; i++) {
 
-      const prev=nums[i-1];
-      const curr=nums[i];
-      const next=nums[i+1];
+    const prev = nums[i - 1];
+    const curr = nums[i];
+    const next = nums[i + 1];
 
-      const diffPrev=((curr-prev)===1 );
-      const diffNext=((next-curr)===1 );
+    const diffPrev = ((curr - prev) === 1);
+    const diffNext = ((next - curr) === 1);
 
-      if (i===1 && !diffPrev){
-          result+=`,`;
-      }
-      if (diffPrev && !diffNext){
-          const separator=((curr-nums[i-2])===2)?"-":","
-          result+=`${separator}${curr}`;
-          if (i!==nums.length-1) result+=`,`;
-      }
-      if (!diffPrev && !diffNext){
-          result+=`${curr}`;
-          if (i!==nums.length-1) result+=`,`;
-      }
-      if (!diffPrev && diffNext){
-          result+=`${curr}`;
-      }
+    if (i === 1 && !diffPrev) {
+      result += `,`;
+    }
+    if (diffPrev && !diffNext) {
+      const separator = ((curr - nums[i - 2]) === 2) ? '-' : ',';
+      result += `${separator}${curr}`;
+      if (i !== nums.length - 1) result += `,`;
+    }
+    if (!diffPrev && !diffNext) {
+      result += `${curr}`;
+      if (i !== nums.length - 1) result += `,`;
+    }
+    if (!diffPrev && diffNext) {
+      result += `${curr}`;
+    }
   }
 
-  return result
+  return result;
 }

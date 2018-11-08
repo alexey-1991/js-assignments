@@ -22,7 +22,7 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 export function findElement(arr, value) {
-  return arr.findIndex(elem=>elem === value);
+  return arr.findIndex(elem => elem === value);
 }
 
 /**
@@ -37,10 +37,10 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  let result=new Array(len);
+  let result = new Array(len);
   result.fill(0);
-  return result.map((elem,i)=>{
-    return 2*i+1;
+  return result.map((elem, i) => {
+    return 2 * i + 1;
   });
 }
 
@@ -74,7 +74,7 @@ export function doubleArray(arr) {
  *    [] => []
  */
 export function getArrayOfPositives(arr) {
-  return arr.filter((elem)=>elem>0);
+  return arr.filter(elem => elem > 0);
 }
 
 /**
@@ -89,12 +89,12 @@ export function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 export function getArrayOfStrings(arr) {
-  return arr.filter((elem)=>elem.charAt)
+  return arr.filter(elem => elem.charAt);
 }
 
 /**
  * Removes falsy values from the specified array
- * Falsy values: false, null, 0, "", undefined, and NaN.
+ * Falsy values: false, null, 0, '', undefined, and NaN.
  * (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean#Description)
  *
  * @param {array} arr
@@ -106,7 +106,7 @@ export function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 export function removeFalsyValues(arr) {
-  return arr.filter(elem=>elem);
+  return arr.filter(elem => elem);
 }
 
 /**
@@ -121,7 +121,7 @@ export function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 export function getUpperCaseStrings(arr) {
-  return arr.map(elem=>elem.toUpperCase());
+  return arr.map(elem => elem.toUpperCase());
 }
 
 
@@ -136,7 +136,7 @@ export function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 export function getStringsLength(arr) {
-  return arr.map(elem=>elem.length)
+  return arr.map(elem => elem.length);
 }
 
 /**
@@ -180,7 +180,7 @@ export function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 export function getTail(arr, n) {
-  return arr.slice(arr.length-n);
+  return arr.slice(arr.length - n);
 }
 
 
@@ -205,7 +205,7 @@ export function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 export function toCsvText(arr) {
-  return arr.map(elem=>elem.join()).join('\n');
+  return arr.map(elem => elem.join()).join('\n');
 }
 
 /**
@@ -220,7 +220,7 @@ export function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 export function toArrayOfSquares(arr) {
-  return arr.map(elem=>elem*elem)
+  return arr.map(elem => elem * elem);
 }
 
 
@@ -239,10 +239,10 @@ export function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 export function getMovingSum(arr) {
-  return arr.map((elem,i,arr)=>{
-    if (i===0) return elem;
-    return arr[i]=arr[i-1]+elem
-  })
+  return arr.map((elem, i, arr) => {
+    if (i === 0) return elem;
+    return arr[i] = arr[i - 1] + elem;
+  });
 }
 
 /**
@@ -253,11 +253,11 @@ export function getMovingSum(arr) {
  *
  * Example :
  * [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 2, 4, 6, 8, 10 ]
- * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
- * [ "a" ] => []
+ * [ 'a', 'b', 'c' , null ]  => [ 'b', null ]
+ * [ 'a' ] => []
  */
 export function getSecondItems(arr) {
-  return arr.filter((elem,i)=>i%2===1)
+  return arr.filter((elem, i) => i % 2 === 1);
 }
 
 
@@ -276,11 +276,11 @@ export function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 export function propagateItemsByPositionIndex(arr) {
-  let result=[];
-  arr.map((elem, i)=>{
-    result=result.concat(new Array(i+1).fill(elem));
+  let result = [];
+  arr.map((elem, i) => {
+    result = result.concat(new Array(i + 1).fill(elem));
   });
-  return result
+  return result;
 }
 
 
@@ -299,8 +299,8 @@ export function propagateItemsByPositionIndex(arr) {
  */
 export function get3TopItems(arr) {
 
-  arr.sort(function(a, b) {
-    return b-a;
+  arr.sort(function (a, b) {
+    return b - a;
   });
   return arr.slice(0, 3);
 
@@ -321,9 +321,9 @@ export function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 export function getPositivesCount(arr) {
-  return arr.filter((elem)=>{
-    return ((elem>0) && (typeof(elem)==='number' ))
-  }).length
+  return arr.filter(elem => {
+    return ((elem > 0) && (typeof (elem) === 'number'));
+  }).length;
 }
 
 /**
@@ -341,19 +341,19 @@ export function getPositivesCount(arr) {
  */
 export function sortDigitNamesByNumericOrder(arr) {
 
-  const myNum={
-    'zero':0,
-    'one':1,
-    'two':2,
-    'three':3,
-    'four':4,
-    'five':5,
-    'six':6,
-    'seven':7,
-    'eight':8,
-    'nine':9
+  const myNum = {
+    'zero': 0,
+    'one': 1,
+    'two': 2,
+    'three': 3,
+    'four': 4,
+    'five': 5,
+    'six': 6,
+    'seven': 7,
+    'eight': 8,
+    'nine': 9
   };
-  return [...arr].sort((a,b)=>myNum[a]-myNum[b])
+  return [...arr].sort((a, b) => myNum[a] - myNum[b]);
 }
 
 /**
@@ -369,7 +369,7 @@ export function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 export function getItemsSum(arr) {
-  return arr.reduce((prev,curr)=>prev+curr,0)
+  return arr.reduce((prev, curr) => prev + curr, 0);
 }
 
 /**
@@ -385,7 +385,7 @@ export function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 export function getFalsyValuesCount(arr) {
-  return arr.filter((elem)=>{
+  return arr.filter(elem => {
     if (!elem) return '1';
   }).length;
 }
@@ -405,7 +405,7 @@ export function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 export function findAllOccurences(arr, item) {
-  return arr.filter(elem=>elem===item).length
+  return arr.filter(elem => elem === item).length;
 }
 
 /**
@@ -451,7 +451,7 @@ export function toStringList(arr) {
  */
 export function sortCitiesArray(arr) {
 
-  arr.sort(function(a, b) {
+  arr.sort(function (a, b) {
     if (a.country > b.country) return 1;
     if (a.country < b.country) return -1;
     if (a.country === b.country) {
@@ -483,12 +483,12 @@ export function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 export function getIdentityMatrix(n) {
-  let arr=new Array(n).fill(new Array(n).fill(0))
-  return arr.map((curr,i)=>{
-    return curr.map((current,j)=>{
-      if (i===j) current=1;
-      return current
-    })
+  let arr = new Array(n).fill(new Array(n).fill(0));
+  return arr.map((curr, i) => {
+    return curr.map((current, j) => {
+      if (i === j) current = 1;
+      return current;
+    });
   });
 }
 
@@ -506,8 +506,8 @@ export function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 export function getIntervalArray(start, end) {
-  let arr=new Array(end-start+1).fill(0);
-  return arr.map(()=>start++)
+  let arr = new Array(end - start + 1).fill(0);
+  return arr.map(() => start++);
 }
 
 /**
@@ -522,11 +522,11 @@ export function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 export function distinct(arr) {
-  let result=[];
-  arr.map((curr)=>{
-    if (!result.includes(curr)) return result.push(curr)
+  let result = [];
+  arr.map(curr => {
+    if (!result.includes(curr)) return result.push(curr);
   });
-  return result
+  return result;
 }
 
 /**
@@ -554,22 +554,22 @@ export function distinct(arr) {
  *   )
  *            =>
  *   Map {
- *    "Belarus" => ["Brest", "Grodno", "Minsk"],
- *    "Russia" => ["Omsk", "Samara"],
- *    "Poland" => ["Lodz"]
+ *    'Belarus' => ['Brest', 'Grodno', 'Minsk'],
+ *    'Russia' => ['Omsk', 'Samara'],
+ *    'Poland' => ['Lodz']
  *   }
  */
-export function group(array, keySelector, valueSelector){
-  let map=new Map();
-  array.map((element)=>{
-    let res=[];
-    array.map((elem)=>{
-      if (map.get(keySelector(element))===[]) return;
-      if (keySelector(elem)===keySelector(element)) return res.push(valueSelector(elem))
+export function group(array, keySelector, valueSelector) {
+  let map = new Map();
+  array.map(element => {
+    let res = [];
+    array.map(elem => {
+      if (map.get(keySelector(element)) === []) return;
+      if (keySelector(elem) === keySelector(element)) return res.push(valueSelector(elem));
     });
-    map.set(keySelector(element),res)
+    map.set(keySelector(element), res);
   });
-  return map
+  return map;
 }
 /**
  * Projects each element of the specified array to a sequence and flattens the
@@ -585,13 +585,13 @@ export function group(array, keySelector, valueSelector){
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 export function selectMany(arr, childrenSelector) {
-  let result=[];
-  arr.map((curr)=>{
-    return childrenSelector(curr).map((current)=>{
-      return result.push(current)
-    })
+  let result = [];
+  arr.map(curr => {
+    return childrenSelector(curr).map(current => {
+      return result.push(current);
+    });
   });
-  return result
+  return result;
 }
 
 
@@ -609,7 +609,7 @@ export function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 export function getElementByIndexes(arr, indexes) {
-  return indexes.reduce((prev,curr)=>prev[curr],arr);
+  return indexes.reduce((prev, curr) => prev[curr], arr);
 }
 
 
@@ -633,15 +633,15 @@ export function getElementByIndexes(arr, indexes) {
  */
 export function swapHeadAndTail(arr) {
 
-  if (arr.length%2==0){
-    let partOne=arr.slice(0, (arr.length/2));
-    let partTwo=arr.slice((arr.length/2));
+  if (arr.length % 2 === 0) {
+    let partOne = arr.slice(0, (arr.length / 2));
+    let partTwo = arr.slice((arr.length / 2));
     return partTwo.concat(partOne);
   } else {
 
-    let partOne=arr.slice(0, ((arr.length-1)/2));
-    let partTwo=arr.slice(((arr.length-1)/2)+1);
-    let partMiddle=arr.slice(((arr.length-1)/2), ((arr.length-1)/2+1));
+    let partOne = arr.slice(0, ((arr.length - 1) / 2));
+    let partTwo = arr.slice(((arr.length - 1) / 2) + 1);
+    let partMiddle = arr.slice(((arr.length - 1) / 2), ((arr.length - 1) / 2 + 1));
     return partTwo.concat(partMiddle, partOne);
 
 

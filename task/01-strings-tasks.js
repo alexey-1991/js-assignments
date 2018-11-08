@@ -20,8 +20,7 @@
  *   '',  'bb'  => 'bb'
  */
 export function concatenateStrings(value1, value2) {
-  return value1+value2;
-  // throw new Error('Not implemented');
+  return value1 + value2;
 }
 
 /**
@@ -53,8 +52,7 @@ export function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 export function getStringFromTemplate(firstName, lastName) {
-  return 'Hello, '+firstName+' '+lastName+'!';
-  // throw new Error('Not implemented');
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -67,7 +65,7 @@ export function getStringFromTemplate(firstName, lastName) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-export function  extractNameFromTemplate(value) {
+export function extractNameFromTemplate(value) {
   return value.slice(7, -1);
   // throw new Error('Not implemented');
 }
@@ -99,16 +97,7 @@ export function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 export function removeLeadingAndTrailingWhitespaces(value) {
-
-  let arr=value.split('');
-  while (arr[0]===' ' || arr[0]==='\t') {
-    arr.splice(0, 1);
-  }
-  while (arr[arr.length-1]===' ' ) {
-    arr.splice(arr.length-1, 1);
-  }
-
-  return arr.join('');
+  return value.trim();
 }
 
 /**
@@ -123,12 +112,7 @@ export function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 export function repeatString(value, count) {
-
-  let result=value;
-  for (let i=1;i<count;i++){
-    result+=value;
-  }
-  return result;
+  return value.repeat(count);
 }
 
 /**
@@ -143,10 +127,10 @@ export function repeatString(value, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-export function removeFirstOccurrences(str, value)  {
-  return ((new RegExp(" "+value+" ")).test(str))?
-        str=str.replace(new RegExp(" "+value+" ")," "):
-        str=str.replace(new RegExp(value),"")
+export function removeFirstOccurrences(str, value) {
+  return ((new RegExp(` ${value} `)).test(str)) ?
+    str = str.replace(new RegExp(` ${value} `), ' ') :
+    str = str.replace(new RegExp(value), '');
 }
 
 /**
@@ -218,66 +202,66 @@ export function extractEmails(str) {
  *
  */
 export function getRectangleString(width, height) {
-  let result="";
+  let result = '';
 
-  for (let row=1;row<=height;row++){
-      
-      switch (row){
-          case 1:
+  for (let row = 1; row <= height; row++) {
 
-              for (let col=1; col<=width; col++){
-                  switch (col){
-                      case 1:
-                          result=result+"┌";
-                          break;
-                      case width:
-                          result=result+"┐\n";
-                          break;
-                      default:
-                          result=result+"─";
-                          break;
+    switch (row) {
+    case 1:
 
-                  }
-              }
+      for (let col = 1; col <= width; col++) {
+        switch (col) {
+        case 1:
+          result = result + '┌';
+          break;
+        case width:
+          result = result + '┐\n';
+          break;
+        default:
+          result = result + '─';
+          break;
 
-              break;
-
-          case height:
-
-              for (let col=1; col<=width; col++){
-                  switch (col){
-                      case 1:
-                          
-                          result=result+"└";
-                          break;
-                      case width:
-                          result=result+"┘\n";
-                          break;
-                      default:
-                          result=result+"─";
-                          break;
-                  }
-              }
-              break;
-
-          default:
-
-              for (let col=1; col<=width; col++){
-                  switch (col){
-                      case 1:
-                          result=result+"│";
-                          break;
-                      case width:
-                          result=result+"│\n";
-                          break;
-                      default:
-                          result=result+" ";
-                          break;
-                  }
-              }
-              break;
-
+        }
       }
+
+      break;
+
+    case height:
+
+      for (let col = 1; col <= width; col++) {
+        switch (col) {
+        case 1:
+
+          result = result + '└';
+          break;
+        case width:
+          result = result + '┘\n';
+          break;
+        default:
+          result = result + '─';
+          break;
+        }
+      }
+      break;
+
+    default:
+
+      for (let col = 1; col <= width; col++) {
+        switch (col) {
+        case 1:
+          result = result + '│';
+          break;
+        case width:
+          result = result + '│\n';
+          break;
+        default:
+          result = result + ' ';
+          break;
+        }
+      }
+      break;
+
+    }
 
   }
 
@@ -305,8 +289,8 @@ export function getRectangleString(width, height) {
 
 export function encodeToRot13(str) {
 
-//  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' =>
-//        'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
+  //  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' =>
+  //        'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
   let strEng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ?!';
   let strRot = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm ?!';
   let Alphabeth = {};
@@ -345,14 +329,13 @@ export function isString(str) {
 
     if (str.charAt(1)) {
       return result = true;
-    }else{
+    } else {
       throw new Error();
     }
-
-  } catch (e){
-
+  } catch (e) {
+    return result;
   }
-  return result;
+  
 }
 
 
@@ -381,13 +364,13 @@ export function isString(str) {
  *   'K♠' => 51
  */
 export function getCardId(value) {
-  let myAlpha={};
-  let cardsArr=['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+  let myAlpha = {};
+  let cardsArr = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
     'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
     'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
     'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
-  for (let i=0;i<=cardsArr.length-1;i++){
-    myAlpha[cardsArr[i]]=i;
+  for (let i = 0; i <= cardsArr.length - 1; i++) {
+    myAlpha[cardsArr[i]] = i;
   }
   return myAlpha[value];
 }

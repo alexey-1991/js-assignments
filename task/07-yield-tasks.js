@@ -120,20 +120,48 @@ export function* getFibonacciSequence() {
  *
  */
 export function* depthTraversalTree(root) {
-  throw new Error('Not implemented');
-  yield root;
+  const visitedNodes={};
 
-  if (root.children) {
+  let currentNode=root;
+  let nextNode;
 
-      for (let node of root.children){
+  let stack=[];
+  stack.push(currentNode);
+  yield currentNode;
 
-          if (node.children) {
-              yield* depthTraversalTree(node);
-          } else {
-              yield node;
-          };
+  while(stack.length!==0){
 
+    if (currentNode.children){
+
+      for(let i=0;i<currentNode.children.length;i++){
+        if (!visitedNodes[currentNode.children[i].n+""]){
+          nextNode=currentNode.children[i];
+          break;
+        }
       }
+
+      if (nextNode){
+
+        currentNode=nextNode;
+        nextNode=null;
+        stack.push(currentNode);
+        yield currentNode;
+
+      } else {
+        visitedNodes[currentNode.n+""]=1;
+
+        stack.pop();
+        currentNode=stack[stack.length-1];
+        nextNode=null;
+      }
+
+    } else {
+      visitedNodes[currentNode.n+""]=1;
+
+      stack.pop();
+      currentNode=stack[stack.length-1];
+      nextNode=null;
+    }
 
   }
 }
@@ -179,7 +207,7 @@ export function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 export function* mergeSortedSequences(source1, source2) {
-      
+
   const iterator1=source1();
   const iterator2=source2();
 
@@ -187,12 +215,12 @@ export function* mergeSortedSequences(source1, source2) {
   let num2=iterator2.next().value;
 
   while (true){
-      
+
       if(num1<=num2){
           yield num1;
           num1=iterator1.next().value;
           continue;
-      } 
+      }
       if(num2<num1){
           yield num2;
           num2=iterator2.next().value;

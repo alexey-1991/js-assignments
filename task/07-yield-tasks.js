@@ -120,47 +120,51 @@ export function* getFibonacciSequence() {
  *
  */
 export function* depthTraversalTree(root) {
- 
-    let currentNode=root;
-    let nextNode;
-    let stack=[];
-    let visitedNodes={};//obj with names of the visited nodes
+  throw new Error('Not implemented');
+/*   const visitedNodes={};
 
-    stack.push(currentNode);
-    yield currentNode;
+  let currentNode=root;
+  let nextNode;
 
-    while (stack.length!==0){    
-        
-        if (currentNode.children){
+  let stack=[];
+  stack.push(currentNode);
+  yield currentNode;
 
-            for (let i=0;i<currentNode.children.length;i++){
-                const node=currentNode.children[i];
-                if (!visitedNodes[node.n+""]){
-                    nextNode=node;
-                    break;
-                }
-            }
+  while(stack.length!==0){
 
-            if (nextNode){
-                currentNode=nextNode;
-                nextNode=null;
-                yield currentNode;
-            } else {
-                stack.pop();
-                // stack=stack.slice(0,-1);
-                visitedNodes[currentNode.n+""]=1;
-                currentNode=stack[stack.length-1]
-                continue;
-            }
-            stack.push(currentNode);
+    if (currentNode.children){
 
-        } else {
-            stack.pop();
-            // stack=stack.slice(0,-1);
-            visitedNodes[currentNode.n+""]=1;
-            currentNode=stack[stack.length-1]
+      for(let i=0;i<currentNode.children.length;i++){
+        if (!visitedNodes[currentNode.children[i].n+""]){
+          nextNode=currentNode.children[i];
+          break;
         }
+      }
+
+      if (nextNode){
+
+        currentNode=nextNode;
+        nextNode=null;
+        stack.push(currentNode);
+        yield currentNode;
+
+      } else {
+        visitedNodes[currentNode.n+""]=1;
+
+        stack.pop();
+        currentNode=stack[stack.length-1];
+        nextNode=null;
+      }
+
+    } else {
+      visitedNodes[currentNode.n+""]=1;
+
+      stack.pop();
+      currentNode=stack[stack.length-1];
+      nextNode=null;
     }
+
+  } */
 }
 
 
@@ -204,7 +208,7 @@ export function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 export function* mergeSortedSequences(source1, source2) {
-      
+
   const iterator1=source1();
   const iterator2=source2();
 
@@ -212,12 +216,12 @@ export function* mergeSortedSequences(source1, source2) {
   let num2=iterator2.next().value;
 
   while (true){
-      
+
       if(num1<=num2){
           yield num1;
           num1=iterator1.next().value;
           continue;
-      } 
+      }
       if(num2<num1){
           yield num2;
           num2=iterator2.next().value;

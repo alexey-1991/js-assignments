@@ -289,7 +289,7 @@ describe('07-yield-tasks', () => {
     if (index < expected.length) assert.fail(index, expected.length, `sequence length should be equal to ${expected.length}`);
   });
 
-  const MAX_NODE_COUNT = 100000;
+  const MAX_NODE_COUNT = 100000;//100000
 
   function createDeepTree() {
     let root = { n: MAX_NODE_COUNT };

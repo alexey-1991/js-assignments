@@ -47,48 +47,48 @@ class Stack {
 
 function* depthTraversalTree(root) {
 
-  const visitedNodes = {};
 
-  let currentNode = root;
+  let currentNode=root;
   let nextNode;
 
-  let stack = [];
+  let stack=[];
   stack.push(currentNode);
   yield currentNode;
 
-  while (stack.length !== 0) {
+  while(stack.length!==0){
 
-    if (currentNode.children) {
+    if (currentNode.children){
 
-      for (let i = 0; i < currentNode.children.length; i++) {
-        if (!visitedNodes[currentNode.children[i].n + '']) {
-          nextNode = currentNode.children[i];
+      for(let i=0;i<currentNode.children.length;i++){
+        if (!currentNode.children[i].visited){
+          nextNode=currentNode.children[i];
           break;
         }
       }
 
-      if (nextNode) {
+      if (nextNode){
 
-        currentNode = nextNode;
-        nextNode = null;
+        currentNode=nextNode;
+        nextNode=null;
         stack.push(currentNode);
         yield currentNode;
 
       } else {
-        visitedNodes[currentNode.n + ''] = 1;
+        currentNode.visited=true;
 
         stack.pop();
-        currentNode = stack[stack.length - 1];
-        nextNode = null;
+        currentNode=stack[stack.length-1];
+        nextNode=null;
       }
 
     } else {
-      visitedNodes[currentNode.n + ''] = 1;
+      currentNode.visited=true;
 
       stack.pop();
-      currentNode = stack[stack.length - 1];
-      nextNode = null;
+      currentNode=stack[stack.length-1];
+      nextNode=null;
     }
+
   }
 }
 function* depthTraversalTree2(root) {
@@ -264,27 +264,3 @@ function DTT(root, func) {
 for (const num of depthTraversalTree2(root2)) {
   console.log(num.n)
 }
-
-// for (const num of depthTraversalTree(root2)) {
-//   console.log(num.n)
-// }
-
-// for (const num of depthTraversalTreeFloatStack(root1)) {
-//   console.log(num.n)
-// }
-//----------------------------------
-
-
-// function timer(){
-//     return function (func,arg1,arg2) {
-//         const start=Date.now();
-//         return (()=>{
-//             func(arg1,arg2);
-//             const result=Date.now()-start;
-//             console.log('Время выполнения: ',result, 'мс')
-//         })()
-//     }
-// }
-// const Timer=timer();
-//
-// Timer(DTT,root1,depthTraversalTree);

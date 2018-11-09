@@ -120,51 +120,22 @@ export function* getFibonacciSequence() {
  *
  */
 export function* depthTraversalTree(root) {
-  throw new Error('Not implemented');
-  /*   const visitedNodes={};
-  
-    let currentNode=root;
-    let nextNode;
-  
-    let stack=[];
-    stack.push(currentNode);
+  const stack = [];
+  let currentNode=root;
+  stack.push(currentNode);
+
+  while (stack.length) {
+    currentNode=stack[stack.length-1];
+    stack.pop();
+
     yield currentNode;
-  
-    while(stack.length!==0){
-  
-      if (currentNode.children){
-  
-        for(let i=0;i<currentNode.children.length;i++){
-          if (!visitedNodes[currentNode.children[i].n+'']){
-            nextNode=currentNode.children[i];
-            break;
-          }
-        }
-  
-        if (nextNode){
-  
-          currentNode=nextNode;
-          nextNode=null;
-          stack.push(currentNode);
-          yield currentNode;
-  
-        } else {
-          visitedNodes[currentNode.n+'']=1;
-  
-          stack.pop();
-          currentNode=stack[stack.length-1];
-          nextNode=null;
-        }
-  
-      } else {
-        visitedNodes[currentNode.n+'']=1;
-  
-        stack.pop();
-        currentNode=stack[stack.length-1];
-        nextNode=null;
+
+    if (currentNode.children) {
+      for (let i = currentNode.children.length - 1; i>=0; i--) {
+        stack.push(currentNode.children[i]);
       }
-  
-    } */
+    }
+  }
 }
 
 
@@ -190,7 +161,24 @@ export function* depthTraversalTree(root) {
  *
  */
 export function* breadthTraversalTree(root) {
-  throw new Error('Not implemented');
+
+  let queue= [];
+  let currentNode=root;
+  let position=0;
+
+  queue.unshift(currentNode);
+
+  while (true){
+    currentNode=queue[position++];
+    if (!currentNode) return null;
+    yield currentNode;
+
+    if (currentNode.children){
+      for (let i=0; i<currentNode.children.length;i++){
+        queue.push(currentNode.children[i])
+      }
+    }
+  }
 }
 
 

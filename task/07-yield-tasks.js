@@ -175,7 +175,7 @@ export function* breadthTraversalTree(root) {
 
     if (currentNode.children){
       for (let i=0; i<currentNode.children.length;i++){
-        queue.push(currentNode.children[i])
+        queue.push(currentNode.children[i]);
       }
     }
   }

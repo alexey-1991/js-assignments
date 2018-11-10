@@ -157,8 +157,22 @@ function fact(n) {
  *    [ 1, 6, 5, 10, 8, 7 ] => 18  (buy at 1,6,5 and sell all at 10)
  */
 export function getMostProfitFromStockQuotes(quotes) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let profit=0;
+
+  while(quotes.length){
+
+    const maxQuote=Math.max(...quotes);
+    const maxQuoteIndex=quotes.indexOf(maxQuote);
+    const income=maxQuote*maxQuoteIndex;
+    const expense=quotes.slice(0, maxQuoteIndex).reduce((acc, elem)=>{
+      return acc+elem;
+    }, 0);
+    profit+=income-expense;
+
+    quotes=quotes.slice(maxQuoteIndex+1);
+  }
+
+  return profit;
 }
 
 

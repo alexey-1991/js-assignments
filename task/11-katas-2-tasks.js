@@ -492,42 +492,8 @@ export function* getFigureRectangles(figure) {
   }
 }
 
-function renderSquare(width, height) {
-  const arr = new Array(height);
-
-
-  for (let row = 0; row < height; row++) {
-    const newRow = new Array(width);
-    arr[row] = newRow;
-
-    for (let col = 0; col < width; col++) {
-
-
-      if ((row === 0 && col === 0) ||
-                (row === 0 && col === width - 1) ||
-                (row === height - 1 && col === 0) ||
-                (row === height - 1 && col === width - 1)) {
-        arr[row][col] = '+';
-        continue;
-      }
-
-      if ((row === 0 && col > 0 && col < width - 1) ||
-                (row === height - 1 && col > 0 && col < width - 1)) {
-        arr[row][col] = '-';
-        continue;
-      }
-
-      if ((col === 0 && row > 0 && row < height - 1) ||
-                (col === width - 1 && row > 0 && row < height - 1)) {
-        arr[row][col] = '|';
-        continue;
-      }
-
-      arr[row][col] = ' ';
-
-    }
-    arr[row] = arr[row].join('');
-  }
-
-  return arr.join('\n') + '\n';
+function renderSquare(width, height){
+  return  `+${'-'.repeat(width-2)}+\n`+
+          `|${' '.repeat(width-2)}|\n`.repeat(height-2)+
+          `+${'-'.repeat(width-2)}+\n`;
 }

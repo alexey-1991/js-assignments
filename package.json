@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "JS training tasks",
   "scripts": {
-    "lint": "eslint ./task/*.js",
+    "lint": "eslint ./task/*.js --fix" ,
     "precommits": "lint-staged",
     "test": "./node_modules/.bin/mocha --require babel-core/register",
     "test-debug": "./node_modules/.bin/mocha --debug-brk"

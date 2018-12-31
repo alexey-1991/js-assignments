@@ -15,7 +15,7 @@
  *     { abbreviation : 'NbW',   azimuth : 348.75 }
  *  ]
  */
-export function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
+function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
   let azimuth = 0.00;
   let stepAzimuth = 11.25;
   let currentIndex = 1;
@@ -122,7 +122,7 @@ export function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
  *
  *   'nothing to do' => 'nothing to do'
  */
-export function* expandBraces(str) {
+function* expandBraces(str) {
   const reg = /{[^{}]*({[^{}]*})?[^{}]*}/g;
   if(!reg.test(str)) {
     yield str;
@@ -230,7 +230,7 @@ function removeRepeats(array){
  *          [ 9,10,14,15 ]]
  *
  */
-export function getZigZagMatrix(n) {
+function getZigZagMatrix(n) {
   let i = 0;
   let j = 0;
   let value = 0;
@@ -308,7 +308,7 @@ export function getZigZagMatrix(n) {
  * [[0,0], [0,1], [1,1], [0,2], [1,2], [2,2], [0,3], [1,3], [2,3], [3,3]] => false
  *
  */
-export function canDominoesMakeRow(dominoes) {
+function canDominoesMakeRow(dominoes) {
 
   const startIndex = 0;
 
@@ -406,7 +406,7 @@ export function canDominoesMakeRow(dominoes) {
  * [ 0, 1, 2, 5, 7, 8, 9] => '0-2,5,7-9'
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
-export function extractRanges(nums) {
+function extractRanges(nums) {
   let result = '';
   result += nums[0];
   for (let i = 1; i < nums.length; i++) {
@@ -437,3 +437,12 @@ export function extractRanges(nums) {
 
   return result;
 }
+
+
+module.exports = {
+  createCompassPoints : createCompassPoints,
+  expandBraces : expandBraces,
+  getZigZagMatrix : getZigZagMatrix,
+  canDominoesMakeRow : canDominoesMakeRow,
+  extractRanges : extractRanges
+};

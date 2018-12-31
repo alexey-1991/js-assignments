@@ -11,7 +11,7 @@
  *   'zxxlal','laxk'    => 'aklxz'
  *   'abcdefghijklmnop',  'lmnopqrstuvwxyz'  => 'abcdefghijklmnopqrstuvwxyz'
  */
-export function distinctLettersString(value1, value2) {
+function distinctLettersString(value1, value2) {
 
   const initialArr = [value1, value2];
   const letters = {};
@@ -41,7 +41,7 @@ export function distinctLettersString(value1, value2) {
  *
  */
 
-export function lowerLetters(value) {
+function lowerLetters(value) {
   const lettersObj = {};
   const reg = /[a-z]*/g;
   const lettersArr = value.match(reg).join('').split('');
@@ -71,7 +71,7 @@ export function lowerLetters(value) {
  *    'the quick brown fox'  => 'The Quick Brown Fox'
  */
 
-export function titleCaseConvert(title, minorWords) {
+function titleCaseConvert(title, minorWords) {
   if (!minorWords) minorWords = '';
 
   const lowerTitleArr = title.toLowerCase().split(' ');
@@ -102,7 +102,7 @@ export function titleCaseConvert(title, minorWords) {
  *  '5 1 2 + 4 * + 3 -'  =>  14   // 5 + ((1 + 2) * 4) -3
  */
 
-export function calcRPN(expr) {
+function calcRPN(expr) {
   if (!expr) return 0;
 
   const orerandReg = /\*|\+|-|\//;
@@ -144,3 +144,11 @@ export function calcRPN(expr) {
 function countBuffer(buffer, operand) {
   return eval(buffer.join(operand));
 }
+
+
+module.exports = {
+  distinctLettersString,
+  lowerLetters,
+  titleCaseConvert,
+  calcRPN
+};

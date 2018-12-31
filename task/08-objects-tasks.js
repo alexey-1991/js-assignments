@@ -21,7 +21,7 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-export function Rectangle(width, height) {
+function Rectangle(width, height) {
   this.width = width;
   this.height = height;
 }
@@ -39,7 +39,7 @@ Rectangle.prototype.getArea = function () {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{'height':10,'width':20}'
  */
-export function getJSON(obj) {
+function getJSON(obj) {
   return JSON.stringify(obj);
 }
 
@@ -55,10 +55,8 @@ export function getJSON(obj) {
  *    var r = fromJSON(Rectangle.prototype, '{'width':10, 'height':20}');
  *
  */
-export function fromJSON(proto, json) {
-  const object = JSON.parse(json);
-  object.__proto__ = proto;
-  return object;
+function fromJSON(proto, json) {
+  return Object.assign(Object.create(proto), JSON.parse(json) )
 }
 
 
@@ -117,7 +115,7 @@ export function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-export function cssSelectorBuilder() {
+function cssSelectorBuilder() {
   return new cssSelectorBuilderClass();
 }
 
@@ -215,3 +213,11 @@ class cssSelectorBuilderClass {
   }
 }
 
+
+
+module.exports = {
+  Rectangle: Rectangle,
+  getJSON: getJSON,
+  fromJSON: fromJSON,
+  cssSelectorBuilder: cssSelectorBuilder
+};

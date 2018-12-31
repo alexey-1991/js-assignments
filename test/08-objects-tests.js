@@ -1,10 +1,10 @@
-import assert from 'assert';
-import {
+const assert = require('assert');
+const {
   Rectangle,
   getJSON,
   fromJSON,
   cssSelectorBuilder
-} from '../task/08-objects-tasks';
+} = require('../task/08-objects-tasks');
 
 it.optional = require('../extensions/it-optional');
 
@@ -68,6 +68,8 @@ describe('08-objects-tasks', () => {
         data.expected
       );
     });
+
+    assert.linesOfCode(getJSON, 1);
   });
 
 
@@ -101,6 +103,8 @@ describe('08-objects-tasks', () => {
         'fromJson method shoud restore type from prototype argument'
       );
     });
+
+    assert.linesOfCode(fromJSON, 1);
   });
 
 

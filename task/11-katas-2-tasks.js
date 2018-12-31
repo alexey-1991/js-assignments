@@ -35,7 +35,7 @@
  *   '|_||_  _||_| _||_| _||_| _|\n',
  *
  */
-export function parseBankAccount(bankAccount) {
+function parseBankAccount(bankAccount) {
 
   const arr = bankAccount.split('\n').slice(0, -1);
   const stringNum = [];//array with numbers parsed from string
@@ -104,7 +104,7 @@ export function parseBankAccount(bankAccount) {
  *      'sequence of',
  *      'characters.'
  */
-export function* wrapText(text, columns) {
+function* wrapText(text, columns) {
 
   const arrWords = text.split(' ');
   let output = [];
@@ -150,7 +150,7 @@ export function* wrapText(text, columns) {
  *   [ '3♥','4♥','10♥','3♦','A♠' ] => PokerRank.OnePair
  *   [ 'A♥','K♥','Q♥','2♦','3♠' ] =>  PokerRank.HighCard
  */
-export const PokerRank = {
+const PokerRank = {
   StraightFlush: 8,
   FourOfKind: 7,
   FullHouse: 6,
@@ -304,7 +304,7 @@ function checkOnePair(hand) {
         combLengthTwo.length === 2;
 }
 
-export function getPokerHandRank(hand) {
+function getPokerHandRank(hand) {
   if (checkStraightFlush(hand)) return PokerRank.StraightFlush;
   if (checkFourOfKind(hand)) return PokerRank.FourOfKind;
   if (checkFullHouse(hand)) return PokerRank.FullHouse;
@@ -351,7 +351,7 @@ export function getPokerHandRank(hand) {
  *    '|             |\n'+              '+-----+\n'           '+-------------+\n'
  *    '+-------------+\n'
  */
-export function* getFigureRectangles(figure) {
+function* getFigureRectangles(figure) {
 
 
   const array = figure.split('\n').slice(0, -1);
@@ -497,3 +497,12 @@ function renderSquare(width, height){
           `|${' '.repeat(width-2)}|\n`.repeat(height-2)+
           `+${'-'.repeat(width-2)}+\n`;
 }
+
+
+module.exports = {
+  parseBankAccount: parseBankAccount,
+  wrapText: wrapText,
+  PokerRank: PokerRank,
+  getPokerHandRank: getPokerHandRank,
+  getFigureRectangles: getFigureRectangles
+};

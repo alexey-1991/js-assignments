@@ -31,7 +31,7 @@
  * @return {Iterable.<string>}
  *
  */
-export function* get99BottlesOfBeer() {
+function* get99BottlesOfBeer() {
   let messageFirst;
   let messageSecond;
 
@@ -68,7 +68,7 @@ export function* get99BottlesOfBeer() {
  * @return {Iterable.<number>}
  *
  */
-export function* getFibonacciSequence() {
+function* getFibonacciSequence() {
   let arr = [];
   let elem;
 
@@ -119,7 +119,7 @@ export function* getFibonacciSequence() {
  *  depthTraversalTree(node1) => node1, node2, node3, node4, node5, node6, node7, node8
  *
  */
-export function* depthTraversalTree(root) {
+function* depthTraversalTree(root) {
   const stack = [];
   let currentNode=root;
   stack.push(currentNode);
@@ -160,7 +160,7 @@ export function* depthTraversalTree(root) {
  *           8
  *
  */
-export function* breadthTraversalTree(root) {
+function* breadthTraversalTree(root) {
 
   let queue= [];
   let currentNode=root;
@@ -195,7 +195,7 @@ export function* breadthTraversalTree(root) {
  *   [ 0 ], [ 2, 4, 6, ... ]  => [ 0, 2, 4, 6, ... ]
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
-export function* mergeSortedSequences(source1, source2) {
+function* mergeSortedSequences(source1, source2) {
 
   const iterator1 = source1();
   const iterator2 = source2();
@@ -228,3 +228,12 @@ export function* mergeSortedSequences(source1, source2) {
     return;
   }
 }
+
+
+module.exports = {
+  get99BottlesOfBeer: get99BottlesOfBeer,
+  getFibonacciSequence: getFibonacciSequence,
+  depthTraversalTree: depthTraversalTree,
+  breadthTraversalTree: breadthTraversalTree,
+  mergeSortedSequences: mergeSortedSequences
+};

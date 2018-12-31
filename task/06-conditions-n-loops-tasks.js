@@ -28,17 +28,13 @@
  *  21 => 'Fizz'
  *
  */
-export function getFizzBuzz(num) {
+function getFizzBuzz(num) {
   let value = false;
   if (num === 0) return 0;
-  if (num % 3 === 0) { value = 'Fizz'; }
-  if (num % 5 === 0) {
-    if (value === 'Fizz') {
-      value = 'FizzBuzz';
-    } else { value = 'Buzz'; }
-  }
-  if (value === false) { return num; }
-  return value;
+  if (num % 3 === 0) value = 'Fizz';
+  if (num % 5 === 0) value = (value === 'Fizz')? 'FizzBuzz' : 'Buzz';
+    
+  return (!value)? num : value;
 }
 
 
@@ -53,15 +49,8 @@ export function getFizzBuzz(num) {
  *   5  => 120
  *   10 => 3628800
  */
-export function getFactorial(n) {
-
-  let res = 1;
-  while (n > 0) {
-    res *= n;
-    n--;
-  }
-  return res;
-
+function getFactorial(n) {
+  return (n!==1)? n*getFactorial(n-1) : 1;
 }
 
 
@@ -78,14 +67,9 @@ export function getFactorial(n) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-export function getSumBetweenNumbers(n1, n2) {
-  let x = n1;
-  let sum = 0;
-  while (x <= n2) {
-    sum += x;
-    x++;
-  }
-  return sum;
+function getSumBetweenNumbers(n1, n2) {
+
+  return (n1<n2)? n1 + getSumBetweenNumbers(n1+1, n2) : n2;
 }
 
 
@@ -104,12 +88,8 @@ export function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-export function isTriangle(a, b, c) {
-
-  if (a < b + c && b < a + c && c < b + a) {
-    return true;
-  }
-  return false;
+function isTriangle(a, b, c) {
+  return (a < b + c && b < a + c && c < b + a)
 }
 
 
@@ -145,45 +125,17 @@ export function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-export function doRectanglesOverlap(rect1, rect2) {
+function doRectanglesOverlap(rect1, rect2) {
 
-  //a1,a2,  c1,c2 - coordinates along X
-  //b1,b2,  d1,d2 - coordinates along Y
+  const al= rect1.left, ar=rect1.left + rect1.width,
+    at= rect1.top, ab= rect1.top + rect1.height ;
 
-  let Rect1 = {
-    a1: rect1.left,
-    a2: rect1.left + rect1.width,
-    c1: rect1.top,
-    c2: rect1.top + rect1.height
-  };
+  const bl= rect2.left,br= rect2.left + rect2.width,
+    bt= rect2.top, bb= rect2.top + rect2.height ;
 
-  let Rect2 = {
-    b1: rect2.left,
-    b2: rect2.left + rect2.width,
-    d1: rect2.top,
-    d2: rect2.top + rect2.height
-  };
-
-  //check for overlap along X
-  let overlapX = false;
-
-  if (Rect2.b1 >= Rect1.a1 && Rect2.b1 <= Rect1.a2) overlapX = true;
-  if (Rect2.b2 >= Rect1.a1 && Rect2.b2 <= Rect1.a2) overlapX = true;
-  if (Rect2.b1 <= Rect1.a1 && Rect2.b2 >= Rect1.a2) overlapX = true;
-
-  //check for overlap along X
-  let overlapY = false;
-
-  if (Rect2.d1 >= Rect1.c1 && Rect2.d1 <= Rect1.c2) overlapY = true;
-  if (Rect2.d2 >= Rect1.c1 && Rect2.d2 <= Rect1.c2) overlapY = true;
-  if (Rect2.d1 <= Rect1.c1 && Rect2.d2 >= Rect1.c2) overlapY = true;
-
-  //final check
-
-  if (overlapX === true && overlapY === true) {
-    return true;
-  } else { return false; }
-
+  if ((ar<=bl && ar<=br) || (al>=bl && al>=br)) return false;
+  if ((ab<=bt && ab<=bb) || (at>=bt && at>=bb)) return false;
+  return true;
 }
 
 
@@ -213,12 +165,9 @@ export function doRectanglesOverlap(rect1, rect2) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-export function isInsideCircle(circle, point) {
-  let dx = Math.abs(circle.center.x - point.x);
-  let dy = Math.abs(circle.center.y - point.y);
-  let delta = Math.sqrt(dx * dx + dy * dy);
-  if (delta < circle.radius) return true;
-  return false;
+function isInsideCircle({ center, radius }, { x, y }) {
+  const R = Math.sqrt((center.x - x)*(center.x - x)+ (center.y - y) * (center.y - y))
+  return (R < radius)
 }
 
 
@@ -233,21 +182,12 @@ export function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-export function findFirstSingleChar(str) {
-
-  let arrString = str.split('');
-  let numberofRepeats;
-
-  for (let i = 0; i <= arrString.length - 1; i++) {
-    numberofRepeats = 0;
-    for (let j = 0; j <= arrString.length - 1; j++) {
-      if (arrString[i] === arrString[j]) {
-        numberofRepeats++;
-      }
-    }
-    if (numberofRepeats === 1) { return arrString[i]; }
-  }
-  return null;
+function findFirstSingleChar(str) {
+  if (!str) return null;
+  const res = str.split('').find((elem, i, arr) => {
+    return arr.filter(item => item === elem).length === 1;
+  })
+  return (res) ? res : null;
 }
 
 
@@ -273,21 +213,11 @@ export function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-export function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
 
-  if (a > b) {
-    let ab = a;
-    a = b;
-    b = ab;
-  }
-
-  let resultString = '';
-
-  if (isStartIncluded) { resultString += '['; } else { resultString += '('; }
-  resultString += `${a}, ${b}`;
-  if (isEndIncluded) { resultString += ']'; } else { resultString += ')'; }
-
-  return resultString;
+  const start = isStartIncluded ? '[' : '(';
+  const end = isEndIncluded ? ']' : ')';
+  return `${start}${Math.min(a, b)}, ${Math.max(a, b)}${end}`;
 }
 
 
@@ -303,13 +233,8 @@ export function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-export function reverseString(str) {
-  let resultStr = '';
-  for (let elem of str) {
-    resultStr = elem + resultStr;
-  }
-
-  return resultStr;
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -325,13 +250,8 @@ export function reverseString(str) {
  *   87354 => 45378
  *   34143 => 34143
  */
-export function reverseInteger(num) {
-  num = num + '';
-  let resultStr = '';
-  for (let elem of num) {
-    resultStr = elem + resultStr;
-  }
-  return +resultStr;
+function reverseInteger(num) {
+  return +`${num}`.split('').reverse().join('');
 }
 
 
@@ -355,7 +275,7 @@ export function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-export function isCreditCardNumber(ccn) {
+function isCreditCardNumber(ccn) {
 
   //Stage1
   let ccnString = ccn + '';
@@ -395,24 +315,9 @@ export function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-export function getDigitalRoot(num) {
-  //Part 1
-  let numString = num + '';
-  let sumofNum = 0;
-  for (let elem of numString) {
-    sumofNum += (+elem);
-  }
-
-  //Part 2
-  let sumofSum = 0;
-  let sumString = sumofNum + '';
-  for (let elem of sumString) {
-    sumofSum += (+elem);
-  }
-
-  if (+sumofSum < +sumofNum) return sumofSum;
-  return sumofNum;
-
+function getDigitalRoot(num) {
+  const res = `${num}`.split('').reduce((acc, curr) => acc + +curr, 0);
+  return (res > 9) ? getDigitalRoot(res) : res;
 }
 
 
@@ -437,33 +342,20 @@ export function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-export function isBracketsBalanced(str) {
+function isBracketsBalanced(str) {
 
   let brackets = ['()', '[]', '{}', '<>'];
-  let position;
   let workString = str;
-  //searching for brackets
+
   for (let i = 0; i <= brackets.length - 1; i++) {
-    position = workString.indexOf(brackets[i]);
-    while (position >= 0) {
+    while (workString.indexOf(brackets[i]) >= 0) {
 
+      workString = workString.replace(brackets[i], '');
 
-      //removing current brackets
-      workString = workString.split('');
-      workString[position] = '';
-      workString[position + 1] = '';
-      workString = workString.join('');
-
-      position = workString.indexOf(brackets[i]);
-
-      //turn i to 0;
-      if (position === -1) { i = -1; }
+      if (workString.indexOf(brackets[i]) === -1) { i = -1; }
     }
   }
-  if (workString === '') {
-    return true;
-  } else { return false; }
-
+  return (workString === '')
 }
 
 
@@ -498,7 +390,7 @@ export function isBracketsBalanced(str) {
  *   Date('2000-01-01 01:00:00.100'), Date('2015-01-02 03:00:05.000')  => '15 years ago'
  *
  */
-export function timespanToHumanString(startDate, endDate) {
+function timespanToHumanString(startDate, endDate) {
 
   let date0 = +startDate;
   let date1 = +endDate;
@@ -557,7 +449,7 @@ export function timespanToHumanString(startDate, endDate) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-export function toNaryString(num, n) {
+function toNaryString(num, n) {
   return num.toString(n);
 }
 
@@ -574,7 +466,7 @@ export function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-export function getCommonDirectoryPath(pathes) {
+function getCommonDirectoryPath(pathes) {
 
   let myObj = { '': '' };
   let result = '';
@@ -619,11 +511,11 @@ export function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-export function getMatrixProduct(m1, m2) {
-  
+function getMatrixProduct(m1, m2) {
+
   const height1 = m1.length;
   const width2 = m2[0].length;
- 
+
   const widthRes = height1;
   const heightRes = width2;
 
@@ -683,7 +575,7 @@ function getValue(m1, m2, row, col) {
  *    [    ,   ,    ]]
  *
  */
-export function evaluateTicTacToePosition(position) {
+function evaluateTicTacToePosition(position) {
   const dimension = position.length;
 
   //check rows (horizont)
@@ -765,3 +657,25 @@ export function evaluateTicTacToePosition(position) {
 
   return undefined;
 }
+
+
+module.exports = {
+  getFizzBuzz: getFizzBuzz,
+  getFactorial: getFactorial,
+  getSumBetweenNumbers: getSumBetweenNumbers,
+  isTriangle: isTriangle,
+  doRectanglesOverlap: doRectanglesOverlap,
+  isInsideCircle: isInsideCircle,
+  findFirstSingleChar: findFirstSingleChar,
+  getIntervalString: getIntervalString,
+  reverseString: reverseString,
+  reverseInteger: reverseInteger,
+  isCreditCardNumber: isCreditCardNumber,
+  getDigitalRoot: getDigitalRoot,
+  isBracketsBalanced: isBracketsBalanced,
+  timespanToHumanString: timespanToHumanString,
+  toNaryString: toNaryString,
+  getCommonDirectoryPath: getCommonDirectoryPath,
+  getMatrixProduct: getMatrixProduct,
+  evaluateTicTacToePosition: evaluateTicTacToePosition
+};

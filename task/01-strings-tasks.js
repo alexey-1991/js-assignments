@@ -280,14 +280,9 @@ function isString(str) {
 function getCardId(value) {
   const card = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
   const type = ['♣', '♦', '♥', '♠'];
-  return (type.indexOf(value[1]))*13 + card.indexOf(value[0]);
-}
 
-// const cardsArr = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
-// 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
-// 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
-// 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
-// return cardsArr.indexOf(value);
+  return (type.indexOf(value.slice(-1)))*13 + card.indexOf(value.substr(0,value.length-1));
+}
 
 module.exports = {
   concatenateStrings: concatenateStrings,

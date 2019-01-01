@@ -37,7 +37,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  return (new Array(len).fill).map((elem, i) => (2 * i + 1));
+  return (new Array(len).fill(0)).map((elem, i) => (2 * i + 1));
 }
 
 
@@ -235,10 +235,7 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  return arr.map((elem, i, arr) => {
-    if (i === 0) return elem;
-    return arr[i] = arr[i - 1] + elem;
-  });
+  return arr.map((elem, i, arr) => (i === 0)? elem : arr[i]=arr[i - 1] + elem)
 }
 
 /**
@@ -272,11 +269,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  let result = [];
-  arr.map((elem, i) => {
-    result = result.concat(new Array(i + 1).fill(elem));
-  });
-  return result;
+  return arr.reduce((acc, elem , i)=>[...acc, ...(new Array(i + 1).fill(elem))],[]);
 }
 
 
@@ -526,15 +519,13 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-  let map = new Map();
-  array.map(element => {
-    let res = [];
-    array.map(elem => {
-      if (map.get(keySelector(element)) === []) return;
-      if (keySelector(elem) === keySelector(element)) return res.push(valueSelector(elem));
-    });
-    map.set(keySelector(element), res);
-  });
+  const map = new Map();
+
+  array.map(item=>{
+    const value = array.filter(elem=>(keySelector(elem)===keySelector(item)));
+    map.set(keySelector(item), value.map(elem=>valueSelector(elem)))
+  })
+
   return map;
 }
 /**

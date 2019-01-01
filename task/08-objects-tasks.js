@@ -115,9 +115,6 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
-function cssSelectorBuilder() {
-  return new cssSelectorBuilderClass();
-}
 
 class cssSelectorBuilderClass {
   constructor() {
@@ -213,7 +210,7 @@ class cssSelectorBuilderClass {
   }
 }
 
-
+const cssSelectorBuilder = new cssSelectorBuilderClass();
 
 module.exports = {
   Rectangle: Rectangle,

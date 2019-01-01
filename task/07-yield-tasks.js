@@ -41,14 +41,18 @@ function* get99BottlesOfBeer() {
       yield `2 bottles of beer on the wall, 2 bottles of beer.`;
       yield `Take one down and pass it around, 1 bottle of beer on the wall.`;
       yield '1 bottle of beer on the wall, 1 bottle of beer.';
-      yield 'Take one down and pass it around, no more bottles of beer on the wall.';
+      yield 'Take one down and pass it around, no mo'
+        + 're bottles of beer on the wall.';
       yield 'No more bottles of beer on the wall, no more bottles of beer.';
-      yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
+      yield 'Go to the store and buy some more, 99 bottles of beer on the '
+        + 'wall.';
       return;
     }
 
-    messageFirst = `${i} bottles of beer on the wall, ${i} bottles of beer.`;
-    messageSecond = `Take one down and pass it around, ${i - 1} bottles of beer on the wall.`;
+    messageFirst = 
+      `${i} bottles of beer on the wall, ${i} bottles of beer.`;
+    messageSecond = 
+      `Take one down and pass it around, ${i - 1} bottles of beer on the wall.`;
 
     yield messageFirst;
     yield messageSecond;
@@ -69,7 +73,7 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-  let arr = [];
+  const arr = [];
   let elem;
 
   arr.push(0);
@@ -121,17 +125,17 @@ function* getFibonacciSequence() {
  */
 function* depthTraversalTree(root) {
   const stack = [];
-  let currentNode=root;
+  let currentNode = root;
   stack.push(currentNode);
 
   while (stack.length) {
-    currentNode=stack[stack.length-1];
+    currentNode = stack[stack.length - 1];
     stack.pop();
 
     yield currentNode;
 
     if (currentNode.children) {
-      for (let i = currentNode.children.length - 1; i>=0; i--) {
+      for (let i = currentNode.children.length - 1; i >= 0; i--) {
         stack.push(currentNode.children[i]);
       }
     }
@@ -162,19 +166,19 @@ function* depthTraversalTree(root) {
  */
 function* breadthTraversalTree(root) {
 
-  let queue= [];
-  let currentNode=root;
-  let position=0;
+  const queue = [];
+  let currentNode = root;
+  let position = 0;
 
   queue.unshift(currentNode);
 
-  while (true){
-    currentNode=queue[position++];
+  while (true) {
+    currentNode = queue[position++];
     if (!currentNode) return null;
     yield currentNode;
 
-    if (currentNode.children){
-      for (let i=0; i<currentNode.children.length;i++){
+    if (currentNode.children) {
+      for (let i = 0; i < currentNode.children.length; i++) {
         queue.push(currentNode.children[i]);
       }
     }

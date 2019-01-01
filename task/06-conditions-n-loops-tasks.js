@@ -32,9 +32,9 @@ function getFizzBuzz(num) {
   let value = false;
   if (num === 0) return 0;
   if (num % 3 === 0) value = 'Fizz';
-  if (num % 5 === 0) value = (value === 'Fizz')? 'FizzBuzz' : 'Buzz';
-    
-  return (!value)? num : value;
+  if (num % 5 === 0) value = (value === 'Fizz') ? 'FizzBuzz' : 'Buzz';
+
+  return (!value) ? num : value;
 }
 
 
@@ -50,7 +50,7 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-  return (n!==1)? n*getFactorial(n-1) : 1;
+  return (n !== 1) ? n * getFactorial(n - 1) : 1;
 }
 
 
@@ -69,7 +69,7 @@ function getFactorial(n) {
  */
 function getSumBetweenNumbers(n1, n2) {
 
-  return (n1<n2)? n1 + getSumBetweenNumbers(n1+1, n2) : n2;
+  return (n1 < n2) ? n1 + getSumBetweenNumbers(n1 + 1, n2) : n2;
 }
 
 
@@ -89,7 +89,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-  return (a < b + c && b < a + c && c < b + a)
+  return (a < b + c && b < a + c && c < b + a);
 }
 
 
@@ -127,14 +127,14 @@ function isTriangle(a, b, c) {
  */
 function doRectanglesOverlap(rect1, rect2) {
 
-  const al= rect1.left, ar=rect1.left + rect1.width,
-    at= rect1.top, ab= rect1.top + rect1.height ;
+  const al = rect1.left, ar = rect1.left + rect1.width,
+    at = rect1.top, ab = rect1.top + rect1.height;
 
-  const bl= rect2.left,br= rect2.left + rect2.width,
-    bt= rect2.top, bb= rect2.top + rect2.height ;
+  const bl = rect2.left, br = rect2.left + rect2.width,
+    bt = rect2.top, bb = rect2.top + rect2.height;
 
-  if ((ar<=bl && ar<=br) || (al>=bl && al>=br)) return false;
-  if ((ab<=bt && ab<=bb) || (at>=bt && at>=bb)) return false;
+  if ((ar <= bl && ar <= br) || (al >= bl && al >= br)) return false;
+  if ((ab <= bt && ab <= bb) || (at >= bt && at >= bb)) return false;
   return true;
 }
 
@@ -165,9 +165,9 @@ function doRectanglesOverlap(rect1, rect2) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle({ center, radius }, { x, y }) {
-  const R = Math.sqrt((center.x - x)*(center.x - x)+ (center.y - y) * (center.y - y))
-  return (R < radius)
+function isInsideCircle({ center: c, radius }, { x, y }) {
+  const R = Math.sqrt((c.x - x) * (c.x - x) + (c.y - y) * (c.y - y));
+  return (R < radius);
 }
 
 
@@ -186,7 +186,7 @@ function findFirstSingleChar(str) {
   if (!str) return null;
   const res = str.split('').find((elem, i, arr) => {
     return arr.filter(item => item === elem).length === 1;
-  })
+  });
   return (res) ? res : null;
 }
 
@@ -278,18 +278,19 @@ function reverseInteger(num) {
 function isCreditCardNumber(ccn) {
 
   //Stage1
-  let ccnString = ccn + '';
-  let Stage1 = ccnString.split('');
+  const ccnString = ccn + '';
+  const Stage1 = ccnString.split('');
   let Stage2 = [];
 
   //Stage2
   Stage2 = Stage1;
   for (let i = Stage1.length - 2; i >= 0; i -= 2) {
-    if (2 * Stage1[i] >= 10) { Stage2[i] = 2 * Stage1[i] - 9; } else { Stage2[i] = 2 * Stage1[i]; }
+    if (2 * Stage1[i] >= 10) { Stage2[i] = 2 * Stage1[i] - 9; } 
+    else { Stage2[i] = 2 * Stage1[i]; }
   }
 
   //Stage3
-  let Stage3 = Stage2.reduce(function (sum, current) {
+  const Stage3 = Stage2.reduce(function (sum, current) {
     return sum + +current;
   }, 0);
 
@@ -344,7 +345,7 @@ function getDigitalRoot(num) {
  */
 function isBracketsBalanced(str) {
 
-  let brackets = ['()', '[]', '{}', '<>'];
+  const brackets = ['()', '[]', '{}', '<>'];
   let workString = str;
 
   for (let i = 0; i <= brackets.length - 1; i++) {
@@ -355,7 +356,7 @@ function isBracketsBalanced(str) {
       if (workString.indexOf(brackets[i]) === -1) { i = -1; }
     }
   }
-  return (workString === '')
+  return (workString === '');
 }
 
 
@@ -392,32 +393,32 @@ function isBracketsBalanced(str) {
  */
 function timespanToHumanString(startDate, endDate) {
 
-  let date0 = +startDate;
-  let date1 = +endDate;
+  const date0 = +startDate;
+  const date1 = +endDate;
 
-  let diff = date1 - date0;
+  const diff = date1 - date0;
 
   //time variables
-  let seconds = 1000;
-  let minutes = 60 * 1000;
-  let hours = 60 * 60 * 1000;
-  let days = 24 * hours;
-  let months = 30 * days;
-  let years = 365 * days;
+  const seconds = 1000;
+  const min = 60 * 1000;
+  const hours = 60 * 60 * 1000;
+  const days = 24 * hours;
+  const months = 30 * days;
+  const years = 365 * days;
 
   //diff time
-  let dminutes = Math.round((diff - 1) / minutes);
-  let dhours = Math.round((diff - 1) / hours);
-  let ddays = Math.round((diff - 1) / days);
-  let dmonths = Math.round((diff - 1) / months);
-  let dyears = Math.round((diff - 1) / years);
+  const dmin = Math.round((diff - 1) / min);
+  const dhours = Math.round((diff - 1) / hours);
+  const ddays = Math.round((diff - 1) / days);
+  const dmonths = Math.round((diff - 1) / months);
+  const dyears = Math.round((diff - 1) / years);
 
   // Condition
   if (diff >= 0 && diff <= 45 * seconds) return 'a few seconds ago';
   if (diff > 45 * seconds && diff <= 90 * seconds) return 'a minute ago';
-  if (diff > 90 * seconds && diff <= 45 * minutes) return `${dminutes} minutes ago`;
-  if (diff > 45 * minutes && diff <= 90 * minutes) return `an hour ago`;
-  if (diff > 90 * minutes && diff <= 22 * hours) return `${dhours} hours ago`;
+  if (diff > 90 * seconds && diff <= 45 * min) return `${dmin} minutes ago`;
+  if (diff > 45 * min && diff <= 90 * min) return `an hour ago`;
+  if (diff > 90 * min && diff <= 22 * hours) return `${dhours} hours ago`;
   if (diff > 22 * hours && diff <= 36 * hours) return `a day ago`;
   if (diff > 36 * hours && diff <= 25 * days) return `${ddays} days ago`;
   if (diff > 25 * days && diff <= 45 * days) return `a month ago`;
@@ -476,7 +477,7 @@ function getCommonDirectoryPath(pathes) {
     result += Object.keys(myObj)[0];
     myObj = {};
 
-    for (let elem of pathes) {
+    for (const elem of pathes) {
       myObj[elem[i]] = 0;
     }
 
@@ -519,7 +520,7 @@ function getMatrixProduct(m1, m2) {
   const widthRes = height1;
   const heightRes = width2;
 
-  let result = new Array(heightRes);
+  const result = new Array(heightRes);
 
 
   for (let row = 0; row < heightRes; row++) {
@@ -581,7 +582,7 @@ function evaluateTicTacToePosition(position) {
   //check rows (horizont)
   for (let row = 0; row < dimension; row++) {
     //condition below is needed to remove empty spaces
-    let currentRow = position[row].join('').split('');
+    const currentRow = position[row].join('').split('');
     if (currentRow.length !== dimension) continue;
 
 
@@ -597,7 +598,7 @@ function evaluateTicTacToePosition(position) {
 
   //check columns (vertical)
   for (let col = 0; col < dimension; col++) {
-    let currentCol = [];
+    const currentCol = [];
     for (let row = 0; row < dimension; row++) {
       currentCol.push(position[row][col]);
     }
@@ -614,7 +615,7 @@ function evaluateTicTacToePosition(position) {
   }
 
   //check diagonal1
-  let diagonal1 = [];
+  const diagonal1 = [];
   let c1 = 0;
   let r1 = 0;
   while (r1 <= dimension - 1 && c1 <= dimension - 1) {
@@ -636,7 +637,7 @@ function evaluateTicTacToePosition(position) {
   }
 
   //check diagonal2
-  let diagonal2 = [];
+  const diagonal2 = [];
   let c2 = dimension - 1;
   let r2 = 0;
   while (r2 <= dimension - 1 && c2 >= 0) {

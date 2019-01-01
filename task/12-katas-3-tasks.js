@@ -122,10 +122,10 @@ function* getPermutations(chars) {
 
 function nth_permutation(array, index) {
   let result = '';
-  let workArray = [].concat(array);
+  const workArray = [].concat(array);
   const length = workArray.length;
   for (let i = 0; i < length; i++) {
-    let item = index % workArray.length;
+    const item = index % workArray.length;
     index = Math.floor(index / workArray.length);
     result += workArray[item];
     workArray.splice(item, 1);

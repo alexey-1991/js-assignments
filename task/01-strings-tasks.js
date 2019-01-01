@@ -278,10 +278,10 @@ function isString(str) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const card = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-  const type = ['♣', '♦', '♥', '♠'];
+  const card = 'A234567891JQK';
+  const type = '♣♦♥♠';
 
-  return (type.indexOf(value.slice(-1)))*13 + card.indexOf(value.substr(0,value.length-1));
+  return (type.indexOf(value.slice(-1)))*13 + card.indexOf(value[0]);
 }
 
 module.exports = {

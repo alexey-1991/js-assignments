@@ -115,7 +115,7 @@ function retry(func, attempts) {
   let counter = 0;
   return () => {
     while (counter <= attempts) {
-      try { return func() } catch (err) { counter++ };
+      try { return func(); } catch (err) { counter++; }
     }
     throw new Error();
   };

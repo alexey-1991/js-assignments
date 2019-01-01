@@ -79,7 +79,7 @@ function isLeapYear(date) {
  */
 function timeSpanToString(startDate, endDate) {
   const diff=new Date(endDate-startDate);
-  return diff.toISOString().slice(11,-1);
+  return diff.toISOString().slice(11, -1);
 }
 
 
@@ -99,10 +99,10 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {
 
-  let DateUTC = new Date(Date.parse(date));
+  const DateUTC = new Date(Date.parse(date));
 
-  let M = DateUTC.getUTCMinutes();
-  let H = DateUTC.getUTCHours();
+  const M = DateUTC.getUTCMinutes();
+  const H = DateUTC.getUTCHours();
 
   let res = 0.5 * (60 * H - 11 * M);
   while (res >= 360) {

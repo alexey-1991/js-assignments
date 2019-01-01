@@ -56,7 +56,7 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-  return Object.assign(Object.create(proto), JSON.parse(json) )
+  return Object.assign(Object.create(proto), JSON.parse(json));
 }
 
 
@@ -160,7 +160,7 @@ class cssSelectorBuilderClass {
   }
 
   createNextBuilder(initStr, order) {
-    let nextBuilder = new cssSelectorBuilderClass();
+    const nextBuilder = new cssSelectorBuilderClass();
     nextBuilder.result += initStr;
     nextBuilder.order = order;
 
@@ -173,15 +173,20 @@ class cssSelectorBuilderClass {
     if (!order) return;
     const condElem = order.filter(elem => elem === 'element').length > 1;
     const condId = order.filter(elem => elem === 'id').length > 1;
-    const condPseudoElem = order.filter(elem => elem === 'pseudoElement').length > 1;
+    const condPseudoElem = order
+      .filter(elem => elem === 'pseudoElement').length > 1;
 
     if (condElem || condId || condPseudoElem) {
-      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+      throw new Error(
+        'Element, id and pseudo-element should not ' +
+        'occur more then one time inside the selector');
     }
   }
   checkOrder(order) {
     if (!order) return;
-    const rightOrder = ['element', 'id', 'class', 'attr', 'pseudoClass', 'pseudoElement'];
+    const rightOrder = [
+      'element', 'id', 'class', 'attr', 'pseudoClass', 'pseudoElement'
+    ];
     const indexOrder = order.map(elem => rightOrder.indexOf(elem));
     for (let i = 0; i < indexOrder.length - 1; i++) {
 
@@ -189,7 +194,9 @@ class cssSelectorBuilderClass {
       const next = indexOrder[i + 1];
 
       if ((next - curr) < 0) {
-        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+        throw new Error(
+          'Selector parts should be arranged in the following order:' +
+          ' element, id, class, attribute, pseudo-class, pseudo-element');
       }
     }
   }

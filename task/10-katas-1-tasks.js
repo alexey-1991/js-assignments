@@ -17,16 +17,16 @@
  */
 function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
   let azimuth = 0.00;
-  let stepAzimuth = 11.25;
+  const stepAzimuth = 11.25;
   let currentIndex = 1;
-  let result = [
+  const result = [
     { abbreviation: sides[0], azimuth: azimuth }
   ];
 
   while (currentIndex <= 3) {
 
-    let pV = sides[currentIndex - 1]; // previousValue
-    let cV = sides[currentIndex]; //currentValue
+    const pV = sides[currentIndex - 1]; // previousValue
+    const cV = sides[currentIndex]; //currentValue
     let nV = sides[currentIndex + 1]; //nextValue
     if (!nV) { nV = sides[0]; }
 
@@ -239,7 +239,7 @@ function getZigZagMatrix(n) {
   // creating Array
 
   //Second way to create Array
-  let result = [];
+  const result = [];
 
   for (let x = 0; x <= n - 1; x++) {
     result[x] = [];

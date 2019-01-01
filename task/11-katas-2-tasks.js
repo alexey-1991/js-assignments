@@ -185,9 +185,9 @@ function checkStraightFlush(hand) {
 
   const checkSF1 = (
     hand.every(card => reg1.test(card)) ||
-        hand.every(card => reg2.test(card)) ||
-        hand.every(card => reg3.test(card)) ||
-        hand.every(card => reg4.test(card))
+    hand.every(card => reg2.test(card)) ||
+    hand.every(card => reg3.test(card)) ||
+    hand.every(card => reg4.test(card))
   );
 
   if (!checkSF1) return false;
@@ -204,7 +204,7 @@ function checkStraightFlush(hand) {
     return next - curr;
   });
 
-    //if Ace:14
+  //if Ace:14
   const order2 = hand.map(card => {
     if (card[0] === 'A') return 14;
     return cardOrder[card[0]] || 10;
@@ -217,7 +217,7 @@ function checkStraightFlush(hand) {
   });
 
   const checkSF2 = diff1.every(elem => elem === 1) ||
-        diff2.every(elem => elem === 1);
+    diff2.every(elem => elem === 1);
 
 
   return checkSF2 && checkSF2;
@@ -236,13 +236,13 @@ function checkFullHouse(hand) {
   const condtoComb2 = comb2.every(card => comb2[0][0] === card[0]);
 
   return ((comb1.length === 2) && (comb2.length === 3) && condtoComb2) ||
-        ((comb1.length === 3) && (comb2.length === 2) && condtoComb2);
+    ((comb1.length === 3) && (comb2.length === 2) && condtoComb2);
 }
 function checkFlush(hand) {
   return hand.every(card => card[card.length - 1] === '♥') ||
-        hand.every(card => card[card.length - 1] === '♦') ||
-        hand.every(card => card[card.length - 1] === '♠') ||
-        hand.every(card => card[card.length - 1] === '♣');
+    hand.every(card => card[card.length - 1] === '♦') ||
+    hand.every(card => card[card.length - 1] === '♠') ||
+    hand.every(card => card[card.length - 1] === '♣');
 }
 function checkStraight(hand) {
   //get array with with view of [1,1,...,1,1] if order is correct
@@ -257,7 +257,7 @@ function checkStraight(hand) {
     return next - curr;
   });
 
-    //if Ace:14
+  //if Ace:14
   const order2 = hand.map(card => {
     if (card[0] === 'A') return 14;
     return cardOrder[card[0]] || 10;
@@ -270,7 +270,7 @@ function checkStraight(hand) {
   });
 
   return diff1.every(elem => elem === 1) ||
-        diff2.every(elem => elem === 1);
+    diff2.every(elem => elem === 1);
 }
 function checkThreeOfKind(hand) {
 
@@ -301,7 +301,7 @@ function checkOnePair(hand) {
     .filter(elem => elem.length === 2);
 
   return combLengthTwo.length === 1 ||
-        combLengthTwo.length === 2;
+    combLengthTwo.length === 2;
 }
 
 function getPokerHandRank(hand) {
@@ -377,7 +377,7 @@ function* getFigureRectangles(figure) {
 
 
     if (tip.col + 1 >= array[0].length ||
-            tip.row === array.length - 1) continue;
+      tip.row === array.length - 1) continue;
 
     let row = tip.row;
     let col = tip.col + 1;
@@ -398,7 +398,7 @@ function* getFigureRectangles(figure) {
         if (array[row][col] === '+') {
 
           if (array[row + 1][col] === '|' ||
-                            array[row + 1][col] === '+') {
+              array[row + 1][col] === '+') {
             side++;
             row++;
 
@@ -421,7 +421,7 @@ function* getFigureRectangles(figure) {
         if (array[row][col] === '+') {
 
           if (array[row][col - 1] === '-' ||
-                            array[row][col - 1] === '+') {
+              array[row][col - 1] === '+') {
             side++;
             col--;
 
@@ -444,7 +444,7 @@ function* getFigureRectangles(figure) {
         if (array[row][col] === '+') {
 
           if (array[row - 1][col] === '|' ||
-                            array[row - 1][col] === '+') {
+              array[row - 1][col] === '+') {
             side++;
             row--;
 
@@ -492,10 +492,10 @@ function* getFigureRectangles(figure) {
   }
 }
 
-function renderSquare(width, height){
-  return  `+${'-'.repeat(width-2)}+\n`+
-          `|${' '.repeat(width-2)}|\n`.repeat(height-2)+
-          `+${'-'.repeat(width-2)}+\n`;
+function renderSquare(width, height) {
+  return `+${'-'.repeat(width - 2)}+\n` +
+    `|${' '.repeat(width - 2)}|\n`.repeat(height - 2) +
+    `+${'-'.repeat(width - 2)}+\n`;
 }
 
 

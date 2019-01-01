@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/alexey-1991/js-assignments.svg?branch=master)](https://travis-ci.org/alexey-1991/js-assignments)
 ![Hackage-Deps](https://img.shields.io/hackage-deps/v/lens.svg)
 [![Greenkeeper badge](https://badges.greenkeeper.io/alexey-1991/js-assignments.svg)](https://greenkeeper.io/)
-[![GitHub release](https://img.shields.io/github/release/alexey-1991/js-assignments.svg)](https://github.com/alexey-1991/js-assignments/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/alexey-1991/js-assignments.svg)](https://github.com/it-shark-pro/js-assignments/releases/latest)
 
 
 # [Brest IT Shark](https://it-shark.pro/)
